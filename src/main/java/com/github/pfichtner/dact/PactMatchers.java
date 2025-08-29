@@ -10,6 +10,13 @@ import com.github.pfichtner.dact.matchers.StringTypeArg;
 
 public class PactMatchers {
 
+	public static final String DEFAULT_STRING_VALUE = "string";
+	public static final int DEFAULT_INTEGER_VALUE = 42;
+
+	public static String stringType() {
+		return stringType(DEFAULT_STRING_VALUE);
+	}
+
 	public static String stringType(String in) {
 		StringTypeArg matcher = new StringTypeArg(in);
 		reportMatcher(matcher);
@@ -20,6 +27,10 @@ public class PactMatchers {
 		RegexArg matcher = new RegexArg(regex, in);
 		reportMatcher(matcher);
 		return in;
+	}
+
+	public static int integerType() {
+		return integerType(DEFAULT_INTEGER_VALUE);
 	}
 
 	public static int integerType(int in) {

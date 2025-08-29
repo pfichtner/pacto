@@ -4,6 +4,8 @@ import static com.github.pfichtner.dact.DTOPactContract.contractFor;
 import static com.github.pfichtner.dact.DTOPactContract.delegate;
 import static com.github.pfichtner.dact.DTOPactContract.invocations;
 import static com.github.pfichtner.dact.PactDslBuilderFromDTO.buildDslFrom;
+import static com.github.pfichtner.dact.PactMatchers.DEFAULT_INTEGER_VALUE;
+import static com.github.pfichtner.dact.PactMatchers.DEFAULT_STRING_VALUE;
 import static com.github.pfichtner.dact.PactMatchers.integerType;
 import static com.github.pfichtner.dact.PactMatchers.regex;
 import static com.github.pfichtner.dact.PactMatchers.stringType;
@@ -53,8 +55,8 @@ public class DtoPactTest {
 		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
 		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
 		assertThatJson(serialized).node("age").isEqualTo(42);
-		assertThatJson(serialized).node("address.zip").isEqualTo(12345);
-		assertThatJson(serialized).node("address.city").isEqualTo("City");
+		assertThatJson(serialized).node("address.zip").isEqualTo(DEFAULT_INTEGER_VALUE);
+		assertThatJson(serialized).node("address.city").isEqualTo(DEFAULT_STRING_VALUE);
 	}
 
 	@Test
@@ -62,25 +64,32 @@ public class DtoPactTest {
 		assertThat(buildDslFrom(myDto()).toString()).isEqualTo(expectedPactDslPart().toString());
 	}
 
-	private MyDTO myDto() {
+	private static MyDTO myDto() {
 		// TODO real test bean methods (setLastname, ...)
-		return contractFor(new MyDTO()).givenname(regex("G.*", "Givenname1")) //
+		return contractFor(new MyDTO()) //
+				.givenname(regex("G.*", "Givenname1")) //
 				.lastname(regex("L.*", "Lastname1")) //
-				.givenname("Givenname2") //
-				.lastname(stringType("Lastname2")) //
+				.givenname("Givenname2") // last one wins
+				.lastname(stringType("Lastname2")) // last one wins
 				.age(integerType(42)) //
 				// TODO support like
-				.address(contractFor(new AddressDTO()).zip(integerType(12345)).city(stringType("City")));
+				.address(contractFor(new AddressDTO()).zip(integerType()).city(stringType()));
 	}
 
-	private DslPart expectedPactDslPart() {
+	/**
+	 * This is the way you would define the pact using pact-dsl. This pact should be
+	 * the result of {@link #myDto()}
+	 * 
+	 * @return the pact-dsl
+	 */
+	private static DslPart expectedPactDslPart() {
 		return new PactDslJsonBody() //
 				.stringMatcher("givenname", "G.*", "Givenname2") //
 				.stringType("lastname", "Lastname2") //
 				.integerType("age", 42) //
 				.object("address") //
-				.integerType("zip", 12345) //
-				.stringType("city", "City") //
+				.integerType("zip", DEFAULT_INTEGER_VALUE) //
+				.stringType("city", DEFAULT_STRING_VALUE) //
 				.closeObject() //
 		;
 	}
