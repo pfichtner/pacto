@@ -1,0 +1,10 @@
+/target/
+/.project
+/.classpath
+/.settings/
+node_modules/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+.idea
+*.iml
