@@ -1,13 +1,11 @@
 package com.github.pfichtner.pacto;
 
-import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
+import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
 import static com.github.pfichtner.pacto.matchers.Matchers.DEFAULT_INTEGER_VALUE;
 import static com.github.pfichtner.pacto.matchers.Matchers.DEFAULT_STRING_VALUE;
-import static com.github.pfichtner.pacto.testdata.TestMother.chainedFluentDto;
-import static com.github.pfichtner.pacto.testdata.TestMother.javaBeanDto;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -20,7 +18,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.RegexArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
-import com.github.pfichtner.pacto.testdata.TestMother;
+import com.github.pfichtner.pacto.testdata.chainedfluent.TestMotherChainedFluent;
+import com.github.pfichtner.pacto.testdata.javabeans.TestMotherJavaBean;
 import com.google.gson.Gson;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
@@ -29,7 +28,7 @@ import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 public class PactoTest {
 
 	@ParameterizedTest
-	@MethodSource("dtos")
+	@MethodSource("filledDtos")
 	void testInvocations(Object dto) {
 		assertThat(invocations(dto).getAllInvocations())
 				.extracting(i -> i.getAttribute(), i -> i.getMatcher() == null ? null : i.getMatcher().getClass())
@@ -43,14 +42,13 @@ public class PactoTest {
 	}
 
 	@ParameterizedTest
-	@MethodSource("dtos")
-	void testDelegate(Object dto) throws Exception {
-		Object emptyDto = dto.getClass().getConstructor().newInstance();
+	@MethodSource("blankDtos")
+	void testDelegate(Object emptyDto) throws Exception {
 		assertThat(delegate(spec(emptyDto))).isSameAs(emptyDto);
 	}
 
 	@ParameterizedTest
-	@MethodSource("dtos")
+	@MethodSource("filledDtos")
 	void doesSerializeLikeTheObjectItself(Object dto) {
 		Gson gson = new Gson();
 		String serialized = gson.toJson(dto);
@@ -64,18 +62,22 @@ public class PactoTest {
 	}
 
 	@ParameterizedTest
-	@MethodSource("dtos")
+	@MethodSource("filledDtos")
 	void testDslPart(Object dto) throws Exception {
 		assertThat(buildDslFrom(dto).toString()).isEqualTo(expectedPactDslPart().toString());
 	}
 
-	static List<Object> dtos() {
-		return List.of(javaBeanDto(), chainedFluentDto());
+	static List<Object> blankDtos() {
+		return List.of(TestMotherJavaBean.blank(), TestMotherChainedFluent.blank());
+	}
+
+	static List<Object> filledDtos() {
+		return List.of(TestMotherJavaBean.filled(), TestMotherChainedFluent.filled());
 	}
 
 	/**
 	 * This is the way you would define the pact using pact-dsl. This pact should be
-	 * the result of {@link TestMother#chainedFluentDto()}
+	 * the result of {@link TestMother#filled()}
 	 * 
 	 * @return the pact-dsl
 	 */
