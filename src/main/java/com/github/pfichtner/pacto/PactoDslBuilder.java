@@ -26,8 +26,8 @@ public final class PactoDslBuilder {
 			this.clazz = clazz;
 		}
 
-		public boolean matches(Class<?> clazz) {
-			return this.clazz == clazz;
+		public boolean matches(ArgumentMatcher<?> matcher) {
+			return this.clazz.isInstance(matcher);
 		}
 
 		@Override
@@ -89,7 +89,7 @@ public final class PactoDslBuilder {
 		}
 
 		return extractors.stream() //
-				.filter(e -> e.matches(matcher.getClass())) //
+				.filter(e -> e.matches(matcher)) //
 				.findFirst() //
 				.map(e -> e.apply(invocation, body)) //
 				.orElseThrow(() -> new IllegalArgumentException(
