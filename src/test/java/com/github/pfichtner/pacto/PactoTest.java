@@ -28,7 +28,7 @@ import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 public class PactoTest {
 
 	@ParameterizedTest
-	@MethodSource("filledDtos")
+	@MethodSource("withSpecDtos")
 	void testInvocations(Object dto) {
 		assertThat(invocations(dto).getAllInvocations())
 				.extracting(i -> i.getAttribute(), i -> i.getMatcher() == null ? null : i.getMatcher().getClass())
@@ -48,7 +48,7 @@ public class PactoTest {
 	}
 
 	@ParameterizedTest
-	@MethodSource("filledDtos")
+	@MethodSource("withSpecDtos")
 	void doesSerializeLikeTheObjectItself(Object dto) {
 		Gson gson = new Gson();
 		String serialized = gson.toJson(dto);
@@ -62,7 +62,7 @@ public class PactoTest {
 	}
 
 	@ParameterizedTest
-	@MethodSource("filledDtos")
+	@MethodSource("withSpecDtos")
 	void testDslPart(Object dto) throws Exception {
 		assertThat(buildDslFrom(dto).toString()).isEqualTo(expectedPactDslPart().toString());
 	}
@@ -71,13 +71,13 @@ public class PactoTest {
 		return List.of(TestMotherJavaBean.blank(), TestMotherChainedFluent.blank());
 	}
 
-	static List<Object> filledDtos() {
-		return List.of(TestMotherJavaBean.filled(), TestMotherChainedFluent.filled());
+	static List<Object> withSpecDtos() {
+		return List.of(TestMotherJavaBean.withSpec(), TestMotherChainedFluent.withSpec());
 	}
 
 	/**
 	 * This is the way you would define the pact using pact-dsl. This pact should be
-	 * the result of {@link TestMother#filled()}
+	 * the result of {@link TestMother#withSpec()}
 	 * 
 	 * @return the pact-dsl
 	 */
