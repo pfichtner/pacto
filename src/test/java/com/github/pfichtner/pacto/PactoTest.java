@@ -32,7 +32,7 @@ public class PactoTest {
 	@MethodSource("dtos")
 	void testInvocations(Object dto) {
 		assertThat(invocations(dto).getAllInvocations())
-				.extracting(i -> i.attribute(), i -> i.getMatcher() == null ? null : i.getMatcher().getClass())
+				.extracting(i -> i.getAttribute(), i -> i.getMatcher() == null ? null : i.getMatcher().getClass())
 				.containsExactly( //
 						tuple("givenname", RegexArg.class), //
 						tuple("lastname", RegexArg.class), //

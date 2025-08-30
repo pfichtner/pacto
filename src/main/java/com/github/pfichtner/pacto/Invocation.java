@@ -14,10 +14,8 @@ public interface Invocation {
 
 	Object getDelegate();
 
-	String attribute();
+	String getAttribute();
 
-	Class<?> type();
-
-	Object getResult();
+	Class<?> getType();
 
 }

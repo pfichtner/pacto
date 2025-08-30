@@ -42,11 +42,6 @@ public class DefaultInvocation implements Invocation {
 	}
 
 	@Override
-	public Object getResult() {
-		return result;
-	}
-
-	@Override
 	public ArgumentMatcher<?> getMatcher() {
 		return matcher;
 	}
@@ -57,7 +52,7 @@ public class DefaultInvocation implements Invocation {
 	}
 
 	@Override
-	public String attribute() {
+	public String getAttribute() {
 		try {
 			BeanInfo beanInfo = Introspector.getBeanInfo(method.getDeclaringClass());
 			return isSetter(beanInfo, method) ? propertyName(beanInfo, method) : method.getName();
@@ -82,7 +77,7 @@ public class DefaultInvocation implements Invocation {
 	}
 
 	@Override
-	public Class<?> type() {
+	public Class<?> getType() {
 		return getMethod().getParameterTypes()[0];
 	}
 
