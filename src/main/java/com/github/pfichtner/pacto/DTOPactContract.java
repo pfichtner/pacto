@@ -1,4 +1,4 @@
-package com.github.pfichtner.dact;
+package com.github.pfichtner.pacto;
 
 import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;

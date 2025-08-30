@@ -1,21 +1,21 @@
-package com.github.pfichtner.dact;
+package com.github.pfichtner.pacto;
 
-import static com.github.pfichtner.dact.DTOPactContract.contractFor;
-import static com.github.pfichtner.dact.DTOPactContract.delegate;
-import static com.github.pfichtner.dact.DTOPactContract.invocations;
-import static com.github.pfichtner.dact.PactDslBuilderFromDTO.buildDslFrom;
-import static com.github.pfichtner.dact.PactMatchers.DEFAULT_INTEGER_VALUE;
-import static com.github.pfichtner.dact.PactMatchers.DEFAULT_STRING_VALUE;
-import static com.github.pfichtner.dact.TestMother.*;
+import static com.github.pfichtner.pacto.DTOPactContract.contractFor;
+import static com.github.pfichtner.pacto.DTOPactContract.delegate;
+import static com.github.pfichtner.pacto.DTOPactContract.invocations;
+import static com.github.pfichtner.pacto.PactDslBuilderFromDTO.buildDslFrom;
+import static com.github.pfichtner.pacto.PactMatchers.DEFAULT_INTEGER_VALUE;
+import static com.github.pfichtner.pacto.PactMatchers.DEFAULT_STRING_VALUE;
+import static com.github.pfichtner.pacto.TestMother.*;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.pfichtner.dact.matchers.IntegerTypeArg;
-import com.github.pfichtner.dact.matchers.RegexArg;
-import com.github.pfichtner.dact.matchers.StringTypeArg;
+import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
+import com.github.pfichtner.pacto.matchers.RegexArg;
+import com.github.pfichtner.pacto.matchers.StringTypeArg;
 import com.google.gson.Gson;
 
 import au.com.dius.pact.consumer.dsl.DslPart;

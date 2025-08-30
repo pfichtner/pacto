@@ -1,12 +1,12 @@
-package com.github.pfichtner.dact;
+package com.github.pfichtner.pacto;
 
 import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingProgress;
 
 import org.mockito.ArgumentMatcher;
 
-import com.github.pfichtner.dact.matchers.IntegerTypeArg;
-import com.github.pfichtner.dact.matchers.RegexArg;
-import com.github.pfichtner.dact.matchers.StringTypeArg;
+import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
+import com.github.pfichtner.pacto.matchers.RegexArg;
+import com.github.pfichtner.pacto.matchers.StringTypeArg;
 
 public class PactMatchers {
 

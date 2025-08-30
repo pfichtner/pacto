@@ -1,4 +1,4 @@
-package com.github.pfichtner.dact.matchers;
+package com.github.pfichtner.pacto.matchers;
 
 import org.mockito.ArgumentMatcher;
 

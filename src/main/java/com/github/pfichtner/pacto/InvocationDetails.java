@@ -1,4 +1,4 @@
-package com.github.pfichtner.dact;
+package com.github.pfichtner.pacto;
 
 import java.util.List;
 

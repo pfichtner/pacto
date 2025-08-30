@@ -1,4 +1,4 @@
-package com.github.pfichtner.dact;
+package com.github.pfichtner.pacto;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
