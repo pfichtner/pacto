@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = PRIVATE)
 @Accessors(chain = true, fluent = true)
-public class MyDTO {
+public class ChainedAndFluent {
 
 	String givenname;
 	String lastname;

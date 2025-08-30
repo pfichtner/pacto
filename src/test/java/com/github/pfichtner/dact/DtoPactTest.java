@@ -6,9 +6,7 @@ import static com.github.pfichtner.dact.DTOPactContract.invocations;
 import static com.github.pfichtner.dact.PactDslBuilderFromDTO.buildDslFrom;
 import static com.github.pfichtner.dact.PactMatchers.DEFAULT_INTEGER_VALUE;
 import static com.github.pfichtner.dact.PactMatchers.DEFAULT_STRING_VALUE;
-import static com.github.pfichtner.dact.PactMatchers.integerType;
-import static com.github.pfichtner.dact.PactMatchers.regex;
-import static com.github.pfichtner.dact.PactMatchers.stringType;
+import static com.github.pfichtner.dact.TestMother.*;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -27,7 +25,7 @@ public class DtoPactTest {
 
 	@Test
 	void testInvocations() {
-		MyDTO dto = myDto();
+		Object dto = chainedFluentDto();
 		assertThat(invocations(dto).getAllInvocations())
 				.extracting(i -> i.attribute(), i -> i.getMatcher() == null ? null : i.getMatcher().getClass())
 				.containsExactly( //
@@ -41,17 +39,31 @@ public class DtoPactTest {
 
 	@Test
 	void testDelegate() {
-		MyDTO dto = new MyDTO();
-		assertThat(delegate(contractFor(dto))).isSameAs(dto);
+		Object emptyDto = new ChainedAndFluent();
+		assertThat(delegate(contractFor(emptyDto))).isSameAs(emptyDto);
+	}
+
+	@Test
+	void doesSerializeLikeTheObjectItself_() {
+		Gson gson = new Gson();
+		Object dto = dataDto();
+		String serialized = gson.toJson(dto);
+
+		assertThat(serialized).isEqualTo(gson.toJson(delegate(dto)));
+		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
+		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
+		assertThatJson(serialized).node("age").isEqualTo(42);
+		assertThatJson(serialized).node("address.zip").isEqualTo(DEFAULT_INTEGER_VALUE);
+		assertThatJson(serialized).node("address.city").isEqualTo(DEFAULT_STRING_VALUE);
 	}
 
 	@Test
 	void doesSerializeLikeTheObjectItself() {
 		Gson gson = new Gson();
-		MyDTO myDto = myDto();
-		String serialized = gson.toJson(myDto);
+		Object dto = chainedFluentDto();
+		String serialized = gson.toJson(dto);
 
-		assertThat(serialized).isEqualTo(gson.toJson(delegate(myDto)));
+		assertThat(serialized).isEqualTo(gson.toJson(delegate(dto)));
 		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
 		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
 		assertThatJson(serialized).node("age").isEqualTo(42);
@@ -61,24 +73,12 @@ public class DtoPactTest {
 
 	@Test
 	void testDslPart() throws Exception {
-		assertThat(buildDslFrom(myDto()).toString()).isEqualTo(expectedPactDslPart().toString());
-	}
-
-	private static MyDTO myDto() {
-		// TODO real test bean methods (setLastname, ...)
-		return contractFor(new MyDTO()) //
-				.givenname(regex("G.*", "Givenname1")) //
-				.lastname(regex("L.*", "Lastname1")) //
-				.givenname("Givenname2") // last one wins
-				.lastname(stringType("Lastname2")) // last one wins
-				.age(integerType(42)) //
-				// TODO support like
-				.address(contractFor(new AddressDTO()).zip(integerType()).city(stringType()));
+		assertThat(buildDslFrom(chainedFluentDto()).toString()).isEqualTo(expectedPactDslPart().toString());
 	}
 
 	/**
 	 * This is the way you would define the pact using pact-dsl. This pact should be
-	 * the result of {@link #myDto()}
+	 * the result of {@link TestMother#chainedFluentDto()}
 	 * 
 	 * @return the pact-dsl
 	 */
