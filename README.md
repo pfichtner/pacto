@@ -1,6 +1,8 @@
-# dact: a DTO-Pact generator
+# <img src="https://pfichtner.github.io/pacto/pacto.jpg" align="right" width="100">pacto
 
-**dact** is a Java library/project that allows you to generate [Pact](https://docs.pact.io/) contracts directly from your Data Transfer Objects (DTOs). Using **dact**, you can define DTOs with concrete values and flexible matchers, then automatically produce Pact contracts for consumer-driven contract testing.
+# pacto: a DTO-Pact generator
+
+**pacto** is a Java library/project that allows you to generate [Pact](https://docs.pact.io/) contracts directly from your Data Transfer Objects (DTOs). Using **pacto**, you can define DTOs with concrete values and flexible matchers, then automatically produce Pact contracts for consumer-driven contract testing.
 
 ---
 
@@ -21,7 +23,7 @@ Include the following dependency in your `pom.xml` (or adjust for Gradle):
 ```xml
 <dependency>
     <groupId>com.github.pfichtner</groupId>
-    <artifactId>dact</artifactId>
+    <artifactId>pacto</artifactId>
     <version>0.0.1</version>
 </dependency>
 ```
@@ -53,11 +55,11 @@ public class AddressDTO {
 ### 2. Create a Pact contract from a DTO
 
 ```java
-import static com.github.pfichtner.dact.DTOPactContract.contractFor;
-import static com.github.pfichtner.dact.PactMatchers.integerType;
-import static com.github.pfichtner.dact.PactMatchers.regex;
-import static com.github.pfichtner.dact.PactMatchers.stringType;
-import static com.github.pfichtner.dact.PactDslBuilderFromDTO.buildDslFrom;
+import static com.github.pfichtner.pacto.DTOPactContract.contractFor;
+import static com.github.pfichtner.pacto.PactMatchers.integerType;
+import static com.github.pfichtner.pacto.PactMatchers.regex;
+import static com.github.pfichtner.pacto.PactMatchers.stringType;
+import static com.github.pfichtner.pacto.PactDslBuilderFromDTO.buildDslFrom;
 
 PersonDTO person = contractFor(new PersonDTO())
     .givenname(regex("G.*", "Givenname1"))
@@ -76,7 +78,7 @@ PactDslJsonBody pactBody = buildDslFrom(person);
 
 ## Matchers
 
-Dact supports flexible matchers to make your contracts robust:
+pacto supports flexible matchers to make your contracts robust:
 
 - `stringType("example")` – Matches any string.
 - `integerType(42)` – Matches any integer.
