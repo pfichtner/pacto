@@ -9,7 +9,9 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = PRIVATE)
 @Accessors(chain = true, fluent = true)
-public class AddressDTO {
+public class ChainedAndFluentAddress {
+
 	int zip;
 	String city;
+
 }
