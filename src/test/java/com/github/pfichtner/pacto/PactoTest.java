@@ -6,8 +6,8 @@ import static com.github.pfichtner.pacto.DTOPactContract.invocations;
 import static com.github.pfichtner.pacto.PactDslBuilderFromDTO.buildDslFrom;
 import static com.github.pfichtner.pacto.PactMatchers.DEFAULT_INTEGER_VALUE;
 import static com.github.pfichtner.pacto.PactMatchers.DEFAULT_STRING_VALUE;
-import static com.github.pfichtner.pacto.TestMother.chainedFluentDto;
-import static com.github.pfichtner.pacto.TestMother.dataDto;
+import static com.github.pfichtner.pacto.testdata.TestMother.chainedFluentDto;
+import static com.github.pfichtner.pacto.testdata.TestMother.javaBeanDto;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -20,12 +20,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.RegexArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
+import com.github.pfichtner.pacto.testdata.TestMother;
 import com.google.gson.Gson;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
-public class DtoPactTest {
+public class PactoTest {
 
 	@ParameterizedTest
 	@MethodSource("dtos")
@@ -69,7 +70,7 @@ public class DtoPactTest {
 	}
 
 	static List<Object> dtos() {
-		return List.of(dataDto(), chainedFluentDto());
+		return List.of(javaBeanDto(), chainedFluentDto());
 	}
 
 	/**

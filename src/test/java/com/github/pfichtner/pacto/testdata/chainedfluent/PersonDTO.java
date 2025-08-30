@@ -1,17 +1,19 @@
-package com.github.pfichtner.pacto;
+package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static lombok.AccessLevel.PRIVATE;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = PRIVATE)
-public class JavaBeanPerson {
+@Accessors(chain = true, fluent = true)
+public class PersonDTO {
 
 	String givenname;
 	String lastname;
 	int age;
-	JavaBeanAddress address;
+	AddressDTO address;
 
 }
