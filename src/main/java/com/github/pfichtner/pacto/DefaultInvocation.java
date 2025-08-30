@@ -1,5 +1,6 @@
 package com.github.pfichtner.pacto;
 
+import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -57,32 +58,27 @@ public class DefaultInvocation implements Invocation {
 
 	@Override
 	public String attribute() {
-		return isSetter(method) ? propertyName(method) : method.getName();
-	}
-
-	private static String propertyName(Method method) {
 		try {
-			return Arrays.stream(Introspector.getBeanInfo(method.getDeclaringClass()) //
-					.getPropertyDescriptors()) //
-					.filter(d -> method.equals(d.getWriteMethod()) || method.equals(d.getReadMethod())) //
-					.map(PropertyDescriptor::getName).findFirst().orElse(null);
+			BeanInfo beanInfo = Introspector.getBeanInfo(method.getDeclaringClass());
+			return isSetter(beanInfo, method) ? propertyName(beanInfo, method) : method.getName();
 		} catch (IntrospectionException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static boolean isSetter(Method method) {
-		return propertyName(method) != null && method.equals(getWriteMethod(method));
+	private static String propertyName(BeanInfo beanInfo, Method method) {
+		return Arrays.stream(beanInfo.getPropertyDescriptors()) //
+				.filter(d -> method.equals(d.getWriteMethod()) || method.equals(d.getReadMethod())) //
+				.map(PropertyDescriptor::getName).findFirst().orElse(null);
 	}
 
-	private static Method getWriteMethod(Method method) {
-		try {
-			return Arrays.stream(Introspector.getBeanInfo(method.getDeclaringClass()).getPropertyDescriptors())
-					.map(PropertyDescriptor::getWriteMethod).filter(Objects::nonNull).filter(m -> m.equals(method))
-					.findFirst().orElse(null);
-		} catch (IntrospectionException e) {
-			throw new RuntimeException(e);
-		}
+	private static boolean isSetter(BeanInfo beanInfo, Method method) throws IntrospectionException {
+		return propertyName(beanInfo, method) != null && method.equals(getWriteMethod(beanInfo, method));
+	}
+
+	private static Method getWriteMethod(BeanInfo beanInfo, Method method) {
+		return Arrays.stream(beanInfo.getPropertyDescriptors()).map(PropertyDescriptor::getWriteMethod)
+				.filter(Objects::nonNull).filter(m -> m.equals(method)).findFirst().orElse(null);
 	}
 
 	@Override
