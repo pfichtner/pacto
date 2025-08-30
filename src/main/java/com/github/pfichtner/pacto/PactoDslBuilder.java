@@ -2,12 +2,13 @@ package com.github.pfichtner.pacto;
 
 import static com.github.pfichtner.pacto.Pacto.invocations;
 
-import java.util.Map;
+import java.util.List;
 import java.util.function.BiFunction;
 
 import org.mockito.ArgumentMatcher;
 
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
+import com.github.pfichtner.pacto.matchers.PactoMatcher;
 import com.github.pfichtner.pacto.matchers.RegexArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
 
@@ -16,21 +17,47 @@ import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
 public final class PactoDslBuilder {
 
-	private static final Map<Class<? extends ArgumentMatcher<?>>, BiFunction<Invocation, PactDslJsonBody, PactDslJsonBody>> converters //
-			= Map.of( //
-					RegexArg.class, (i, b) -> {
-						RegexArg regexArg = (RegexArg) i.getMatcher();
-						return b.stringMatcher(i.getAttribute(), regexArg.getRegex(), regexArg.getValue());
-					}, //
-					StringTypeArg.class, (i, b) -> {
-						StringTypeArg stringTypeArg = (StringTypeArg) i.getMatcher();
-						return b.stringMatcher(i.getAttribute(), stringTypeArg.getValue());
-					}, //
-					IntegerTypeArg.class, (i, b) -> {
-						IntegerTypeArg integerTypeArg = (IntegerTypeArg) i.getMatcher();
-						return b.integerType(i.getAttribute(), integerTypeArg.getValue());
-					} //
-			);
+	static abstract class Extractor<T extends PactoMatcher<?>>
+			implements BiFunction<Invocation, PactDslJsonBody, PactDslJsonBody> {
+
+		private final Class<T> clazz;
+
+		public Extractor(Class<T> clazz) {
+			this.clazz = clazz;
+		}
+
+		public boolean matches(Class<?> clazz) {
+			return this.clazz == clazz;
+		}
+
+		@Override
+		public final PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body) {
+			return apply(invocation, body, clazz.cast(invocation.getMatcher()));
+		}
+
+		public abstract PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, T matcher);
+
+	}
+
+	private final static List<Extractor<? extends PactoMatcher<String>>> extractors = List.of( //
+			new Extractor<>(RegexArg.class) {
+				@Override
+				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, RegexArg matcher) {
+					return body.stringMatcher(invocation.getAttribute(), matcher.getRegex(), matcher.getValue());
+				}
+			}, //
+			new Extractor<>(StringTypeArg.class) {
+				@Override
+				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, StringTypeArg matcher) {
+					return body.stringMatcher(invocation.getAttribute(), matcher.getValue());
+				}
+			}, //
+			new Extractor<>(IntegerTypeArg.class) {
+				@Override
+				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, IntegerTypeArg matcher) {
+					return body.integerType(invocation.getAttribute(), matcher.getValue());
+				}
+			});
 
 	private PactoDslBuilder() {
 		super();
@@ -61,11 +88,12 @@ public final class PactoDslBuilder {
 			return (PactDslJsonBody) appendInvocations(body.object(attribute), invocation.getArg()).closeObject();
 		}
 
-		BiFunction<Invocation, PactDslJsonBody, PactDslJsonBody> function = converters.get(matcher.getClass());
-		if (function == null) {
-			throw new IllegalArgumentException(String.format("Cannot handle %s (%s)", attribute, invocation));
-		}
-		return function.apply(invocation, body);
+		return extractors.stream() //
+				.filter(e -> e.matches(matcher.getClass())) //
+				.findFirst() //
+				.map(e -> e.apply(invocation, body)) //
+				.orElseThrow(() -> new IllegalArgumentException(
+						String.format("Cannot handle %s (%s)", attribute, invocation)));
 	}
 
 }
