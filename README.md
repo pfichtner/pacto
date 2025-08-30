@@ -14,6 +14,20 @@
 
 ---
 
+## Why use pacto?
+
+Contract testing with Pact is powerful—but writing and maintaining Pact DSLs by hand can be repetitive and error-prone. pacto solves this by generating contracts directly from your DTOs.
+
+Key benefits:
+- 🔄 No duplication – Contracts are generated from the same DTOs you already use.
+- 🛡️ Always in sync – DTO changes automatically flow into contracts, reducing drift.
+- ⚡ Less boilerplate – No more hand-writing verbose Pact DSL code.
+- 🎯 Robust matchers – Define flexible rules (regex, stringType, etc.) for realistic contracts.
+- 🧩 Supports complex models – Works seamlessly with nested DTOs.
+- 🚀 Easy adoption – Integrates into existing Java projects with minimal setup.
+
+With pacto, you get reliable consumer-driven contract tests with less effort and fewer mistakes.
+
 ## Installation
 
 Include the following dependency in your `pom.xml` (or adjust for Gradle):
