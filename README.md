@@ -54,8 +54,8 @@ public class AddressDTO {
 
 ```java
 import static com.github.pfichtner.pacto.Pacto.contractFor;
-import static com.github.pfichtner.pacto.PactoMatchers.*;
 import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
+import static com.github.pfichtner.pacto.matchers.Matchers.*;
 
 PersonDTO person = contractFor(new PersonDTO())
     .givenname(regex("G.*", "Givenname1"))

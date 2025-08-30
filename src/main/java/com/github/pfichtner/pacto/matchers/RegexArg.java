@@ -1,8 +1,8 @@
 package com.github.pfichtner.pacto.matchers;
 
-import org.mockito.ArgumentMatcher;
+import static java.lang.String.format;
 
-public class RegexArg implements ArgumentMatcher<String> {
+public class RegexArg extends PactoMatcher<String> {
 
 	private final String regex;
 	private final String value;
@@ -21,13 +21,8 @@ public class RegexArg implements ArgumentMatcher<String> {
 	}
 
 	@Override
-	public boolean matches(String argument) {
-		return argument != null && argument.matches(regex);
-	}
-
-	@Override
 	public String toString() {
-		return "regex(" + regex + ", " + value + ")";
+		return format("regex(%s, %s)", regex, value);
 	}
 
 }

@@ -1,8 +1,8 @@
 package com.github.pfichtner.pacto.matchers;
 
-import org.mockito.ArgumentMatcher;
+import static java.lang.String.format;
 
-public class IntegerTypeArg implements ArgumentMatcher<String> {
+public class IntegerTypeArg extends PactoMatcher<String> {
 
 	private final int value;
 
@@ -15,13 +15,8 @@ public class IntegerTypeArg implements ArgumentMatcher<String> {
 	}
 
 	@Override
-	public boolean matches(String argument) {
-		return argument != null;
-	}
-
-	@Override
 	public String toString() {
-		return "integer(" + value + ")";
+		return format("integer(%d)", value);
 	}
 
 }

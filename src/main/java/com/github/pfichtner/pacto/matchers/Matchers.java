@@ -1,17 +1,17 @@
-package com.github.pfichtner.pacto;
+package com.github.pfichtner.pacto.matchers;
 
 import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingProgress;
 
 import org.mockito.ArgumentMatcher;
 
-import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
-import com.github.pfichtner.pacto.matchers.RegexArg;
-import com.github.pfichtner.pacto.matchers.StringTypeArg;
-
-public class PactoMatchers {
+public final class Matchers {
 
 	public static final String DEFAULT_STRING_VALUE = "string";
 	public static final int DEFAULT_INTEGER_VALUE = 42;
+
+	private Matchers() {
+		super();
+	}
 
 	public static String stringType() {
 		return stringType(DEFAULT_STRING_VALUE);
