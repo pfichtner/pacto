@@ -37,9 +37,7 @@ public class Pacto {
 			DelegateInterceptor delegateInterceptor) {
 		return new ByteBuddy() //
 				.subclass(type) //
-				.method(isPublic() //
-						.or(isProtected()) //
-						.and(not(isStatic())) //
+				.method(not(isStatic()) //
 						.and(not(isFinal())) //
 						.and(not(isDeclaredBy(Object.class))) //
 				).intercept(SuperMethodCall.INSTANCE.andThen(MethodDelegation.to(delegateInterceptor))) //
