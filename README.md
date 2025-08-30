@@ -53,16 +53,16 @@ public class AddressDTO {
 ### 2. Create a Pact contract from a DTO
 
 ```java
-import static com.github.pfichtner.pacto.Pacto.contractFor;
+import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
 import static com.github.pfichtner.pacto.matchers.Matchers.*;
 
-PersonDTO person = contractFor(new PersonDTO())
+PersonDTO person = spec(new PersonDTO())
     .givenname(regex("G.*", "Givenname1"))
     .lastname(regex("L.*", "Lastname1"))
     .age(integerType(42))
     .address(
-        contractFor(new AddressDTO())
+        spec(new AddressDTO())
             .zip(integerType(12345))
             .city(stringType("City"))
     );
@@ -80,7 +80,7 @@ pacto supports flexible matchers to make your contracts robust:
 - `integerType(42)` – Matches any integer.
 - `regex("G.*", "Givenname1")` – Matches strings with a regex pattern.
 
-Nested DTOs are supported via `contractFor(nestedDTO)`.
+Nested DTOs are supported via `spec(nestedDTO)`.
 
 ---
 

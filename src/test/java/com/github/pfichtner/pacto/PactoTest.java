@@ -1,6 +1,6 @@
 package com.github.pfichtner.pacto;
 
-import static com.github.pfichtner.pacto.Pacto.contractFor;
+import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
@@ -46,7 +46,7 @@ public class PactoTest {
 	@MethodSource("dtos")
 	void testDelegate(Object dto) throws Exception {
 		Object emptyDto = dto.getClass().getConstructor().newInstance();
-		assertThat(delegate(contractFor(emptyDto))).isSameAs(emptyDto);
+		assertThat(delegate(spec(emptyDto))).isSameAs(emptyDto);
 	}
 
 	@ParameterizedTest

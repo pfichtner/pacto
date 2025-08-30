@@ -19,7 +19,7 @@ public class Pacto {
 
 	private static Map<Object, DelegateInterceptor> interceptors = new IdentityHashMap<>();
 
-	public static <T> T contractFor(T delegate) {
+	public static <T> T spec(T delegate) {
 		try {
 			@SuppressWarnings("unchecked")
 			Class<T> type = (Class<T>) delegate.getClass();
