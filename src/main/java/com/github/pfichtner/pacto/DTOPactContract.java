@@ -13,6 +13,7 @@ import java.util.Map;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.implementation.SuperMethodCall;
 
 public class DTOPactContract {
 
@@ -41,7 +42,7 @@ public class DTOPactContract {
 						.and(not(isStatic())) //
 						.and(not(isFinal())) //
 						.and(not(isDeclaredBy(Object.class))) //
-				).intercept(MethodDelegation.to(delegateInterceptor)) //
+				).intercept(SuperMethodCall.INSTANCE.andThen(MethodDelegation.to(delegateInterceptor))) //
 				.make() //
 				.load(delegate.getClass().getClassLoader(), ClassLoadingStrategy.Default.WRAPPER) //
 				.getLoaded();
