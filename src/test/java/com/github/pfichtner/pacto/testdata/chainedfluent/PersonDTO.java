@@ -13,7 +13,7 @@ public class PersonDTO {
 
 	String givenname;
 	String lastname;
-	int age;
 	AddressDTO address;
+	int age;
 
 }

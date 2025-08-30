@@ -37,8 +37,9 @@ public class PactoTest {
 						tuple("lastname", RegexArg.class), //
 						tuple("givenname", null), //
 						tuple("lastname", StringTypeArg.class), //
-						tuple("age", IntegerTypeArg.class), //
-						tuple("address", null));
+						tuple("address", null), //
+						tuple("age", IntegerTypeArg.class)) //
+		;
 	}
 
 	@ParameterizedTest
