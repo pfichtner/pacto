@@ -15,37 +15,27 @@ Generate Pact contracts directly from your DTOs — keep tests simple, reliable,
 
 ---
 
-## Why use pacto?
+## Why use pacto?  
 
-Contract testing with Pact is powerful—but writing and maintaining Pact DSLs by hand can be repetitive and error-prone. pacto solves this by generating contracts directly from your DTOs.
+Contract testing with Pact is powerful—but writing and maintaining Pact DSLs by hand can be repetitive and error-prone. **pacto** solves this by generating contracts directly from your DTOs.  
 
-Key benefits:
-- 🔄 No duplication – Contracts are generated from the same DTOs you already use.
-- 🛡️ Always in sync – DTO changes automatically flow into contracts, reducing drift.
-- ⚡ Less boilerplate – No more hand-writing verbose Pact DSL code.
-- 🎯 Robust matchers – Define flexible rules (regex, stringType, etc.) for realistic contracts.
-- 🧩 Supports complex models – Works seamlessly with nested DTOs.
-- 🚀 Easy adoption – Integrates into existing Java projects with minimal setup.
+**Key benefits:**  
+- 🔄 **No duplication** – Contracts are generated from the same DTOs you already use.  
+- 🛡️ **Always in sync** – DTO changes automatically flow into contracts, reducing drift.  
+- ⚡ **Less boilerplate** – No more hand-writing verbose Pact DSL code.  
+- 🎯 **Robust matchers** – Define flexible rules (`regex`, `stringType`, etc.) for realistic contracts.  
+- 🧩 **Supports complex models** – Works seamlessly with nested DTOs.  
+- 🚀 **Easy adoption** – Integrates into existing Java projects with minimal setup.  
 
-With pacto, you get reliable consumer-driven contract tests with less effort and fewer mistakes.
-
-## Installation
-
-Include the following dependency in your `pom.xml` (or adjust for Gradle):
-
-```xml
-<dependency>
-    <groupId>com.github.pfichtner</groupId>
-    <artifactId>pacto</artifactId>
-    <version>0.0.1</version>
-</dependency>
-```
+With **pacto**, you get reliable consumer-driven contract tests with less effort and fewer mistakes.  
 
 ---
 
-## Usage
+## The problem: duplication without pacto  
 
-### 1. Define your DTO (usually already done)
+Without pacto, you need to define your data structures **twice** — once in your DTO, and once again in Pact’s DSL.  
+
+**❌ Manual Pact DSL (with duplication):**  
 
 ```java
 public class PersonDTO {
@@ -53,25 +43,31 @@ public class PersonDTO {
     private String lastname;
     private int age;
     private AddressDTO address;
-
-    // Getters and setters omitted for brevity
+    // getters/setters
 }
 
 public class AddressDTO {
     private int zip;
     private String city;
-
-    // Getters and setters omitted for brevity
+    // getters/setters
 }
+
+// And again in Pact DSL:
+PactDslJsonBody body = new PactDslJsonBody()
+    .stringMatcher("givenname", "G.*", "Givenname1")
+    .stringMatcher("lastname", "L.*", "Lastname1")
+    .integerType("age", 42)
+    .object("address")
+        .integerType("zip", 12345)
+        .stringType("city", "City")
+    .closeObject();
 ```
 
-### 2. Create a Pact contract from a DTO
+If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update both places or your contract drifts out of sync.  
+
+**✅ With pacto (no duplication):**  
 
 ```java
-import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
-import static com.github.pfichtner.pacto.matchers.Matchers.*;
-
 PersonDTO person = spec(new PersonDTO())
     .givenname(regex("G.*", "Givenname1"))
     .lastname(regex("L.*", "Lastname1"))
@@ -84,6 +80,8 @@ PersonDTO person = spec(new PersonDTO())
 
 PactDslJsonBody pactBody = buildDslFrom(person);
 ```
+
+Now, your contract is generated **directly from the DTO** — no duplication, no drift, no extra maintenance.  
 
 ---
 
