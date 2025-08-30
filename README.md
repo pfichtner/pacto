@@ -53,11 +53,9 @@ public class AddressDTO {
 ### 2. Create a Pact contract from a DTO
 
 ```java
-import static com.github.pfichtner.pacto.DTOPactContract.contractFor;
-import static com.github.pfichtner.pacto.PactMatchers.integerType;
-import static com.github.pfichtner.pacto.PactMatchers.regex;
-import static com.github.pfichtner.pacto.PactMatchers.stringType;
-import static com.github.pfichtner.pacto.PactDslBuilderFromDTO.buildDslFrom;
+import static com.github.pfichtner.pacto.Pacto.contractFor;
+import static com.github.pfichtner.pacto.PactoMatchers.*;
+import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
 
 PersonDTO person = contractFor(new PersonDTO())
     .givenname(regex("G.*", "Givenname1"))

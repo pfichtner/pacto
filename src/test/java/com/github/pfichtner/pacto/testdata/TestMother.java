@@ -1,9 +1,9 @@
 package com.github.pfichtner.pacto.testdata;
 
-import static com.github.pfichtner.pacto.DTOPactContract.contractFor;
-import static com.github.pfichtner.pacto.PactMatchers.integerType;
-import static com.github.pfichtner.pacto.PactMatchers.regex;
-import static com.github.pfichtner.pacto.PactMatchers.stringType;
+import static com.github.pfichtner.pacto.Pacto.contractFor;
+import static com.github.pfichtner.pacto.PactoMatchers.integerType;
+import static com.github.pfichtner.pacto.PactoMatchers.regex;
+import static com.github.pfichtner.pacto.PactoMatchers.stringType;
 
 public class TestMother {
 

@@ -1,6 +1,6 @@
 package com.github.pfichtner.pacto;
 
-import static com.github.pfichtner.pacto.DTOPactContract.invocations;
+import static com.github.pfichtner.pacto.Pacto.invocations;
 
 import org.mockito.ArgumentMatcher;
 
@@ -11,9 +11,9 @@ import com.github.pfichtner.pacto.matchers.StringTypeArg;
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
-public final class PactDslBuilderFromDTO {
+public final class PactoDslBuilder {
 
-	private PactDslBuilderFromDTO() {
+	private PactoDslBuilder() {
 		super();
 	}
 

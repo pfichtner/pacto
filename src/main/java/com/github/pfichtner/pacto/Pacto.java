@@ -15,7 +15,7 @@ import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.SuperMethodCall;
 
-public class DTOPactContract {
+public class Pacto {
 
 	private static Map<Object, DelegateInterceptor> interceptors = new IdentityHashMap<>();
 

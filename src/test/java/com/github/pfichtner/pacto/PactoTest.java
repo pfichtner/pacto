@@ -1,11 +1,11 @@
 package com.github.pfichtner.pacto;
 
-import static com.github.pfichtner.pacto.DTOPactContract.contractFor;
-import static com.github.pfichtner.pacto.DTOPactContract.delegate;
-import static com.github.pfichtner.pacto.DTOPactContract.invocations;
-import static com.github.pfichtner.pacto.PactDslBuilderFromDTO.buildDslFrom;
-import static com.github.pfichtner.pacto.PactMatchers.DEFAULT_INTEGER_VALUE;
-import static com.github.pfichtner.pacto.PactMatchers.DEFAULT_STRING_VALUE;
+import static com.github.pfichtner.pacto.Pacto.contractFor;
+import static com.github.pfichtner.pacto.Pacto.delegate;
+import static com.github.pfichtner.pacto.Pacto.invocations;
+import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
+import static com.github.pfichtner.pacto.PactoMatchers.DEFAULT_INTEGER_VALUE;
+import static com.github.pfichtner.pacto.PactoMatchers.DEFAULT_STRING_VALUE;
 import static com.github.pfichtner.pacto.testdata.TestMother.chainedFluentDto;
 import static com.github.pfichtner.pacto.testdata.TestMother.javaBeanDto;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
