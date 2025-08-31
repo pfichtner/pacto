@@ -102,6 +102,8 @@ public final class PactoDslBuilder {
 				return body.numberValue(attribute, (double) invocation.getArg());
 			} else if (float.class.isAssignableFrom(parameter)) {
 				return body.numberValue(attribute, (float) invocation.getArg());
+			} else if (boolean.class.isAssignableFrom(parameter)) {
+				return body.booleanValue(attribute, (boolean) invocation.getArg());
 			}
 			pushbackInvocations.add(invocation);
 			return body;
