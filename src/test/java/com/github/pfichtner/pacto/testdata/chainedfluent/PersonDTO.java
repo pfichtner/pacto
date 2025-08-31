@@ -15,5 +15,6 @@ public class PersonDTO {
 	String lastname;
 	AddressDTO address;
 	int age;
+	int children;
 
 }

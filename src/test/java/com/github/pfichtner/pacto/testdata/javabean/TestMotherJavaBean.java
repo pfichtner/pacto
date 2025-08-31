@@ -20,6 +20,7 @@ public class TestMotherJavaBean {
 		// TODO support like
 		dto.setAddress(address());
 		dto.setAge(integerType(42));
+		dto.setChildren(2);
 		return dto;
 	}
 

@@ -18,7 +18,9 @@ public class TestMotherChainedFluent {
 				.givenname("Givenname2") // last one wins
 				.lastname(stringType("Lastname2")) // last one wins
 				// TODO support like
-				.address(spec(new AddressDTO()).zip(integerType()).city(stringType())).age(integerType(42)) //
+				.address(spec(new AddressDTO()).zip(integerType()).city(stringType())) //
+				.age(integerType(42)) //
+				.children(2) //
 		;
 	}
 

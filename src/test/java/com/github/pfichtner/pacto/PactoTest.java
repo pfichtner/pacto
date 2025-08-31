@@ -38,8 +38,9 @@ public class PactoTest {
 						tuple("givenname", null), //
 						tuple("lastname", StringTypeArg.class), //
 						tuple("address", null), //
-						tuple("age", IntegerTypeArg.class)) //
-		;
+						tuple("age", IntegerTypeArg.class), //
+						tuple("children", null) //
+				);
 	}
 
 	@ParameterizedTest
@@ -87,6 +88,7 @@ public class PactoTest {
 				.stringMatcher("givenname", "G.*", "Givenname2") //
 				.stringType("lastname", "Lastname2") //
 				.integerType("age", 42) //
+				.numberType("children", 2) //
 				.object("address") //
 				.integerType("zip", DEFAULT_INTEGER_VALUE) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
