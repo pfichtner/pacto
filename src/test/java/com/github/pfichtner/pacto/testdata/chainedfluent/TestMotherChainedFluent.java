@@ -31,7 +31,7 @@ public class TestMotherChainedFluent {
 				.address(new AddressDTO().zip(12345).city("city").country(null)) //
 				.age(42) //
 				.children(2) //
-		).lastname(stringType("Lastname2")) //
+		).lastname(stringType("Lastname2")) // last one wins
 		;
 	}
 
