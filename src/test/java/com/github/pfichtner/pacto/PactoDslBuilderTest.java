@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -77,7 +79,10 @@ class PactoDslBuilderTest {
 				arguments(float.class, 42.0f, "42.0"), //
 				arguments(Float.class, 42.0f, "42.0"), //
 				arguments(boolean.class, true, "true"), //
-				arguments(Boolean.class, true, "true") //
+				arguments(Boolean.class, true, "true"), //
+				arguments(BigDecimal.class, BigDecimal.valueOf(42), "42"), //
+				arguments(BigDecimal.class, BigDecimal.valueOf(42.0d), "42.0"), //
+				arguments(BigInteger.class, BigInteger.valueOf(42), "42") //
 		);
 	}
 
