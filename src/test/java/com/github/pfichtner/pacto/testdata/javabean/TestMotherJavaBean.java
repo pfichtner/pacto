@@ -1,11 +1,7 @@
 package com.github.pfichtner.pacto.testdata.javabean;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.Matchers.eachLike;
-import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
-import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
-import static com.github.pfichtner.pacto.matchers.Matchers.regex;
-import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
+import static com.github.pfichtner.pacto.matchers.Matchers.*;
 
 import java.util.List;
 import java.util.Set;
@@ -34,6 +30,8 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setSecondaryAddressesList(Lists.eachLike(address(23)));
 		dto.setSecondaryAddressesSet(Sets.eachLike(address(24)));
 		dto.setAge(integerType(42));
+		dto.setHeight(decimalType(1.86));
+		dto.setShoeSize(decimalType());
 		dto.setChildren(2);
 		return dto;
 	}
@@ -48,6 +46,7 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setSecondaryAddressesList(List.of(partialAddress(23)));
 		dto.setSecondaryAddressesSet(Set.of(partialAddress(24)));
 		dto.setAge(42);
+		dto.setHeight(1.86);
 		dto.setChildren(2);
 		PersonDTO spec = spec(dto);
 		spec.setLastname(stringType("Lastname2")); // last one wins

@@ -21,6 +21,8 @@ public class PersonDTO {
 	List<AddressDTO> secondaryAddressesList;
 	Set<AddressDTO> secondaryAddressesSet;
 	int age;
+	double height;
+	double shoeSize;
 	int children;
 
 }

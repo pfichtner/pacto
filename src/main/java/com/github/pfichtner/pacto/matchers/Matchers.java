@@ -12,6 +12,7 @@ public final class Matchers {
 
 	public static final String DEFAULT_STRING_VALUE = "string";
 	public static final int DEFAULT_INTEGER_VALUE = 42;
+	public static final float DEFAULT_DECIMAL_VALUE = 12.345f;
 
 	private Matchers() {
 		super();
@@ -39,6 +40,28 @@ public final class Matchers {
 
 	public static int integerType(int in) {
 		IntegerTypeArg matcher = new IntegerTypeArg(in);
+		reportMatcher(matcher);
+		return in;
+	}
+
+	public static long integerType(long in) {
+		IntegerTypeArg matcher = new IntegerTypeArg(in);
+		reportMatcher(matcher);
+		return in;
+	}
+
+	public static float decimalType() {
+		return decimalType(DEFAULT_DECIMAL_VALUE);
+	}
+
+	public static double decimalType(double in) {
+		DecimalTypeArg matcher = new DecimalTypeArg(in);
+		reportMatcher(matcher);
+		return in;
+	}
+
+	public static float decimalType(float in) {
+		DecimalTypeArg matcher = new DecimalTypeArg(in);
 		reportMatcher(matcher);
 		return in;
 	}

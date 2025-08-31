@@ -4,7 +4,7 @@ import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
-import static com.github.pfichtner.pacto.matchers.Matchers.DEFAULT_STRING_VALUE;
+import static com.github.pfichtner.pacto.matchers.Matchers.*;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedClass;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.RegexArg;
@@ -54,6 +55,8 @@ public class PactoTest {
 						tuple("secondaryAddressesList", EachLikeArg.class), //
 						tuple("secondaryAddressesSet", EachLikeArg.class), //
 						tuple("age", IntegerTypeArg.class), //
+						tuple("height", DecimalTypeArg.class), //
+						tuple("shoeSize", DecimalTypeArg.class), //
 						tuple("children", null) //
 				);
 	}
@@ -84,6 +87,8 @@ public class PactoTest {
 						{"zip":24,"city":"string"}
 					],
 					"age":42,
+					"height":1.86,
+					"shoeSize":12.345000267028809,
 					"children":2
 				}
 				""";
@@ -120,6 +125,8 @@ public class PactoTest {
 						{"zip":24,"city":"city"}
 					],
 					"age":42,
+					"height":1.86,
+					"shoeSize":0.0,
 					"children":2
 				}
 				""";
@@ -145,6 +152,8 @@ public class PactoTest {
 				.stringMatcher("givenname", "G.*", "Givenname2") //
 				.stringType("lastname", "Lastname2") //
 				.integerType("age", 42) //
+				.decimalType("height", 1.86) //
+				.decimalType("shoeSize", (double) DEFAULT_DECIMAL_VALUE) //
 				.numberType("children", 2) //
 				.object("primaryAddress") //
 				.integerType("zip", 21) //

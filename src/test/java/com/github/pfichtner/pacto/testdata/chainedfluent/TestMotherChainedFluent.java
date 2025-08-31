@@ -2,7 +2,7 @@ package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.Matchers.eachLike;
-import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
+import static com.github.pfichtner.pacto.matchers.Matchers.*;
 import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
@@ -37,6 +37,8 @@ public class TestMotherChainedFluent implements TestMother {
 				.secondaryAddressesSet(Sets
 						.eachLike(spec(new AddressDTO()).zip(integerType(24)).city(stringType()).country(nullValue()))) //
 				.age(integerType(42)) //
+				.height(decimalType(1.86)) //
+				.shoeSize(decimalType()) //
 				.children(2) //
 		;
 	}
@@ -51,6 +53,7 @@ public class TestMotherChainedFluent implements TestMother {
 				.secondaryAddressesList(List.of(new AddressDTO().zip(23).city("city").country(null))) //
 				.secondaryAddressesSet(Set.of(new AddressDTO().zip(24).city("city").country(null))) //
 				.age(42) //
+				.height(1.86) //
 				.children(2) //
 		).lastname(stringType("Lastname2")) // last one wins
 		;
