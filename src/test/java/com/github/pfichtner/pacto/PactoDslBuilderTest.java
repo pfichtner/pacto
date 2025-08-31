@@ -66,14 +66,18 @@ class PactoDslBuilderTest {
 		assertThat(callSut(new InvocationStub(type, value))).hasToString("{\"testAttribute\":" + expected + "}");
 	}
 
-	// TODO add Wrappers
 	private static List<Arguments> values() {
 		return List.of( //
 				arguments(int.class, 42, "42"), //
+				arguments(Integer.class, 42, "42"), //
 				arguments(long.class, 42L, "42"), //
+				arguments(Long.class, 42L, "42"), //
 				arguments(double.class, 42.0d, "42.0"), //
+				arguments(Double.class, 42.0d, "42.0"), //
 				arguments(float.class, 42.0f, "42.0"), //
-				arguments(boolean.class, true, "true") //
+				arguments(Float.class, 42.0f, "42.0"), //
+				arguments(boolean.class, true, "true"), //
+				arguments(Boolean.class, true, "true") //
 		);
 	}
 
