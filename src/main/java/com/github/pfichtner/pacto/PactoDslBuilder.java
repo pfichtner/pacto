@@ -82,7 +82,7 @@ public final class PactoDslBuilder {
 		return bodyWithNested;
 	}
 
-	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation, List<Invocation> objects) {
+	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation, List<Invocation> pushbackInvocations) {
 		String attribute = invocation.getAttribute();
 		ArgumentMatcher<?> matcher = invocation.getMatcher();
 		if (matcher == null) {
@@ -90,7 +90,7 @@ public final class PactoDslBuilder {
 			if (CharSequence.class.isAssignableFrom(parameter)) {
 				return body.stringMatcher(attribute, invocation.getArg().toString());
 			}
-			objects.add(invocation);
+			pushbackInvocations.add(invocation);
 			return body;
 		}
 
