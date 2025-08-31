@@ -29,13 +29,13 @@ public class TestMotherChainedFluent implements TestMother {
 				.givenname("Givenname2") // last one wins
 				.lastname(stringType("Lastname2")) // last one wins
 				// TODO support like
-				.primaryAddress(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue())) //
+				.primaryAddress(spec(new AddressDTO()).zip(integerType(21)).city(stringType()).country(nullValue())) //
 				.secondaryAddresses(
-						eachLike(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue()))) //
+						eachLike(spec(new AddressDTO()).zip(integerType(22)).city(stringType()).country(nullValue()))) //
 				.secondaryAddressesList(Lists
-						.eachLike(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue()))) //
+						.eachLike(spec(new AddressDTO()).zip(integerType(23)).city(stringType()).country(nullValue()))) //
 				.secondaryAddressesSet(Sets
-						.eachLike(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue()))) //
+						.eachLike(spec(new AddressDTO()).zip(integerType(24)).city(stringType()).country(nullValue()))) //
 				.age(integerType(42)) //
 				.children(2) //
 		;
@@ -46,10 +46,10 @@ public class TestMotherChainedFluent implements TestMother {
 		return spec(dto() //
 				.givenname("Givenname2") //
 				.lastname("Lastname1") //
-				.primaryAddress(new AddressDTO().zip(12345).city("city").country(null)) //
-				.secondaryAddresses(new AddressDTO[] { new AddressDTO().zip(12345).city("city").country(null) }) //
-				.secondaryAddressesList(List.of(new AddressDTO().zip(12345).city("city").country(null))) //
-				.secondaryAddressesSet(Set.of(new AddressDTO().zip(12345).city("city").country(null))) //
+				.primaryAddress(new AddressDTO().zip(21).city("city").country(null)) //
+				.secondaryAddresses(new AddressDTO[] { new AddressDTO().zip(22).city("city").country(null) }) //
+				.secondaryAddressesList(List.of(new AddressDTO().zip(23).city("city").country(null))) //
+				.secondaryAddressesSet(Set.of(new AddressDTO().zip(24).city("city").country(null))) //
 				.age(42) //
 				.children(2) //
 		).lastname(stringType("Lastname2")) // last one wins

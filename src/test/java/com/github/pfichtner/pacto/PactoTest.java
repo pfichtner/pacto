@@ -4,7 +4,6 @@ import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
-import static com.github.pfichtner.pacto.matchers.Matchers.DEFAULT_INTEGER_VALUE;
 import static com.github.pfichtner.pacto.matchers.Matchers.DEFAULT_STRING_VALUE;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,17 +71,17 @@ public class PactoTest {
 					"givenname":"Givenname2",
 					"lastname":"Lastname2",
 					"primaryAddress":{
-						"zip":42,
+						"zip":21,
 						"city":"string"
 					},
 					"secondaryAddresses":[
-						{"zip":42,"city":"string"}
+						{"zip":22,"city":"string"}
 					],
 					"secondaryAddressesList":[
-						{"zip":42,"city":"string"}
+						{"zip":23,"city":"string"}
 					],
 					"secondaryAddressesSet":[
-						{"zip":42,"city":"string"}
+						{"zip":24,"city":"string"}
 					],
 					"age":42,
 					"children":2
@@ -102,15 +101,31 @@ public class PactoTest {
 	@Test
 	void partitial() throws Exception {
 		Gson gson = new Gson();
-		String serialized = gson.toJson(partial);
 
-		assertThat(serialized).isEqualTo(gson.toJson(delegate(partial)));
-		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
-		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
-		assertThatJson(serialized).node("age").isEqualTo(42);
-		assertThatJson(serialized).node("primaryAddress.zip").isEqualTo(12345);
-		assertThatJson(serialized).node("primaryAddress.city").isEqualTo("city");
-		assertThatJson(serialized).node("primaryAddress.country").isAbsent();
+		String expected = """
+				{
+					"givenname":"Givenname2",
+					"lastname":"Lastname2",
+					"primaryAddress":{
+						"zip":21,
+						"city":"city"
+					},
+					"secondaryAddresses":[
+						{"zip":22,"city":"city"}
+					],
+					"secondaryAddressesList":[
+						{"zip":23,"city":"city"}
+					],
+					"secondaryAddressesSet":[
+						{"zip":24,"city":"city"}
+					],
+					"age":42,
+					"children":2
+				}
+				""";
+
+		String serialized = gson.toJson(partial);
+		assertThatJson(serialized).isEqualTo(expected);
 	}
 
 	@Test
@@ -132,19 +147,19 @@ public class PactoTest {
 				.integerType("age", 42) //
 				.numberType("children", 2) //
 				.object("primaryAddress") //
-				.integerType("zip", DEFAULT_INTEGER_VALUE) //
+				.integerType("zip", 21) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
 				.closeObject() //
-				.eachLike("secondaryAddresses", inner()) //
-				.eachLike("secondaryAddressesList", inner()) //
-				.eachLike("secondaryAddressesSet", inner()) //
+				.eachLike("secondaryAddresses", inner(22)) //
+				.eachLike("secondaryAddressesList", inner(23)) //
+				.eachLike("secondaryAddressesSet", inner(24)) //
 		;
 	}
 
-	private static PactDslJsonBody inner() {
+	private static PactDslJsonBody inner(int zip) {
 		return new PactDslJsonBody() //
-				.integerType("zip", DEFAULT_INTEGER_VALUE) //
+				.integerType("zip", zip) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
 		;

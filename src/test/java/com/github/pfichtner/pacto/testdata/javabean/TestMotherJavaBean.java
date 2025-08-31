@@ -29,10 +29,10 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setGivenname("Givenname2"); // last one wins
 		dto.setLastname(stringType("Lastname2")); // last one wins
 		// TODO support like
-		dto.setPrimaryAddress(address());
-		dto.setSecondaryAddresses(eachLike(address()));
-		dto.setSecondaryAddressesList(Lists.eachLike(address()));
-		dto.setSecondaryAddressesSet(Sets.eachLike(address()));
+		dto.setPrimaryAddress(address(21));
+		dto.setSecondaryAddresses(eachLike(address(22)));
+		dto.setSecondaryAddressesList(Lists.eachLike(address(23)));
+		dto.setSecondaryAddressesSet(Sets.eachLike(address(24)));
 		dto.setAge(integerType(42));
 		dto.setChildren(2);
 		return dto;
@@ -43,10 +43,10 @@ public class TestMotherJavaBean implements TestMother {
 		PersonDTO dto = dto();
 		dto.setGivenname("Givenname2");
 		dto.setLastname("Lastname1");
-		dto.setPrimaryAddress(partialAddress());
-		dto.setSecondaryAddresses(new AddressDTO[] { partialAddress() });
-		dto.setSecondaryAddressesList(List.of(partialAddress()));
-		dto.setSecondaryAddressesSet(Set.of(partialAddress()));
+		dto.setPrimaryAddress(partialAddress(21));
+		dto.setSecondaryAddresses(new AddressDTO[] { partialAddress(22) });
+		dto.setSecondaryAddressesList(List.of(partialAddress(23)));
+		dto.setSecondaryAddressesSet(Set.of(partialAddress(24)));
 		dto.setAge(42);
 		dto.setChildren(2);
 		PersonDTO spec = spec(dto);
@@ -54,17 +54,17 @@ public class TestMotherJavaBean implements TestMother {
 		return spec;
 	}
 
-	private static AddressDTO partialAddress() {
+	private static AddressDTO partialAddress(int zip) {
 		AddressDTO address = new AddressDTO();
-		address.setZip(12345);
+		address.setZip(zip);
 		address.setCity("city");
 		address.setCountry(null);
 		return address;
 	}
 
-	private static AddressDTO address() {
+	private static AddressDTO address(int zip) {
 		AddressDTO address = spec(new AddressDTO());
-		address.setZip(integerType());
+		address.setZip(integerType(zip));
 		address.setCity(stringType());
 		address.setCountry(nullValue());
 		return address;
