@@ -7,12 +7,12 @@ import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
 
 public class TestMotherChainedFluent {
 
-	public static PersonDTO blank() {
+	public static PersonDTO dto() {
 		return new PersonDTO();
 	}
 
 	public static Object withSpec() {
-		return spec(blank()) //
+		return spec(dto()) //
 				.givenname(regex("G.*", "Givenname1")) //
 				.lastname(regex("L.*", "Lastname1")) //
 				.givenname("Givenname2") // last one wins

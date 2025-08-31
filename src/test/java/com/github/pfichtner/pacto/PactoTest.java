@@ -69,7 +69,7 @@ public class PactoTest {
 	}
 
 	static List<Object> blankDtos() {
-		return List.of(TestMotherJavaBean.blank(), TestMotherChainedFluent.blank());
+		return List.of(TestMotherJavaBean.dto(), TestMotherChainedFluent.dto());
 	}
 
 	static List<Object> withSpecDtos() {

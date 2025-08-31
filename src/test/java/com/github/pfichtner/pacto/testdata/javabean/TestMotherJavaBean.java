@@ -7,12 +7,12 @@ import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
 
 public class TestMotherJavaBean {
 
-	public static PersonDTO blank() {
+	public static PersonDTO dto() {
 		return new PersonDTO();
 	}
 
 	public static Object withSpec() {
-		PersonDTO dto = spec(blank());
+		PersonDTO dto = spec(dto());
 		dto.setGivenname(regex("G.*", "Givenname1"));
 		dto.setLastname(regex("L.*", "Lastname1"));
 		dto.setGivenname("Givenname2"); // last one wins
