@@ -87,7 +87,8 @@ public class PactoTest {
 	@ParameterizedTest
 	@MethodSource("partitials")
 	void testDslPartWithPartitials(Object dto) throws Exception {
-		assertThat(buildDslFrom(dto).toString()).isEqualTo(partitialExpectedPactDslPart().toString());
+		String expected = new PactDslJsonBody().stringType("lastname", "Lastname2").toString();
+		assertThat(buildDslFrom(dto).toString()).isEqualTo(expected);
 	}
 
 	static List<Object> dtos() {
@@ -119,12 +120,6 @@ public class PactoTest {
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
 				.closeObject() //
-		;
-	}
-
-	private DslPart partitialExpectedPactDslPart() {
-		return new PactDslJsonBody() //
-				.stringType("lastname", "Lastname2") //
 		;
 	}
 }
