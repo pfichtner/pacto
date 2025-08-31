@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
 
 import org.mockito.ArgumentMatcher;
 
+import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.NullValueArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
@@ -64,6 +65,12 @@ public final class PactoDslBuilder {
 				@Override
 				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, IntegerTypeArg matcher) {
 					return body.integerType(invocation.getAttribute(), matcher.getValue());
+				}
+			}, //
+			new Extractor<>(EachLikeArg.class) {
+				@Override
+				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, EachLikeArg matcher) {
+					return body.eachLike(invocation.getAttribute(), buildDslFrom(matcher.getValue()));
 				}
 			});
 

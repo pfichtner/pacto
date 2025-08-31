@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedClass;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.RegexArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
@@ -50,7 +51,7 @@ public class PactoTest {
 						tuple("givenname", null), //
 						tuple("lastname", StringTypeArg.class), //
 						tuple("primaryAddress", null), //
-						tuple("age", IntegerTypeArg.class), //
+						tuple("secondaryAddresses", EachLikeArg.class), tuple("age", IntegerTypeArg.class), //
 						tuple("children", null) //
 				);
 	}
@@ -115,6 +116,15 @@ public class PactoTest {
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
 				.closeObject() //
+				.eachLike("secondaryAddresses", inner()) //
+		;
+	}
+
+	private static PactDslJsonBody inner() {
+		return new PactDslJsonBody() //
+				.integerType("zip", DEFAULT_INTEGER_VALUE) //
+				.stringType("city", DEFAULT_STRING_VALUE) //
+				.nullValue("country") //
 		;
 	}
 }

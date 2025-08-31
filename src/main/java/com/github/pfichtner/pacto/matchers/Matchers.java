@@ -2,6 +2,8 @@ package com.github.pfichtner.pacto.matchers;
 
 import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingProgress;
 
+import java.lang.reflect.Array;
+
 import org.mockito.ArgumentMatcher;
 
 public final class Matchers {
@@ -43,6 +45,15 @@ public final class Matchers {
 		NullValueArg matcher = new NullValueArg();
 		reportMatcher(matcher);
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T[] eachLike(T value) {
+		EachLikeArg matcher = new EachLikeArg(value);
+		reportMatcher(matcher);
+		T[] values = (T[]) Array.newInstance(value.getClass(), 1);
+		values[0] = value;
+		return values;
 	}
 
 	private static void reportMatcher(ArgumentMatcher<?> matcher) {

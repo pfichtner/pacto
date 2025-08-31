@@ -4,6 +4,7 @@ import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
 import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
+import static com.github.pfichtner.pacto.matchers.Matchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
 
 import com.github.pfichtner.pacto.testdata.TestMother;
@@ -24,6 +25,7 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setLastname(stringType("Lastname2")); // last one wins
 		// TODO support like
 		dto.setPrimaryAddress(address());
+		dto.setSecondaryAddresses(eachLike(address()));
 		dto.setAge(integerType(42));
 		dto.setChildren(2);
 		return dto;
@@ -35,6 +37,7 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setGivenname("Givenname2");
 		dto.setLastname("Lastname1");
 		dto.setPrimaryAddress(partialAddress());
+		dto.setSecondaryAddresses(new AddressDTO[] { partialAddress() });
 		dto.setAge(42);
 		dto.setChildren(2);
 		PersonDTO spec = spec(dto);

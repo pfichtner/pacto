@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.matchers.Matchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
 import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
@@ -24,6 +25,8 @@ public class TestMotherChainedFluent implements TestMother {
 				.lastname(stringType("Lastname2")) // last one wins
 				// TODO support like
 				.primaryAddress(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue())) //
+				.secondaryAddresses(
+						eachLike(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue()))) //
 				.age(integerType(42)) //
 				.children(2) //
 		;
@@ -35,6 +38,7 @@ public class TestMotherChainedFluent implements TestMother {
 				.givenname("Givenname2") //
 				.lastname("Lastname1") //
 				.primaryAddress(new AddressDTO().zip(12345).city("city").country(null)) //
+				.secondaryAddresses(new AddressDTO[] { new AddressDTO().zip(12345).city("city").country(null) }) //
 				.age(42) //
 				.children(2) //
 		).lastname(stringType("Lastname2")) // last one wins
