@@ -2,6 +2,9 @@ package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import java.util.List;
+import java.util.Set;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
@@ -15,6 +18,8 @@ public class PersonDTO {
 	String lastname;
 	AddressDTO primaryAddress;
 	AddressDTO[] secondaryAddresses;
+	List<AddressDTO> secondaryAddressesList;
+	Set<AddressDTO> secondaryAddressesSet;
 	int age;
 	int children;
 

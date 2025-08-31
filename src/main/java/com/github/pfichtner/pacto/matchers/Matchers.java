@@ -3,6 +3,8 @@ package com.github.pfichtner.pacto.matchers;
 import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingProgress;
 
 import java.lang.reflect.Array;
+import java.util.List;
+import java.util.Set;
 
 import org.mockito.ArgumentMatcher;
 
@@ -54,6 +56,22 @@ public final class Matchers {
 		T[] values = (T[]) Array.newInstance(value.getClass(), 1);
 		values[0] = value;
 		return values;
+	}
+
+	public static class Lists {
+		public static <T> List<T> eachLike(T value) {
+			EachLikeArg matcher = new EachLikeArg(value);
+			reportMatcher(matcher);
+			return List.of(value);
+		}
+	}
+
+	public static class Sets {
+		public static <T> Set<T> eachLike(T value) {
+			EachLikeArg matcher = new EachLikeArg(value);
+			reportMatcher(matcher);
+			return Set.of(value);
+		}
 	}
 
 	private static void reportMatcher(ArgumentMatcher<?> matcher) {

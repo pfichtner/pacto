@@ -1,12 +1,17 @@
 package com.github.pfichtner.pacto.testdata.javabean;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.matchers.Matchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
 import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
-import static com.github.pfichtner.pacto.matchers.Matchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
 
+import java.util.List;
+import java.util.Set;
+
+import com.github.pfichtner.pacto.matchers.Matchers.Lists;
+import com.github.pfichtner.pacto.matchers.Matchers.Sets;
 import com.github.pfichtner.pacto.testdata.TestMother;
 
 public class TestMotherJavaBean implements TestMother {
@@ -26,6 +31,8 @@ public class TestMotherJavaBean implements TestMother {
 		// TODO support like
 		dto.setPrimaryAddress(address());
 		dto.setSecondaryAddresses(eachLike(address()));
+		dto.setSecondaryAddressesList(Lists.eachLike(address()));
+		dto.setSecondaryAddressesSet(Sets.eachLike(address()));
 		dto.setAge(integerType(42));
 		dto.setChildren(2);
 		return dto;
@@ -38,6 +45,8 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setLastname("Lastname1");
 		dto.setPrimaryAddress(partialAddress());
 		dto.setSecondaryAddresses(new AddressDTO[] { partialAddress() });
+		dto.setSecondaryAddressesList(List.of(partialAddress()));
+		dto.setSecondaryAddressesSet(Set.of(partialAddress()));
 		dto.setAge(42);
 		dto.setChildren(2);
 		PersonDTO spec = spec(dto);

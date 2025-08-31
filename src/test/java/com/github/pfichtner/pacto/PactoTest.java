@@ -51,7 +51,10 @@ public class PactoTest {
 						tuple("givenname", null), //
 						tuple("lastname", StringTypeArg.class), //
 						tuple("primaryAddress", null), //
-						tuple("secondaryAddresses", EachLikeArg.class), tuple("age", IntegerTypeArg.class), //
+						tuple("secondaryAddresses", EachLikeArg.class), //
+						tuple("secondaryAddressesList", EachLikeArg.class), //
+						tuple("secondaryAddressesSet", EachLikeArg.class), //
+						tuple("age", IntegerTypeArg.class), //
 						tuple("children", null) //
 				);
 	}
@@ -64,14 +67,31 @@ public class PactoTest {
 	@Test
 	void doesSerializeLikeTheObjectItself() {
 		Gson gson = new Gson();
-		String serialized = gson.toJson(dtoWithSpec);
+		String expected = """
+				{
+					"givenname":"Givenname2",
+					"lastname":"Lastname2",
+					"primaryAddress":{
+						"zip":42,
+						"city":"string"
+					},
+					"secondaryAddresses":[
+						{"zip":42,"city":"string"}
+					],
+					"secondaryAddressesList":[
+						{"zip":42,"city":"string"}
+					],
+					"secondaryAddressesSet":[
+						{"zip":42,"city":"string"}
+					],
+					"age":42,
+					"children":2
+				}
+				""";
 
+		String serialized = gson.toJson(dtoWithSpec);
+		assertThatJson(serialized).isEqualTo(expected);
 		assertThat(serialized).isEqualTo(gson.toJson(delegate(dtoWithSpec)));
-		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
-		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
-		assertThatJson(serialized).node("age").isEqualTo(42);
-		assertThatJson(serialized).node("primaryAddress.zip").isEqualTo(DEFAULT_INTEGER_VALUE);
-		assertThatJson(serialized).node("primaryAddress.city").isEqualTo(DEFAULT_STRING_VALUE);
 	}
 
 	@Test
@@ -117,6 +137,8 @@ public class PactoTest {
 				.nullValue("country") //
 				.closeObject() //
 				.eachLike("secondaryAddresses", inner()) //
+				.eachLike("secondaryAddressesList", inner()) //
+				.eachLike("secondaryAddressesSet", inner()) //
 		;
 	}
 
