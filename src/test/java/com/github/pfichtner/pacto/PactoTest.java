@@ -4,7 +4,8 @@ import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
-import static com.github.pfichtner.pacto.matchers.Matchers.*;
+import static com.github.pfichtner.pacto.matchers.Matchers.DEFAULT_DECIMAL_VALUE;
+import static com.github.pfichtner.pacto.matchers.Matchers.DEFAULT_STRING_VALUE;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -33,6 +34,8 @@ public class PactoTest {
 	private final Object dtoWithSpec;
 	private final Object dto;
 	private final Object partial;
+
+	private final Gson gson = new Gson();
 
 	public PactoTest(Class<TestMother> clazz) throws Exception {
 		TestMother testMother = clazz.getConstructor().newInstance();
@@ -68,7 +71,6 @@ public class PactoTest {
 
 	@Test
 	void doesSerializeLikeTheObjectItself() {
-		Gson gson = new Gson();
 		String expected = """
 				{
 					"givenname":"Givenname2",
@@ -105,8 +107,6 @@ public class PactoTest {
 
 	@Test
 	void partitial() throws Exception {
-		Gson gson = new Gson();
-
 		String expected = """
 				{
 					"givenname":"Givenname2",
