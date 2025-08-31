@@ -12,7 +12,7 @@ public final class Matchers {
 
 	public static final String DEFAULT_STRING_VALUE = "string";
 	public static final int DEFAULT_INTEGER_VALUE = 42;
-	public static final float DEFAULT_DECIMAL_VALUE = 12.345f;
+	public static final float DEFAULT_DECIMAL_VALUE = 12.345F;
 
 	private Matchers() {
 		super();
