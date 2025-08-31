@@ -6,13 +6,17 @@ import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
 
-public class TestMotherChainedFluent {
+import com.github.pfichtner.pacto.testdata.TestMother;
 
-	public static PersonDTO dto() {
+public class TestMotherChainedFluent implements TestMother {
+
+	@Override
+	public PersonDTO dto() {
 		return new PersonDTO();
 	}
 
-	public static Object dtoWithSpec() {
+	@Override
+	public Object dtoWithSpec() {
 		return spec(dto()) //
 				.givenname(regex("G.*", "Givenname1")) //
 				.lastname(regex("L.*", "Lastname1")) //
@@ -25,7 +29,8 @@ public class TestMotherChainedFluent {
 		;
 	}
 
-	public static Object partial() {
+	@Override
+	public Object partial() {
 		return spec(dto() //
 				.givenname("Givenname2") //
 				.lastname("Lastname1") //

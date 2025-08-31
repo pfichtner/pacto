@@ -10,14 +10,14 @@ import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-import java.util.List;
-
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedClass;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.RegexArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
+import com.github.pfichtner.pacto.testdata.TestMother;
 import com.github.pfichtner.pacto.testdata.chainedfluent.TestMotherChainedFluent;
 import com.github.pfichtner.pacto.testdata.javabean.TestMotherJavaBean;
 import com.google.gson.Gson;
@@ -25,11 +25,19 @@ import com.google.gson.Gson;
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
+@ParameterizedClass
+@ValueSource(classes = { TestMotherJavaBean.class, TestMotherChainedFluent.class })
 public class PactoTest {
 
-	@ParameterizedTest
-	@MethodSource("withSpecDtos")
-	void testInvocations(Object dto) {
+	private final TestMother testMother;
+
+	public PactoTest(Class<TestMother> testMother) throws Exception {
+		this.testMother = testMother.getConstructor().newInstance();
+	}
+
+	@Test
+	void testInvocations() {
+		Object dto = testMother.dtoWithSpec();
 		assertThat(invocations(dto).getAllInvocations())
 				.extracting(i -> i.getAttribute(), i -> i.getMatcher() == null ? null : i.getMatcher().getClass())
 				.containsExactly( //
@@ -43,15 +51,15 @@ public class PactoTest {
 				);
 	}
 
-	@ParameterizedTest
-	@MethodSource("dtos")
-	void testDelegate(Object emptyDto) throws Exception {
+	@Test
+	void testDelegate() throws Exception {
+		Object emptyDto = testMother.dto();
 		assertThat(delegate(spec(emptyDto))).isSameAs(emptyDto);
 	}
 
-	@ParameterizedTest
-	@MethodSource("withSpecDtos")
-	void doesSerializeLikeTheObjectItself(Object dto) {
+	@Test
+	void doesSerializeLikeTheObjectItself() {
+		Object dto = testMother.dtoWithSpec();
 		Gson gson = new Gson();
 		String serialized = gson.toJson(dto);
 
@@ -63,15 +71,15 @@ public class PactoTest {
 		assertThatJson(serialized).node("address.city").isEqualTo(DEFAULT_STRING_VALUE);
 	}
 
-	@ParameterizedTest
-	@MethodSource("withSpecDtos")
-	void testDslPart(Object dto) throws Exception {
+	@Test
+	void testDslPart() throws Exception {
+		Object dto = testMother.dtoWithSpec();
 		assertThat(buildDslFrom(dto).toString()).isEqualTo(dtoExpectedPactDslPart().toString());
 	}
 
-	@ParameterizedTest
-	@MethodSource("partitials")
-	void partitial(Object dto) throws Exception {
+	@Test
+	void partitial() throws Exception {
+		Object dto = testMother.partial();
 		Gson gson = new Gson();
 		String serialized = gson.toJson(dto);
 
@@ -84,23 +92,11 @@ public class PactoTest {
 		assertThatJson(serialized).node("address.country").isAbsent();
 	}
 
-	@ParameterizedTest
-	@MethodSource("partitials")
-	void testDslPartWithPartitials(Object dto) throws Exception {
+	@Test
+	void testDslPartWithPartitials() throws Exception {
+		Object dto = testMother.partial();
 		String expected = new PactDslJsonBody().stringType("lastname", "Lastname2").toString();
 		assertThat(buildDslFrom(dto).toString()).isEqualTo(expected);
-	}
-
-	static List<Object> dtos() {
-		return List.of(TestMotherJavaBean.dto(), TestMotherChainedFluent.dto());
-	}
-
-	static List<Object> withSpecDtos() {
-		return List.of(TestMotherJavaBean.dtoWithSpec(), TestMotherChainedFluent.dtoWithSpec());
-	}
-
-	static List<Object> partitials() {
-		return List.of(TestMotherJavaBean.partial(), TestMotherChainedFluent.partial());
 	}
 
 	/**

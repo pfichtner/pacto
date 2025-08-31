@@ -6,13 +6,17 @@ import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
 
-public class TestMotherJavaBean {
+import com.github.pfichtner.pacto.testdata.TestMother;
 
-	public static PersonDTO dto() {
+public class TestMotherJavaBean implements TestMother {
+
+	@Override
+	public PersonDTO dto() {
 		return new PersonDTO();
 	}
 
-	public static Object dtoWithSpec() {
+	@Override
+	public Object dtoWithSpec() {
 		PersonDTO dto = spec(dto());
 		dto.setGivenname(regex("G.*", "Givenname1"));
 		dto.setLastname(regex("L.*", "Lastname1"));
@@ -25,7 +29,8 @@ public class TestMotherJavaBean {
 		return dto;
 	}
 
-	public static Object partial() {
+	@Override
+	public Object partial() {
 		PersonDTO dto = dto();
 		dto.setGivenname("Givenname2");
 		dto.setLastname("Lastname1");
