@@ -5,6 +5,7 @@ import static net.bytebuddy.matcher.ElementMatchers.isFinal;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
 import static net.bytebuddy.matcher.ElementMatchers.not;
 
+import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
@@ -25,9 +26,19 @@ public class Pacto {
 			Class<? extends T> proxyClass = proxyClass(delegate, type, interceptor);
 			T intercepted = proxyClass.getDeclaredConstructor().newInstance();
 			interceptors.put(intercepted, interceptor);
+			copyData(delegate, intercepted);
 			return intercepted;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	private static void copyData(Object source, Object target) throws IllegalAccessException {
+		for (Field field : source.getClass().getDeclaredFields()) {
+			if (field.getDeclaringClass() != Object.class) {
+				field.setAccessible(true);
+				field.set(target, field.get(source));
+			}
 		}
 	}
 

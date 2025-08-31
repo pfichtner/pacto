@@ -25,4 +25,14 @@ public class TestMotherChainedFluent {
 		;
 	}
 
+	public static Object partial() {
+		return spec(dto().givenname("Givenname2") //
+				.lastname("Lastname1") //
+				.address(new AddressDTO().zip(12345).city("city").country(null)) //
+				.age(42) //
+				.children(2) //
+		).lastname(stringType("Lastname2")) //
+		;
+	}
+
 }

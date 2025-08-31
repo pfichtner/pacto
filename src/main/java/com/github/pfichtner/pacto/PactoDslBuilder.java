@@ -100,7 +100,7 @@ public final class PactoDslBuilder {
 		if (matcher == null) {
 			Class<?> parameter = invocation.getType();
 			if (CharSequence.class.isAssignableFrom(parameter)) {
-				return body.stringMatcher(attribute, invocation.getArg().toString());
+				return body.stringValue(attribute, invocation.getArg().toString());
 			} else if (int.class.isAssignableFrom(parameter)) {
 				return body.numberValue(attribute, (int) invocation.getArg());
 			} else if (long.class.isAssignableFrom(parameter)) {

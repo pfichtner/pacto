@@ -66,7 +66,27 @@ public class PactoTest {
 	@ParameterizedTest
 	@MethodSource("withSpecDtos")
 	void testDslPart(Object dto) throws Exception {
-		assertThat(buildDslFrom(dto).toString()).isEqualTo(expectedPactDslPart().toString());
+		assertThat(buildDslFrom(dto).toString()).isEqualTo(dtoExpectedPactDslPart().toString());
+	}
+
+	@ParameterizedTest
+	@MethodSource("partitials")
+	void partitial(Object dto) throws Exception {
+		Gson gson = new Gson();
+		String serialized = gson.toJson(dto);
+
+		assertThat(serialized).isEqualTo(gson.toJson(delegate(dto)));
+		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
+		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
+		assertThatJson(serialized).node("age").isEqualTo(42);
+		assertThatJson(serialized).node("address.zip").isEqualTo(12345);
+		assertThatJson(serialized).node("address.city").isEqualTo("city");
+	}
+
+	@ParameterizedTest
+	@MethodSource("partitials")
+	void testDslPartWithPartitials(Object dto) throws Exception {
+		assertThat(buildDslFrom(dto).toString()).isEqualTo(partitialExpectedPactDslPart().toString());
 	}
 
 	static List<Object> dtos() {
@@ -77,13 +97,17 @@ public class PactoTest {
 		return List.of(TestMotherJavaBean.dtoWithSpec(), TestMotherChainedFluent.dtoWithSpec());
 	}
 
+	static List<Object> partitials() {
+		return List.of(TestMotherJavaBean.partial(), TestMotherChainedFluent.partial());
+	}
+
 	/**
 	 * This is the way you would define the pact using pact-dsl. This pact should be
 	 * the result of {@link TestMother#dtoWithSpec()}
 	 * 
 	 * @return the pact-dsl
 	 */
-	private static DslPart expectedPactDslPart() {
+	private static DslPart dtoExpectedPactDslPart() {
 		return new PactDslJsonBody() //
 				.stringMatcher("givenname", "G.*", "Givenname2") //
 				.stringType("lastname", "Lastname2") //
@@ -97,4 +121,9 @@ public class PactoTest {
 		;
 	}
 
+	private DslPart partitialExpectedPactDslPart() {
+		return new PactDslJsonBody() //
+				.stringType("lastname", "Lastname2") //
+		;
+	}
 }
