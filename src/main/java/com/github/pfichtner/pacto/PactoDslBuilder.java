@@ -69,8 +69,12 @@ public final class PactoDslBuilder {
 	}
 
 	private static DslPart appendInvocations(PactDslJsonBody body, Object object) {
+		return appendInvocations(body, invocations(object).getAllInvocations());
+	}
+
+	protected static DslPart appendInvocations(PactDslJsonBody body, List<Invocation> invocations) {
 		List<Invocation> pushbackInvocations = new ArrayList<>();
-		for (Invocation invocation : invocations(object).getAllInvocations()) {
+		for (Invocation invocation : invocations) {
 			body = append(body, invocation, pushbackInvocations);
 		}
 
@@ -92,6 +96,12 @@ public final class PactoDslBuilder {
 				return body.stringMatcher(attribute, invocation.getArg().toString());
 			} else if (int.class.isAssignableFrom(parameter)) {
 				return body.numberValue(attribute, (int) invocation.getArg());
+			} else if (long.class.isAssignableFrom(parameter)) {
+				return body.numberValue(attribute, (long) invocation.getArg());
+			} else if (double.class.isAssignableFrom(parameter)) {
+				return body.numberValue(attribute, (double) invocation.getArg());
+			} else if (float.class.isAssignableFrom(parameter)) {
+				return body.numberValue(attribute, (float) invocation.getArg());
 			}
 			pushbackInvocations.add(invocation);
 			return body;
