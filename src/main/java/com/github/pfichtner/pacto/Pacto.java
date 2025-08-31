@@ -2,8 +2,6 @@ package com.github.pfichtner.pacto;
 
 import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;
-import static net.bytebuddy.matcher.ElementMatchers.isProtected;
-import static net.bytebuddy.matcher.ElementMatchers.isPublic;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
 import static net.bytebuddy.matcher.ElementMatchers.not;
 
