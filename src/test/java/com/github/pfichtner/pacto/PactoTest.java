@@ -43,7 +43,7 @@ public class PactoTest {
 	}
 
 	@ParameterizedTest
-	@MethodSource("blankDtos")
+	@MethodSource("dtos")
 	void testDelegate(Object emptyDto) throws Exception {
 		assertThat(delegate(spec(emptyDto))).isSameAs(emptyDto);
 	}
@@ -68,17 +68,17 @@ public class PactoTest {
 		assertThat(buildDslFrom(dto).toString()).isEqualTo(expectedPactDslPart().toString());
 	}
 
-	static List<Object> blankDtos() {
+	static List<Object> dtos() {
 		return List.of(TestMotherJavaBean.dto(), TestMotherChainedFluent.dto());
 	}
 
 	static List<Object> withSpecDtos() {
-		return List.of(TestMotherJavaBean.withSpec(), TestMotherChainedFluent.withSpec());
+		return List.of(TestMotherJavaBean.dtoWithSpec(), TestMotherChainedFluent.dtoWithSpec());
 	}
 
 	/**
 	 * This is the way you would define the pact using pact-dsl. This pact should be
-	 * the result of {@link TestMother#withSpec()}
+	 * the result of {@link TestMother#dtoWithSpec()}
 	 * 
 	 * @return the pact-dsl
 	 */

@@ -11,7 +11,7 @@ public class TestMotherJavaBean {
 		return new PersonDTO();
 	}
 
-	public static Object withSpec() {
+	public static Object dtoWithSpec() {
 		PersonDTO dto = spec(dto());
 		dto.setGivenname(regex("G.*", "Givenname1"));
 		dto.setLastname(regex("L.*", "Lastname1"));

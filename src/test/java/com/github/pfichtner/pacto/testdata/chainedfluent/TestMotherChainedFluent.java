@@ -11,7 +11,7 @@ public class TestMotherChainedFluent {
 		return new PersonDTO();
 	}
 
-	public static Object withSpec() {
+	public static Object dtoWithSpec() {
 		return spec(dto()) //
 				.givenname(regex("G.*", "Givenname1")) //
 				.lastname(regex("L.*", "Lastname1")) //
