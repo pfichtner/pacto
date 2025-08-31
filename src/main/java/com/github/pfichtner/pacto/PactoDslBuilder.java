@@ -2,6 +2,7 @@ package com.github.pfichtner.pacto;
 
 import static com.github.pfichtner.pacto.Pacto.invocations;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -67,16 +68,21 @@ public final class PactoDslBuilder {
 		return appendInvocations(new PactDslJsonBody(), dto);
 	}
 
-	private static PactDslJsonBody appendInvocations(PactDslJsonBody body, Object object) {
-		// TODO double the loop, first add all attributes, then all sibling ones (to fix
-		// the cast problem below)
+	private static DslPart appendInvocations(PactDslJsonBody body, Object object) {
+		List<Invocation> pushbackInvocations = new ArrayList<>();
 		for (Invocation invocation : invocations(object).getAllInvocations()) {
-			body = append(body, invocation);
+			body = append(body, invocation, pushbackInvocations);
 		}
-		return body;
+
+		DslPart bodyWithNested = body;
+		for (Invocation invocation : pushbackInvocations) {
+			bodyWithNested = appendInvocations(bodyWithNested.object(invocation.getAttribute()), invocation.getArg())
+					.closeObject();
+		}
+		return bodyWithNested;
 	}
 
-	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation) {
+	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation, List<Invocation> objects) {
 		String attribute = invocation.getAttribute();
 		ArgumentMatcher<?> matcher = invocation.getMatcher();
 		if (matcher == null) {
@@ -84,8 +90,8 @@ public final class PactoDslBuilder {
 			if (CharSequence.class.isAssignableFrom(parameter)) {
 				return body.stringMatcher(attribute, invocation.getArg().toString());
 			}
-			// TODO fix cast
-			return (PactDslJsonBody) appendInvocations(body.object(attribute), invocation.getArg()).closeObject();
+			objects.add(invocation);
+			return body;
 		}
 
 		return extractors.stream() //
