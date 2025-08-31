@@ -81,6 +81,7 @@ public class PactoTest {
 		assertThatJson(serialized).node("age").isEqualTo(42);
 		assertThatJson(serialized).node("address.zip").isEqualTo(12345);
 		assertThatJson(serialized).node("address.city").isEqualTo("city");
+		assertThatJson(serialized).node("address.country").isAbsent();
 	}
 
 	@ParameterizedTest
