@@ -2,6 +2,7 @@ package com.github.pfichtner.pacto.testdata.javabean;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
+import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
 
@@ -28,6 +29,7 @@ public class TestMotherJavaBean {
 		AddressDTO address = spec(new com.github.pfichtner.pacto.testdata.javabean.AddressDTO());
 		address.setZip(integerType());
 		address.setCity(stringType());
+		address.setCountry(nullValue());
 		return address;
 	}
 

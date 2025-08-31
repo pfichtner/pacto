@@ -11,5 +11,6 @@ public class AddressDTO {
 
 	int zip;
 	String city;
+	String country;
 
 }

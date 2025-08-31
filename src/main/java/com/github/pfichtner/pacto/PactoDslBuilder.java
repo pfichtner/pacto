@@ -9,6 +9,7 @@ import java.util.function.BiFunction;
 import org.mockito.ArgumentMatcher;
 
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
+import com.github.pfichtner.pacto.matchers.NullValueArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 import com.github.pfichtner.pacto.matchers.RegexArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
@@ -40,7 +41,13 @@ public final class PactoDslBuilder {
 
 	}
 
-	private final static List<Extractor<? extends PactoMatcher<String>>> extractors = List.of( //
+	private final static List<Extractor<? extends PactoMatcher<?>>> extractors = List.of( //
+			new Extractor<>(NullValueArg.class) {
+				@Override
+				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, NullValueArg matcher) {
+					return body.nullValue(invocation.getAttribute());
+				}
+			}, //
 			new Extractor<>(RegexArg.class) {
 				@Override
 				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, RegexArg matcher) {

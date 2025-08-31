@@ -92,6 +92,7 @@ public class PactoTest {
 				.object("address") //
 				.integerType("zip", DEFAULT_INTEGER_VALUE) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
+				.nullValue("country") //
 				.closeObject() //
 		;
 	}

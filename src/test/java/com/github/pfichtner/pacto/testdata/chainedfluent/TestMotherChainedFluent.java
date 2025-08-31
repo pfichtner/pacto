@@ -2,6 +2,7 @@ package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
+import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
 
@@ -18,7 +19,7 @@ public class TestMotherChainedFluent {
 				.givenname("Givenname2") // last one wins
 				.lastname(stringType("Lastname2")) // last one wins
 				// TODO support like
-				.address(spec(new AddressDTO()).zip(integerType()).city(stringType())) //
+				.address(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue())) //
 				.age(integerType(42)) //
 				.children(2) //
 		;

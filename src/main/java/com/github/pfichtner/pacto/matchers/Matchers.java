@@ -39,6 +39,12 @@ public final class Matchers {
 		return in;
 	}
 
+	public static <T> T nullValue() {
+		NullValueArg matcher = new NullValueArg();
+		reportMatcher(matcher);
+		return null;
+	}
+
 	private static void reportMatcher(ArgumentMatcher<?> matcher) {
 		mockingProgress().getArgumentMatcherStorage().reportMatcher(matcher);
 	}
