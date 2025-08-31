@@ -29,16 +29,20 @@ import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 @ValueSource(classes = { TestMotherJavaBean.class, TestMotherChainedFluent.class })
 public class PactoTest {
 
-	private final TestMother testMother;
+	private final Object dtoWithSpec;
+	private final Object dto;
+	private final Object partial;
 
-	public PactoTest(Class<TestMother> testMother) throws Exception {
-		this.testMother = testMother.getConstructor().newInstance();
+	public PactoTest(Class<TestMother> clazz) throws Exception {
+		TestMother testMother = clazz.getConstructor().newInstance();
+		dto = testMother.dto();
+		dtoWithSpec = testMother.dtoWithSpec();
+		partial = testMother.partial();
 	}
 
 	@Test
 	void testInvocations() {
-		Object dto = testMother.dtoWithSpec();
-		assertThat(invocations(dto).getAllInvocations())
+		assertThat(invocations(dtoWithSpec).getAllInvocations())
 				.extracting(i -> i.getAttribute(), i -> i.getMatcher() == null ? null : i.getMatcher().getClass())
 				.containsExactly( //
 						tuple("givenname", RegexArg.class), //
@@ -53,17 +57,15 @@ public class PactoTest {
 
 	@Test
 	void testDelegate() throws Exception {
-		Object emptyDto = testMother.dto();
-		assertThat(delegate(spec(emptyDto))).isSameAs(emptyDto);
+		assertThat(delegate(spec(dto))).isSameAs(dto);
 	}
 
 	@Test
 	void doesSerializeLikeTheObjectItself() {
-		Object dto = testMother.dtoWithSpec();
 		Gson gson = new Gson();
-		String serialized = gson.toJson(dto);
+		String serialized = gson.toJson(dtoWithSpec);
 
-		assertThat(serialized).isEqualTo(gson.toJson(delegate(dto)));
+		assertThat(serialized).isEqualTo(gson.toJson(delegate(dtoWithSpec)));
 		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
 		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
 		assertThatJson(serialized).node("age").isEqualTo(42);
@@ -73,17 +75,15 @@ public class PactoTest {
 
 	@Test
 	void testDslPart() throws Exception {
-		Object dto = testMother.dtoWithSpec();
-		assertThat(buildDslFrom(dto).toString()).isEqualTo(dtoExpectedPactDslPart().toString());
+		assertThat(buildDslFrom(dtoWithSpec).toString()).isEqualTo(dtoExpectedPactDslPart().toString());
 	}
 
 	@Test
 	void partitial() throws Exception {
-		Object dto = testMother.partial();
 		Gson gson = new Gson();
-		String serialized = gson.toJson(dto);
+		String serialized = gson.toJson(partial);
 
-		assertThat(serialized).isEqualTo(gson.toJson(delegate(dto)));
+		assertThat(serialized).isEqualTo(gson.toJson(delegate(partial)));
 		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
 		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
 		assertThatJson(serialized).node("age").isEqualTo(42);
@@ -94,9 +94,8 @@ public class PactoTest {
 
 	@Test
 	void testDslPartWithPartitials() throws Exception {
-		Object dto = testMother.partial();
 		String expected = new PactDslJsonBody().stringType("lastname", "Lastname2").toString();
-		assertThat(buildDslFrom(dto).toString()).isEqualTo(expected);
+		assertThat(buildDslFrom(partial).toString()).isEqualTo(expected);
 	}
 
 	/**
