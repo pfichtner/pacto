@@ -1,4 +1,4 @@
-package com.github.pfichtner.pacto.testdata.javabeans;
+package com.github.pfichtner.pacto.testdata.javabean;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
@@ -24,7 +24,7 @@ public class TestMotherJavaBean {
 	}
 
 	private static AddressDTO address() {
-		AddressDTO address = spec(new com.github.pfichtner.pacto.testdata.javabeans.AddressDTO());
+		AddressDTO address = spec(new com.github.pfichtner.pacto.testdata.javabean.AddressDTO());
 		address.setZip(integerType());
 		address.setCity(stringType());
 		return address;

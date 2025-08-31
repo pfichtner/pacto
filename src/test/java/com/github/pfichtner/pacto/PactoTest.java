@@ -19,7 +19,7 @@ import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.RegexArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
 import com.github.pfichtner.pacto.testdata.chainedfluent.TestMotherChainedFluent;
-import com.github.pfichtner.pacto.testdata.javabeans.TestMotherJavaBean;
+import com.github.pfichtner.pacto.testdata.javabean.TestMotherJavaBean;
 import com.google.gson.Gson;
 
 import au.com.dius.pact.consumer.dsl.DslPart;

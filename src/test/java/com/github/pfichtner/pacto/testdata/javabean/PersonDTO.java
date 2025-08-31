@@ -1,4 +1,4 @@
-package com.github.pfichtner.pacto.testdata.javabeans;
+package com.github.pfichtner.pacto.testdata.javabean;
 
 import static lombok.AccessLevel.PRIVATE;
 
