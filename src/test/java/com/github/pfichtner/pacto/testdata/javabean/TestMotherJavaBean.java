@@ -31,7 +31,7 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setSecondaryAddressesSet(Sets.eachLike(address(24)));
 		dto.setAge(integerType(42));
 		dto.setHeight(decimalType(1.86));
-		dto.setShoeSize(decimalType());
+		dto.setShoeSize((double) decimalType());
 		dto.setChildren(2);
 		return dto;
 	}

@@ -22,7 +22,7 @@ public class PersonDTO {
 	Set<AddressDTO> secondaryAddressesSet;
 	int age;
 	double height;
-	double shoeSize;
+	Double shoeSize;
 	int children;
 
 }

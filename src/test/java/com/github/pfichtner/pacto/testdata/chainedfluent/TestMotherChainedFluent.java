@@ -38,7 +38,7 @@ public class TestMotherChainedFluent implements TestMother {
 						.eachLike(spec(new AddressDTO()).zip(integerType(24)).city(stringType()).country(nullValue()))) //
 				.age(integerType(42)) //
 				.height(decimalType(1.86)) //
-				.shoeSize(decimalType()) //
+				.shoeSize((double) decimalType()) //
 				.children(2) //
 		;
 	}

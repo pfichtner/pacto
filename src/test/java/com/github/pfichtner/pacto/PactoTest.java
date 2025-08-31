@@ -126,7 +126,6 @@ public class PactoTest {
 					],
 					"age":42,
 					"height":1.86,
-					"shoeSize":0.0,
 					"children":2
 				}
 				""";
