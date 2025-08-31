@@ -23,7 +23,7 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setGivenname("Givenname2"); // last one wins
 		dto.setLastname(stringType("Lastname2")); // last one wins
 		// TODO support like
-		dto.setAddress(address());
+		dto.setPrimaryAddress(address());
 		dto.setAge(integerType(42));
 		dto.setChildren(2);
 		return dto;
@@ -34,7 +34,7 @@ public class TestMotherJavaBean implements TestMother {
 		PersonDTO dto = dto();
 		dto.setGivenname("Givenname2");
 		dto.setLastname("Lastname1");
-		dto.setAddress(partialAddress());
+		dto.setPrimaryAddress(partialAddress());
 		dto.setAge(42);
 		dto.setChildren(2);
 		PersonDTO spec = spec(dto);

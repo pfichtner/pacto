@@ -23,7 +23,7 @@ public class TestMotherChainedFluent implements TestMother {
 				.givenname("Givenname2") // last one wins
 				.lastname(stringType("Lastname2")) // last one wins
 				// TODO support like
-				.address(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue())) //
+				.primaryAddress(spec(new AddressDTO()).zip(integerType()).city(stringType()).country(nullValue())) //
 				.age(integerType(42)) //
 				.children(2) //
 		;
@@ -34,7 +34,7 @@ public class TestMotherChainedFluent implements TestMother {
 		return spec(dto() //
 				.givenname("Givenname2") //
 				.lastname("Lastname1") //
-				.address(new AddressDTO().zip(12345).city("city").country(null)) //
+				.primaryAddress(new AddressDTO().zip(12345).city("city").country(null)) //
 				.age(42) //
 				.children(2) //
 		).lastname(stringType("Lastname2")) // last one wins

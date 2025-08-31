@@ -11,7 +11,7 @@ public class PersonDTO {
 
 	String givenname;
 	String lastname;
-	AddressDTO address;
+	AddressDTO primaryAddress;
 	int age;
 	int children;
 

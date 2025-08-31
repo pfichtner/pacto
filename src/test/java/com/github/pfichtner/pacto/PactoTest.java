@@ -49,7 +49,7 @@ public class PactoTest {
 						tuple("lastname", RegexArg.class), //
 						tuple("givenname", null), //
 						tuple("lastname", StringTypeArg.class), //
-						tuple("address", null), //
+						tuple("primaryAddress", null), //
 						tuple("age", IntegerTypeArg.class), //
 						tuple("children", null) //
 				);
@@ -69,8 +69,8 @@ public class PactoTest {
 		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
 		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
 		assertThatJson(serialized).node("age").isEqualTo(42);
-		assertThatJson(serialized).node("address.zip").isEqualTo(DEFAULT_INTEGER_VALUE);
-		assertThatJson(serialized).node("address.city").isEqualTo(DEFAULT_STRING_VALUE);
+		assertThatJson(serialized).node("primaryAddress.zip").isEqualTo(DEFAULT_INTEGER_VALUE);
+		assertThatJson(serialized).node("primaryAddress.city").isEqualTo(DEFAULT_STRING_VALUE);
 	}
 
 	@Test
@@ -87,9 +87,9 @@ public class PactoTest {
 		assertThatJson(serialized).node("givenname").isEqualTo("Givenname2");
 		assertThatJson(serialized).node("lastname").isEqualTo("Lastname2");
 		assertThatJson(serialized).node("age").isEqualTo(42);
-		assertThatJson(serialized).node("address.zip").isEqualTo(12345);
-		assertThatJson(serialized).node("address.city").isEqualTo("city");
-		assertThatJson(serialized).node("address.country").isAbsent();
+		assertThatJson(serialized).node("primaryAddress.zip").isEqualTo(12345);
+		assertThatJson(serialized).node("primaryAddress.city").isEqualTo("city");
+		assertThatJson(serialized).node("primaryAddress.country").isAbsent();
 	}
 
 	@Test
@@ -110,7 +110,7 @@ public class PactoTest {
 				.stringType("lastname", "Lastname2") //
 				.integerType("age", 42) //
 				.numberType("children", 2) //
-				.object("address") //
+				.object("primaryAddress") //
 				.integerType("zip", DEFAULT_INTEGER_VALUE) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
