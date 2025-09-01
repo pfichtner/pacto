@@ -1,5 +1,6 @@
 package com.github.pfichtner.pacto;
 
+import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
@@ -9,6 +10,7 @@ import static com.github.pfichtner.pacto.matchers.Matchers.DEFAULT_STRING_VALUE;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedClass;
@@ -105,7 +107,7 @@ public class PactoTest {
 
 	@Test
 	void testDslPart() throws Exception {
-		assertThat(buildDslFrom(dtoWithSpec).toString()).isEqualTo(dtoExpectedPactDslPart().toString());
+		assertThatDslPart(buildDslFrom(dtoWithSpec)).isEqualToDslPart(dtoExpectedPactDslPart());
 	}
 
 	@Test
@@ -139,8 +141,8 @@ public class PactoTest {
 
 	@Test
 	void testDslPartWithPartitials() throws Exception {
-		String expected = new PactDslJsonBody().stringType("lastname", "Lastname2").toString();
-		assertThat(buildDslFrom(partial).toString()).isEqualTo(expected);
+		DslPart expected = new PactDslJsonBody().stringType("lastname", "Lastname2");
+		assertThatDslPart(buildDslFrom(partial)).isEqualToDslPart(expected);
 	}
 
 	/**
@@ -152,6 +154,7 @@ public class PactoTest {
 	private static DslPart dtoExpectedPactDslPart() {
 		return new PactDslJsonBody() //
 				.stringMatcher("givenname", "G.*", "Givenname2") //
+				.stringMatcher("lastname", "L.*", "Lastname2") //
 				.stringType("lastname", "Lastname2") //
 				.integerType("age", 42) //
 				.decimalType("height", 1.86) //

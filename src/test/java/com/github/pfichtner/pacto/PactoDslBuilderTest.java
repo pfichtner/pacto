@@ -1,5 +1,6 @@
 package com.github.pfichtner.pacto;
 
+import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.appendInvocations;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
@@ -87,8 +88,8 @@ class PactoDslBuilderTest {
 		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("min"))).min(min);
 		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
 		PactDslJsonBody expected = new PactDslJsonBody().minArrayLike(invocation.getAttribute(), min,
-				new PactDslJsonBody().stringMatcher("value", "min"));
-		assertEquals(expected, callSut(invocation));
+				new PactDslJsonBody().stringType("value", "min"));
+		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}
 
 	@Test
@@ -97,13 +98,8 @@ class PactoDslBuilderTest {
 		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("max"))).max(max);
 		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
 		PactDslJsonBody expected = new PactDslJsonBody().maxArrayLike(invocation.getAttribute(), max,
-				new PactDslJsonBody().stringMatcher("value", "max"));
-		assertEquals(expected, callSut(invocation));
-	}
-
-	private void assertEquals(DslPart expected, DslPart actual) {
-		assertThat(actual.getBody()).isEqualTo(expected.getBody());
-		assertThat(actual.getMatchers()).isEqualTo(expected.getMatchers());
+				new PactDslJsonBody().stringType("value", "max"));
+		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}
 
 	private static List<Arguments> values() {

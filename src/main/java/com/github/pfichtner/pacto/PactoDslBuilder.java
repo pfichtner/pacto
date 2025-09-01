@@ -59,7 +59,7 @@ public final class PactoDslBuilder {
 			new Extractor<>(StringTypeArg.class) {
 				@Override
 				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, StringTypeArg matcher) {
-					return body.stringMatcher(invocation.getAttribute(), matcher.getValue());
+					return body.stringType(invocation.getAttribute(), matcher.getValue());
 				}
 			}, //
 			new Extractor<>(IntegerTypeArg.class) {
@@ -125,17 +125,17 @@ public final class PactoDslBuilder {
 			if (CharSequence.class.isAssignableFrom(parameter)) {
 				return body.stringValue(attribute, invocation.getArg().toString());
 			} else if (int.class.isAssignableFrom(parameter)) {
-				return body.numberValue(attribute, (int) invocation.getArg());
+				return body.numberType(attribute).numberValue(attribute, (int) invocation.getArg());
 			} else if (long.class.isAssignableFrom(parameter)) {
-				return body.numberValue(attribute, (long) invocation.getArg());
+				return body.numberType(attribute).numberValue(attribute, (long) invocation.getArg());
 			} else if (double.class.isAssignableFrom(parameter)) {
-				return body.numberValue(attribute, (double) invocation.getArg());
+				return body.numberType(attribute).numberValue(attribute, (double) invocation.getArg());
 			} else if (float.class.isAssignableFrom(parameter)) {
-				return body.numberValue(attribute, (float) invocation.getArg());
+				return body.numberType(attribute).numberValue(attribute, (float) invocation.getArg());
 			} else if (boolean.class.isAssignableFrom(parameter) || Boolean.class.isAssignableFrom(parameter)) {
-				return body.booleanValue(attribute, (boolean) invocation.getArg());
+				return body.booleanType(attribute).booleanValue(attribute, (boolean) invocation.getArg());
 			} else if (Number.class.isAssignableFrom(parameter)) {
-				return body.numberValue(attribute, (Number) invocation.getArg());
+				return body.numberType(attribute).numberValue(attribute, (Number) invocation.getArg());
 			}
 			pushbackInvocations.add(invocation);
 			return body;
