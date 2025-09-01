@@ -66,6 +66,12 @@ public final class PactoMatchers {
 		return in;
 	}
 
+	public static <T extends Number> T numberType(T in) {
+		NumberTypeArg matcher = new NumberTypeArg(in);
+		reportMatcher(matcher);
+		return in;
+	}
+
 	public static <T> T nullValue() {
 		NullValueArg matcher = new NullValueArg();
 		reportMatcher(matcher);

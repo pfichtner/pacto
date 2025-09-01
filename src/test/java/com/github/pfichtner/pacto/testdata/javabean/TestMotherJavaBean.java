@@ -3,6 +3,7 @@ package com.github.pfichtner.pacto.testdata.javabean;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +34,7 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setHeight(decimalType(1.86));
 		dto.setShoeSize((double) decimalType());
 		dto.setChildren(2);
+		dto.setSalary(numberType(new BigDecimal(123)));
 		return dto;
 	}
 

@@ -5,9 +5,11 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringMatcher;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -42,6 +44,7 @@ public class TestMotherChained implements TestMother {
 				.setHeight(decimalType(1.86)) //
 				.setShoeSize((double) decimalType()) //
 				.setChildren(2) //
+				.setSalary(numberType(new BigDecimal(123))) //
 		;
 	}
 

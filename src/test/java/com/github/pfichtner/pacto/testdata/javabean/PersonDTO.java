@@ -2,6 +2,7 @@ package com.github.pfichtner.pacto.testdata.javabean;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -22,5 +23,6 @@ public class PersonDTO {
 	double height;
 	Double shoeSize;
 	int children;
+	BigDecimal salary;
 
 }

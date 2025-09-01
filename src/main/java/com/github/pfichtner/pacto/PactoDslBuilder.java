@@ -12,6 +12,7 @@ import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.NullValueArg;
+import com.github.pfichtner.pacto.matchers.NumberTypeArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 import com.github.pfichtner.pacto.matchers.StringMatcherArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
@@ -72,6 +73,12 @@ public final class PactoDslBuilder {
 				@Override
 				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, DecimalTypeArg matcher) {
 					return body.decimalType(invocation.getAttribute(), matcher.getValue());
+				}
+			}, //
+			new Extractor<>(NumberTypeArg.class) {
+				@Override
+				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, NumberTypeArg matcher) {
+					return body.numberType(invocation.getAttribute(), matcher.getValue());
 				}
 			}, //
 			new Extractor<>(EachLikeArg.class) {

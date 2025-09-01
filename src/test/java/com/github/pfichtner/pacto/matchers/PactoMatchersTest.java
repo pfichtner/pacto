@@ -6,8 +6,11 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +33,7 @@ class PactoMatchersTest {
 		doubleArg(decimalType(1.23));
 		// TODO fix to get rid of cast
 		doubleWrapperArg((double) decimalType());
-		doubleWrapperArg(decimalType(1.23));
+		doubleWrapperArg(decimalType(1.23D));
 
 		intArg(integerType());
 		intArg(integerType(42));
@@ -41,6 +44,20 @@ class PactoMatchersTest {
 		// TODO fix to get rid of cast
 		longWrapperArg((long) integerType());
 		longWrapperArg(integerType(42L));
+	}
+
+	@Test
+	void numberArg() {
+		intArg(numberType(42));
+		intArg(numberType(Integer.valueOf(42)));
+		longArg(numberType(42L));
+		longArg(numberType(Long.valueOf(42)));
+		floatArg(numberType(Float.valueOf(1.23F)));
+		floatArg(numberType(1.23F));
+		doubleArg(numberType(Double.valueOf(1.23D)));
+		doubleArg(numberType(1.23D));
+		numberArg(numberType(BigInteger.valueOf(123)));
+		numberArg(numberType(new BigDecimal(123)));
 	}
 
 	@Test
@@ -105,6 +122,9 @@ class PactoMatchersTest {
 	}
 
 	void longWrapperArg(Long value) {
+	}
+
+	void numberArg(Number value) {
 	}
 
 	private void arrayArg(Foo[] array) {

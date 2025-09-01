@@ -18,6 +18,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
+import com.github.pfichtner.pacto.matchers.NumberTypeArg;
 import com.github.pfichtner.pacto.matchers.StringMatcherArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
 import com.github.pfichtner.pacto.testdata.TestMother;
@@ -64,7 +65,8 @@ public class PactoTest {
 						tuple("age", IntegerTypeArg.class), //
 						tuple("height", DecimalTypeArg.class), //
 						tuple("shoeSize", DecimalTypeArg.class), //
-						tuple("children", null) //
+						tuple("children", null), //
+						tuple("salary", NumberTypeArg.class) //
 				);
 	}
 
@@ -95,7 +97,8 @@ public class PactoTest {
 					"age":42,
 					"height":1.86,
 					"shoeSize":12.345000267028809,
-					"children":2
+					"children":2,
+					"salary":123
 				}
 				""";
 
@@ -159,6 +162,7 @@ public class PactoTest {
 				.decimalType("height", 1.86) //
 				.decimalType("shoeSize", (double) DEFAULT_DECIMAL_VALUE) //
 				.numberType("children", 2) //
+				.numberType("salary", 123) //
 				.object("primaryAddress") //
 				.integerType("zip", 21) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
