@@ -25,29 +25,21 @@ public class TestMotherFluent implements TestMother {
 		dto.lastname(stringMatcher("L.*", "Lastname1"));
 		dto.givenname("Givenname2"); // last one wins
 		dto.lastname(stringType("Lastname2"));
-		AddressDTO address1 = spec(new AddressDTO());
+		AddressDTO address1 = address();
 		address1.zip(integerType(21));
-		address1.city(stringType());
-		address1.country(nullValue());
 		address1.validated(true); // last one wins
 		// TODO support like
 		dto.primaryAddress(address1);
-		AddressDTO address2 = spec(new AddressDTO());
+		AddressDTO address2 = address();
 		address2.zip(integerType(22));
-		address2.city(stringType());
-		address2.country(nullValue());
 		address2.validated(false);
 		dto.secondaryAddresses(eachLike(address2));
-		AddressDTO address3 = spec(new AddressDTO());
+		AddressDTO address3 = address();
 		address3.zip(integerType(23));
-		address3.city(stringType());
-		address3.country(nullValue());
 		address3.validated(booleanType(true));
 		dto.secondaryAddressesList(Lists.eachLike(address3));
-		AddressDTO address4 = spec(new AddressDTO());
+		AddressDTO address4 = address();
 		address4.zip(integerType(24));
-		address4.city(stringType());
-		address4.country(nullValue());
 		address4.validated(booleanValue(true));
 		dto.secondaryAddressesSet(Sets.eachLike(address4));
 		dto.age(integerType(42));
@@ -56,6 +48,13 @@ public class TestMotherFluent implements TestMother {
 		dto.children(2);
 		dto.salary(numberType(new BigDecimal(123)));
 		return dto;
+	}
+
+	private AddressDTO address() {
+		AddressDTO address4 = spec(new AddressDTO());
+		address4.city(stringType());
+		address4.country(nullValue());
+		return address4;
 	}
 
 	@Override
