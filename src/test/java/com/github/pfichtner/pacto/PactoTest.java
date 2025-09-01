@@ -20,7 +20,9 @@ import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.RegexArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
 import com.github.pfichtner.pacto.testdata.TestMother;
+import com.github.pfichtner.pacto.testdata.chained.TestMotherChained;
 import com.github.pfichtner.pacto.testdata.chainedfluent.TestMotherChainedFluent;
+import com.github.pfichtner.pacto.testdata.fluent.TestMotherFluent;
 import com.github.pfichtner.pacto.testdata.javabean.TestMotherJavaBean;
 import com.google.gson.Gson;
 
@@ -28,7 +30,8 @@ import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
 @ParameterizedClass
-@ValueSource(classes = { TestMotherJavaBean.class, TestMotherChainedFluent.class })
+@ValueSource(classes = { TestMotherJavaBean.class, TestMotherChained.class, TestMotherFluent.class,
+		TestMotherChainedFluent.class })
 public class PactoTest {
 
 	private final Object dtoWithSpec;

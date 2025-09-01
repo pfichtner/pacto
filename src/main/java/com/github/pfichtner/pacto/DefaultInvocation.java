@@ -7,6 +7,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.mockito.ArgumentMatcher;
 
@@ -54,26 +55,30 @@ public class DefaultInvocation implements Invocation {
 	@Override
 	public String getAttribute() {
 		try {
-			BeanInfo beanInfo = Introspector.getBeanInfo(method.getDeclaringClass());
-			return isSetter(beanInfo, method) ? propertyName(beanInfo, method) : method.getName();
+			return propertyName(method).orElse(method.getName());
 		} catch (IntrospectionException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static String propertyName(BeanInfo beanInfo, Method method) {
+	private static Optional<String> propertyName(Method writeMethod) throws IntrospectionException {
+		BeanInfo beanInfo = Introspector.getBeanInfo(writeMethod.getDeclaringClass());
 		return Arrays.stream(beanInfo.getPropertyDescriptors()) //
-				.filter(d -> method.equals(d.getWriteMethod()) || method.equals(d.getReadMethod())) //
-				.map(PropertyDescriptor::getName).findFirst().orElse(null);
+				.filter(d -> writeMethod.equals(d.getWriteMethod())) //
+				.map(PropertyDescriptor::getName) //
+				.findFirst() //
+				.or(() -> propertyNameOfFluentSetter(writeMethod));
 	}
 
-	private static boolean isSetter(BeanInfo beanInfo, Method method) throws IntrospectionException {
-		return propertyName(beanInfo, method) != null && method.equals(getWriteMethod(beanInfo, method));
-	}
-
-	private static Method getWriteMethod(BeanInfo beanInfo, Method method) {
-		return Arrays.stream(beanInfo.getPropertyDescriptors()).map(PropertyDescriptor::getWriteMethod)
-				.filter(Objects::nonNull).filter(m -> m.equals(method)).findFirst().orElse(null);
+	private static Optional<String> propertyNameOfFluentSetter(Method writeMethod) {
+		if (writeMethod.getName().length() > 3 //
+				&& writeMethod.getName().startsWith("set") //
+				&& writeMethod.getParameterCount() == 1 //
+				&& writeMethod.getReturnType().isAssignableFrom(writeMethod.getDeclaringClass())) {
+			String property = writeMethod.getName().substring(3);
+			return Optional.of(Character.toLowerCase(property.charAt(0)) + property.substring(1));
+		}
+		return Optional.empty();
 	}
 
 	@Override
