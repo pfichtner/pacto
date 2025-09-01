@@ -69,8 +69,8 @@ If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update bo
 
 ```java
 DslPart body = pactFrom(spec(new PersonDTO())
-    .givenname(regex("G.*", "Givenname1"))
-    .lastname(regex("L.*", "Lastname1"))
+    .givenname(stringMatcher("G.*", "Givenname1"))
+    .lastname(stringMatcher("L.*", "Lastname1"))
     .age(integerType(42))
     .address(
         spec(new AddressDTO())
