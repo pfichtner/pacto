@@ -72,9 +72,20 @@ public final class Matchers {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	public static <T> T[] maxArrayLike(T value, int max) {
+		return eachLike(value, new EachLikeArg(value).max(max));
+	}
+
+	public static <T> T[] minArrayLike(T value, int min) {
+		return eachLike(value, new EachLikeArg(value).min(min));
+	}
+
 	public static <T> T[] eachLike(T value) {
-		EachLikeArg matcher = new EachLikeArg(value);
+		return eachLike(value, new EachLikeArg(value));
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <T> T[] eachLike(T value, EachLikeArg matcher) {
 		reportMatcher(matcher);
 		T[] values = (T[]) Array.newInstance(value.getClass(), 1);
 		values[0] = value;
@@ -82,16 +93,38 @@ public final class Matchers {
 	}
 
 	public static class Lists {
+		public static <T> List<T> maxArrayLike(T value, int max) {
+			return eachLike(value, new EachLikeArg(value).max(max));
+		}
+
+		public static <T> List<T> minArrayLike(T value, int min) {
+			return eachLike(value, new EachLikeArg(value).min(min));
+		}
+
 		public static <T> List<T> eachLike(T value) {
-			EachLikeArg matcher = new EachLikeArg(value);
+			return eachLike(value, new EachLikeArg(value));
+		}
+
+		private static <T> List<T> eachLike(T value, EachLikeArg matcher) {
 			reportMatcher(matcher);
 			return List.of(value);
 		}
 	}
 
 	public static class Sets {
+		public static <T> Set<T> maxArrayLike(T value, int max) {
+			return eachLike(value, new EachLikeArg(value).max(max));
+		}
+
+		public static <T> Set<T> minArrayLike(T value, int min) {
+			return eachLike(value, new EachLikeArg(value).min(min));
+		}
+
 		public static <T> Set<T> eachLike(T value) {
-			EachLikeArg matcher = new EachLikeArg(value);
+			return eachLike(value, new EachLikeArg(value));
+		}
+
+		private static <T> Set<T> eachLike(T value, EachLikeArg matcher) {
 			reportMatcher(matcher);
 			return Set.of(value);
 		}

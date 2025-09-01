@@ -86,8 +86,8 @@ class PactoDslBuilderTest {
 		);
 	}
 
-	private DslPart callSut(InvocationStub e1) {
-		return appendInvocations(new PactDslJsonBody(), List.of(e1));
+	private DslPart callSut(InvocationStub invocation) {
+		return appendInvocations(new PactDslJsonBody(), List.of(invocation));
 	}
 
 }

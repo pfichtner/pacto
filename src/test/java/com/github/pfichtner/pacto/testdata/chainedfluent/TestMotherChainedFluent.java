@@ -1,8 +1,9 @@
 package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.matchers.Matchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.Matchers.eachLike;
-import static com.github.pfichtner.pacto.matchers.Matchers.*;
+import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
 import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.Matchers.regex;
 import static com.github.pfichtner.pacto.matchers.Matchers.stringType;

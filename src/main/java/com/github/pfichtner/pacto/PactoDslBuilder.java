@@ -77,6 +77,14 @@ public final class PactoDslBuilder {
 			new Extractor<>(EachLikeArg.class) {
 				@Override
 				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, EachLikeArg matcher) {
+					Integer max = matcher.getMax();
+					if (max != null) {
+						return body.maxArrayLike(invocation.getAttribute(), max, buildDslFrom(matcher.getValue()));
+					}
+					Integer min = matcher.getMin();
+					if (min != null) {
+						return body.minArrayLike(invocation.getAttribute(), min, buildDslFrom(matcher.getValue()));
+					}
 					return body.eachLike(invocation.getAttribute(), buildDslFrom(matcher.getValue()));
 				}
 			});
