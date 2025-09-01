@@ -161,7 +161,7 @@ public class PactoTest {
 				.integerType("age", 42) //
 				.decimalType("height", 1.86) //
 				.decimalType("shoeSize", (double) DEFAULT_DECIMAL_VALUE) //
-				.numberType("children", 2) //
+				.integerType("children").numberValue("children", 2) //
 				.numberType("salary", 123) //
 				.object("primaryAddress") //
 				.integerType("zip", 21) //

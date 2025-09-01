@@ -132,13 +132,13 @@ public final class PactoDslBuilder {
 			if (CharSequence.class.isAssignableFrom(parameter)) {
 				return body.stringValue(attribute, invocation.getArg().toString());
 			} else if (int.class.isAssignableFrom(parameter)) {
-				return body.numberType(attribute).numberValue(attribute, (int) invocation.getArg());
+				return body.integerType(attribute).numberValue(attribute, (int) invocation.getArg());
 			} else if (long.class.isAssignableFrom(parameter)) {
-				return body.numberType(attribute).numberValue(attribute, (long) invocation.getArg());
+				return body.integerType(attribute).numberValue(attribute, (long) invocation.getArg());
 			} else if (double.class.isAssignableFrom(parameter)) {
-				return body.numberType(attribute).numberValue(attribute, (double) invocation.getArg());
+				return body.decimalType(attribute).numberValue(attribute, (double) invocation.getArg());
 			} else if (float.class.isAssignableFrom(parameter)) {
-				return body.numberType(attribute).numberValue(attribute, (float) invocation.getArg());
+				return body.decimalType(attribute).numberValue(attribute, (float) invocation.getArg());
 			} else if (boolean.class.isAssignableFrom(parameter) || Boolean.class.isAssignableFrom(parameter)) {
 				return body.booleanType(attribute).booleanValue(attribute, (boolean) invocation.getArg());
 			} else if (Number.class.isAssignableFrom(parameter)) {
