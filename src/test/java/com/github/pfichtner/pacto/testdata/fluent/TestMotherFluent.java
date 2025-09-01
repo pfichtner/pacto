@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto.testdata.fluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.booleanType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
@@ -66,6 +67,7 @@ public class TestMotherFluent implements TestMother {
 		address.zip(zip);
 		address.city("city");
 		address.country(null);
+		address.validated(true);
 		return address;
 	}
 
@@ -74,6 +76,7 @@ public class TestMotherFluent implements TestMother {
 		address.zip(integerType(zip));
 		address.city(stringType());
 		address.country(nullValue());
+		address.validated(booleanType(true));
 		return address;
 	}
 

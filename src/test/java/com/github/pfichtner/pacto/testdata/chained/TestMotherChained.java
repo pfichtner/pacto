@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto.testdata.chained;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.booleanType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
+import com.github.pfichtner.pacto.matchers.PactoMatchers;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Lists;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Sets;
 import com.github.pfichtner.pacto.testdata.TestMother;
@@ -32,14 +34,14 @@ public class TestMotherChained implements TestMother {
 				.setGivenname("Givenname2") // last one wins
 				.setLastname(stringType("Lastname2")) // last one wins
 				// TODO support like
-				.setPrimaryAddress(
-						spec(new AddressDTO()).setZip(integerType(21)).setCity(stringType()).setCountry(nullValue())) //
-				.setSecondaryAddresses(eachLike(
-						spec(new AddressDTO()).setZip(integerType(22)).setCity(stringType()).setCountry(nullValue()))) //
-				.setSecondaryAddressesList(Lists.eachLike(
-						spec(new AddressDTO()).setZip(integerType(23)).setCity(stringType()).setCountry(nullValue()))) //
-				.setSecondaryAddressesSet(Sets.eachLike(
-						spec(new AddressDTO()).setZip(integerType(24)).setCity(stringType()).setCountry(nullValue()))) //
+				.setPrimaryAddress(spec(new AddressDTO()).setZip(integerType(21)).setCity(stringType())
+						.setCountry(nullValue()).setValidated(true)) //
+				.setSecondaryAddresses(eachLike(spec(new AddressDTO()).setZip(integerType(22)).setCity(stringType())
+						.setCountry(nullValue()).setValidated(true))) //
+				.setSecondaryAddressesList(Lists.eachLike(spec(new AddressDTO()).setZip(integerType(23))
+						.setCity(stringType()).setCountry(nullValue()).setValidated(true))) //
+				.setSecondaryAddressesSet(Sets.eachLike(spec(new AddressDTO()).setZip(integerType(24))
+						.setCity(stringType()).setCountry(nullValue()).setValidated(true))) //
 				.setAge(integerType(42)) //
 				.setHeight(decimalType(1.86)) //
 				.setShoeSize((double) decimalType()) //
@@ -53,11 +55,13 @@ public class TestMotherChained implements TestMother {
 		return spec(dto() //
 				.setGivenname("Givenname2") //
 				.setLastname("Lastname1") //
-				.setPrimaryAddress(new AddressDTO().setZip(21).setCity("city").setCountry(null)) //
-				.setSecondaryAddresses(
-						new AddressDTO[] { new AddressDTO().setZip(22).setCity("city").setCountry(null) }) //
-				.setSecondaryAddressesList(List.of(new AddressDTO().setZip(23).setCity("city").setCountry(null))) //
-				.setSecondaryAddressesSet(Set.of(new AddressDTO().setZip(24).setCity("city").setCountry(null))) //
+				.setPrimaryAddress(new AddressDTO().setZip(21).setCity("city").setCountry(null).setValidated(true)) //
+				.setSecondaryAddresses(new AddressDTO[] {
+						new AddressDTO().setZip(22).setCity("city").setCountry(null).setValidated(true) }) //
+				.setSecondaryAddressesList(
+						List.of(new AddressDTO().setZip(23).setCity("city").setCountry(null).setValidated(true))) //
+				.setSecondaryAddressesSet(
+						Set.of(new AddressDTO().setZip(24).setCity("city").setCountry(null).setValidated(true))) //
 				.setAge(42) //
 				.setHeight(1.86) //
 				.setChildren(2) //

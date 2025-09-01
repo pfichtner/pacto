@@ -10,12 +10,23 @@ import org.mockito.ArgumentMatcher;
 
 public final class PactoMatchers {
 
+	public static final boolean DEFAULT_BOOLEAN_VALUE = true;
 	public static final String DEFAULT_STRING_VALUE = "string";
 	public static final int DEFAULT_INTEGER_VALUE = 42;
 	public static final float DEFAULT_DECIMAL_VALUE = 12.345F;
 
 	private PactoMatchers() {
 		super();
+	}
+
+	public static boolean booleanType() {
+		return booleanType(DEFAULT_BOOLEAN_VALUE);
+	}
+
+	public static boolean booleanType(boolean in) {
+		BooleanTypeArg matcher = new BooleanTypeArg(in);
+		reportMatcher(matcher);
+		return in;
 	}
 
 	public static String stringType() {

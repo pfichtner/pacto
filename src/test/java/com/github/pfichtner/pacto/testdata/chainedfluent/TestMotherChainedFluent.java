@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.booleanType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
@@ -32,13 +33,14 @@ public class TestMotherChainedFluent implements TestMother {
 				.givenname("Givenname2") // last one wins
 				.lastname(stringType("Lastname2")) // last one wins
 				// TODO support like
-				.primaryAddress(spec(new AddressDTO()).zip(integerType(21)).city(stringType()).country(nullValue())) //
-				.secondaryAddresses(
-						eachLike(spec(new AddressDTO()).zip(integerType(22)).city(stringType()).country(nullValue()))) //
-				.secondaryAddressesList(Lists
-						.eachLike(spec(new AddressDTO()).zip(integerType(23)).city(stringType()).country(nullValue()))) //
-				.secondaryAddressesSet(Sets
-						.eachLike(spec(new AddressDTO()).zip(integerType(24)).city(stringType()).country(nullValue()))) //
+				.primaryAddress(spec(new AddressDTO()).zip(integerType(21)).city(stringType()).country(nullValue())
+						.validated(booleanType(true))) //
+				.secondaryAddresses(eachLike(spec(new AddressDTO()).zip(integerType(22)).city(stringType())
+						.country(nullValue()).validated(booleanType(true)))) //
+				.secondaryAddressesList(Lists.eachLike(spec(new AddressDTO()).zip(integerType(23)).city(stringType())
+						.country(nullValue()).validated(booleanType(true)))) //
+				.secondaryAddressesSet(Sets.eachLike(spec(new AddressDTO()).zip(integerType(24)).city(stringType())
+						.country(nullValue()).validated(booleanType(true)))) //
 				.age(integerType(42)) //
 				.height(decimalType(1.86)) //
 				.shoeSize((double) decimalType()) //
@@ -52,10 +54,11 @@ public class TestMotherChainedFluent implements TestMother {
 		return spec(dto() //
 				.givenname("Givenname2") //
 				.lastname("Lastname1") //
-				.primaryAddress(new AddressDTO().zip(21).city("city").country(null)) //
-				.secondaryAddresses(new AddressDTO[] { new AddressDTO().zip(22).city("city").country(null) }) //
-				.secondaryAddressesList(List.of(new AddressDTO().zip(23).city("city").country(null))) //
-				.secondaryAddressesSet(Set.of(new AddressDTO().zip(24).city("city").country(null))) //
+				.primaryAddress(new AddressDTO().zip(21).city("city").country(null).validated(true)) //
+				.secondaryAddresses(
+						new AddressDTO[] { new AddressDTO().zip(22).city("city").country(null).validated(true) }) //
+				.secondaryAddressesList(List.of(new AddressDTO().zip(23).city("city").country(null).validated(true))) //
+				.secondaryAddressesSet(Set.of(new AddressDTO().zip(24).city("city").country(null).validated(true))) //
 				.age(42) //
 				.height(1.86) //
 				.children(2) //

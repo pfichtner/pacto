@@ -82,17 +82,16 @@ public class PactoTest {
 					"givenname":"Givenname2",
 					"lastname":"Lastname2",
 					"primaryAddress":{
-						"zip":21,
-						"city":"string"
+						"zip":21,"city":"string","validated":true
 					},
 					"secondaryAddresses":[
-						{"zip":22,"city":"string"}
+						{"zip":22,"city":"string","validated":true}
 					],
 					"secondaryAddressesList":[
-						{"zip":23,"city":"string"}
+						{"zip":23,"city":"string","validated":true}
 					],
 					"secondaryAddressesSet":[
-						{"zip":24,"city":"string"}
+						{"zip":24,"city":"string","validated":true}
 					],
 					"age":42,
 					"height":1.86,
@@ -119,17 +118,16 @@ public class PactoTest {
 					"givenname":"Givenname2",
 					"lastname":"Lastname2",
 					"primaryAddress":{
-						"zip":21,
-						"city":"city"
+						"zip":21,"city":"city","validated":true
 					},
 					"secondaryAddresses":[
-						{"zip":22,"city":"city"}
+						{"zip":22,"city":"city","validated":true}
 					],
 					"secondaryAddressesList":[
-						{"zip":23,"city":"city"}
+						{"zip":23,"city":"city","validated":true}
 					],
 					"secondaryAddressesSet":[
-						{"zip":24,"city":"city"}
+						{"zip":24,"city":"city","validated":true}
 					],
 					"age":42,
 					"height":1.86,
@@ -167,6 +165,7 @@ public class PactoTest {
 				.integerType("zip", 21) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
+				.booleanType("validated") //
 				.closeObject() //
 				.eachLike("secondaryAddresses", inner(22)) //
 				.eachLike("secondaryAddressesList", inner(23)) //
@@ -179,6 +178,7 @@ public class PactoTest {
 				.integerType("zip", zip) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
+				.booleanType("validated") //
 		;
 	}
 }

@@ -60,6 +60,7 @@ public class TestMotherJavaBean implements TestMother {
 		address.setZip(zip);
 		address.setCity("city");
 		address.setCountry(null);
+		address.setValidated(true);
 		return address;
 	}
 
@@ -68,6 +69,7 @@ public class TestMotherJavaBean implements TestMother {
 		address.setZip(integerType(zip));
 		address.setCity(stringType());
 		address.setCountry(nullValue());
+		address.setValidated(booleanType(true));
 		return address;
 	}
 
