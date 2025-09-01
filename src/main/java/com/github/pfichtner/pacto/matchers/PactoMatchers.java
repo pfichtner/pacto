@@ -28,8 +28,8 @@ public final class PactoMatchers {
 		return in;
 	}
 
-	public static String regex(String regex, String in) {
-		RegexArg matcher = new RegexArg(regex, in);
+	public static String stringMatcher(String regex, String in) {
+		StringMatcherArg matcher = new StringMatcherArg(regex, in);
 		reportMatcher(matcher);
 		return in;
 	}

@@ -2,12 +2,12 @@ package com.github.pfichtner.pacto.matchers;
 
 import static java.lang.String.format;
 
-public class RegexArg extends PactoMatcher<String> {
+public class StringMatcherArg extends PactoMatcher<String> {
 
 	private final String regex;
 	private final String value;
 
-	public RegexArg(String regex, String value) {
+	public StringMatcherArg(String regex, String value) {
 		this.regex = regex;
 		this.value = value;
 	}

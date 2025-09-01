@@ -5,7 +5,7 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.regex;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringMatcher;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 
 import java.util.List;
@@ -25,8 +25,8 @@ public class TestMotherFluent implements TestMother {
 	@Override
 	public Object dtoWithSpec() {
 		PersonDTO dto = spec(dto());
-		dto.givenname(regex("G.*", "Givenname1"));
-		dto.lastname(regex("L.*", "Lastname1"));
+		dto.givenname(stringMatcher("G.*", "Givenname1"));
+		dto.lastname(stringMatcher("L.*", "Lastname1"));
 		dto.givenname("Givenname2"); // last one wins
 		dto.lastname(stringType("Lastname2")); // last one wins
 		// TODO support like

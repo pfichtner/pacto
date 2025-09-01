@@ -19,7 +19,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
-import com.github.pfichtner.pacto.matchers.RegexArg;
+import com.github.pfichtner.pacto.matchers.StringMatcherArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
 import com.github.pfichtner.pacto.testdata.TestMother;
 import com.github.pfichtner.pacto.testdata.chained.TestMotherChained;
@@ -54,8 +54,8 @@ public class PactoTest {
 		assertThat(invocations(dtoWithSpec).getAllInvocations())
 				.extracting(i -> i.getAttribute(), i -> i.getMatcher() == null ? null : i.getMatcher().getClass())
 				.containsExactly( //
-						tuple("givenname", RegexArg.class), //
-						tuple("lastname", RegexArg.class), //
+						tuple("givenname", StringMatcherArg.class), //
+						tuple("lastname", StringMatcherArg.class), //
 						tuple("givenname", null), //
 						tuple("lastname", StringTypeArg.class), //
 						tuple("primaryAddress", null), //

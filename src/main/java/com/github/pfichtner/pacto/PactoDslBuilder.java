@@ -13,7 +13,7 @@ import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.NullValueArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
-import com.github.pfichtner.pacto.matchers.RegexArg;
+import com.github.pfichtner.pacto.matchers.StringMatcherArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
@@ -50,9 +50,9 @@ public final class PactoDslBuilder {
 					return body.nullValue(invocation.getAttribute());
 				}
 			}, //
-			new Extractor<>(RegexArg.class) {
+			new Extractor<>(StringMatcherArg.class) {
 				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, RegexArg matcher) {
+				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, StringMatcherArg matcher) {
 					return body.stringMatcher(invocation.getAttribute(), matcher.getRegex(), matcher.getValue());
 				}
 			}, //

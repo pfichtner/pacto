@@ -5,7 +5,7 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.regex;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringMatcher;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 
 import java.util.List;
@@ -25,8 +25,8 @@ public class TestMotherChained implements TestMother {
 	@Override
 	public Object dtoWithSpec() {
 		return spec(dto()) //
-				.setGivenname(regex("G.*", "Givenname1")) //
-				.setLastname(regex("L.*", "Lastname1")) //
+				.setGivenname(stringMatcher("G.*", "Givenname1")) //
+				.setLastname(stringMatcher("L.*", "Lastname1")) //
 				.setGivenname("Givenname2") // last one wins
 				.setLastname(stringType("Lastname2")) // last one wins
 				// TODO support like

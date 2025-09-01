@@ -20,8 +20,8 @@ public class TestMotherJavaBean implements TestMother {
 	@Override
 	public Object dtoWithSpec() {
 		PersonDTO dto = spec(dto());
-		dto.setGivenname(regex("G.*", "Givenname1"));
-		dto.setLastname(regex("L.*", "Lastname1"));
+		dto.setGivenname(stringMatcher("G.*", "Givenname1"));
+		dto.setLastname(stringMatcher("L.*", "Lastname1"));
 		dto.setGivenname("Givenname2"); // last one wins
 		dto.setLastname(stringType("Lastname2")); // last one wins
 		// TODO support like
