@@ -1,14 +1,7 @@
 package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.booleanType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringMatcher;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,13 +27,13 @@ public class TestMotherChainedFluent implements TestMother {
 				.lastname(stringType("Lastname2")) // last one wins
 				// TODO support like
 				.primaryAddress(spec(new AddressDTO()).zip(integerType(21)).city(stringType()).country(nullValue())
-						.validated(booleanType(true))) //
+						.validated(true)) //
 				.secondaryAddresses(eachLike(spec(new AddressDTO()).zip(integerType(22)).city(stringType())
-						.country(nullValue()).validated(booleanType(true)))) //
+						.country(nullValue()).validated(false))) //
 				.secondaryAddressesList(Lists.eachLike(spec(new AddressDTO()).zip(integerType(23)).city(stringType())
 						.country(nullValue()).validated(booleanType(true)))) //
 				.secondaryAddressesSet(Sets.eachLike(spec(new AddressDTO()).zip(integerType(24)).city(stringType())
-						.country(nullValue()).validated(booleanType(true)))) //
+						.country(nullValue()).validated(booleanValue(true)))) //
 				.age(integerType(42)) //
 				.height(decimalType(1.86)) //
 				.shoeSize((double) decimalType()) //

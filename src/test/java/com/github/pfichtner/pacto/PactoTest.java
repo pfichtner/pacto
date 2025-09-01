@@ -85,7 +85,7 @@ public class PactoTest {
 						"zip":21,"city":"string","validated":true
 					},
 					"secondaryAddresses":[
-						{"zip":22,"city":"string","validated":true}
+						{"zip":22,"city":"string","validated":false}
 					],
 					"secondaryAddressesList":[
 						{"zip":23,"city":"string","validated":true}
@@ -165,11 +165,11 @@ public class PactoTest {
 				.integerType("zip", 21) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
-				.booleanType("validated") //
+				.booleanType("validated").booleanValue("validated", true) //
 				.closeObject() //
-				.eachLike("secondaryAddresses", inner(22)) //
-				.eachLike("secondaryAddressesList", inner(23)) //
-				.eachLike("secondaryAddressesSet", inner(24)) //
+				.eachLike("secondaryAddresses", inner(22).booleanType("validated").booleanValue("validated", false)) //
+				.eachLike("secondaryAddressesList", inner(23).booleanType("validated", true)) //
+				.eachLike("secondaryAddressesSet", inner(24).booleanValue("validated", true)) //
 		;
 	}
 
@@ -178,7 +178,6 @@ public class PactoTest {
 				.integerType("zip", zip) //
 				.stringType("city", DEFAULT_STRING_VALUE) //
 				.nullValue("country") //
-				.booleanType("validated") //
 		;
 	}
 }

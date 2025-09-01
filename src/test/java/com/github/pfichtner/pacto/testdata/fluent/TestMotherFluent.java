@@ -1,14 +1,7 @@
 package com.github.pfichtner.pacto.testdata.fluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.booleanType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringMatcher;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,12 +24,32 @@ public class TestMotherFluent implements TestMother {
 		dto.givenname(stringMatcher("G.*", "Givenname1"));
 		dto.lastname(stringMatcher("L.*", "Lastname1"));
 		dto.givenname("Givenname2"); // last one wins
-		dto.lastname(stringType("Lastname2")); // last one wins
+		dto.lastname(stringType("Lastname2"));
+		AddressDTO address1 = spec(new AddressDTO());
+		address1.zip(integerType(21));
+		address1.city(stringType());
+		address1.country(nullValue());
+		address1.validated(true); // last one wins
 		// TODO support like
-		dto.primaryAddress(address(21));
-		dto.secondaryAddresses(eachLike(address(22)));
-		dto.secondaryAddressesList(Lists.eachLike(address(23)));
-		dto.secondaryAddressesSet(Sets.eachLike(address(24)));
+		dto.primaryAddress(address1);
+		AddressDTO address2 = spec(new AddressDTO());
+		address2.zip(integerType(22));
+		address2.city(stringType());
+		address2.country(nullValue());
+		address2.validated(false);
+		dto.secondaryAddresses(eachLike(address2));
+		AddressDTO address3 = spec(new AddressDTO());
+		address3.zip(integerType(23));
+		address3.city(stringType());
+		address3.country(nullValue());
+		address3.validated(booleanType(true));
+		dto.secondaryAddressesList(Lists.eachLike(address3));
+		AddressDTO address4 = spec(new AddressDTO());
+		address4.zip(integerType(24));
+		address4.city(stringType());
+		address4.country(nullValue());
+		address4.validated(booleanValue(true));
+		dto.secondaryAddressesSet(Sets.eachLike(address4));
 		dto.age(integerType(42));
 		dto.height(decimalType(1.86));
 		dto.shoeSize((double) decimalType());
@@ -68,15 +81,6 @@ public class TestMotherFluent implements TestMother {
 		address.city("city");
 		address.country(null);
 		address.validated(true);
-		return address;
-	}
-
-	private static AddressDTO address(int zip) {
-		AddressDTO address = spec(new AddressDTO());
-		address.zip(integerType(zip));
-		address.city(stringType());
-		address.country(nullValue());
-		address.validated(booleanType(true));
 		return address;
 	}
 

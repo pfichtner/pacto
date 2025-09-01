@@ -28,6 +28,11 @@ public final class PactoMatchers {
 		return in;
 	}
 
+	public static boolean booleanValue(boolean in) {
+		reportMatcher(new BooleanValueArg(in));
+		return in;
+	}
+
 	public static String stringType() {
 		return stringType(DEFAULT_STRING_VALUE);
 	}

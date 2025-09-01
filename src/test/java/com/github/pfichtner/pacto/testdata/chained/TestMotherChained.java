@@ -1,20 +1,12 @@
 package com.github.pfichtner.pacto.testdata.chained;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.booleanType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringMatcher;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
-import com.github.pfichtner.pacto.matchers.PactoMatchers;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Lists;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Sets;
 import com.github.pfichtner.pacto.testdata.TestMother;
@@ -37,11 +29,11 @@ public class TestMotherChained implements TestMother {
 				.setPrimaryAddress(spec(new AddressDTO()).setZip(integerType(21)).setCity(stringType())
 						.setCountry(nullValue()).setValidated(true)) //
 				.setSecondaryAddresses(eachLike(spec(new AddressDTO()).setZip(integerType(22)).setCity(stringType())
-						.setCountry(nullValue()).setValidated(true))) //
+						.setCountry(nullValue()).setValidated(false))) //
 				.setSecondaryAddressesList(Lists.eachLike(spec(new AddressDTO()).setZip(integerType(23))
-						.setCity(stringType()).setCountry(nullValue()).setValidated(true))) //
+						.setCity(stringType()).setCountry(nullValue()).setValidated(booleanType(true)))) //
 				.setSecondaryAddressesSet(Sets.eachLike(spec(new AddressDTO()).setZip(integerType(24))
-						.setCity(stringType()).setCountry(nullValue()).setValidated(true))) //
+						.setCity(stringType()).setCountry(nullValue()).setValidated(booleanValue(true)))) //
 				.setAge(integerType(42)) //
 				.setHeight(decimalType(1.86)) //
 				.setShoeSize((double) decimalType()) //

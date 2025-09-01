@@ -24,12 +24,32 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setGivenname(stringMatcher("G.*", "Givenname1"));
 		dto.setLastname(stringMatcher("L.*", "Lastname1"));
 		dto.setGivenname("Givenname2"); // last one wins
-		dto.setLastname(stringType("Lastname2")); // last one wins
+		dto.setLastname(stringType("Lastname2"));
+		AddressDTO address1 = spec(new AddressDTO());
+		address1.setZip(integerType(21));
+		address1.setCity(stringType());
+		address1.setCountry(nullValue());
+		address1.setValidated(true); // last one wins
 		// TODO support like
-		dto.setPrimaryAddress(address(21));
-		dto.setSecondaryAddresses(eachLike(address(22)));
-		dto.setSecondaryAddressesList(Lists.eachLike(address(23)));
-		dto.setSecondaryAddressesSet(Sets.eachLike(address(24)));
+		dto.setPrimaryAddress(address1);
+		AddressDTO address2 = spec(new AddressDTO());
+		address2.setZip(integerType(22));
+		address2.setCity(stringType());
+		address2.setCountry(nullValue());
+		address2.setValidated(false);
+		dto.setSecondaryAddresses(eachLike(address2));
+		AddressDTO address3 = spec(new AddressDTO());
+		address3.setZip(integerType(23));
+		address3.setCity(stringType());
+		address3.setCountry(nullValue());
+		address3.setValidated(booleanType(true));
+		dto.setSecondaryAddressesList(Lists.eachLike(address3));
+		AddressDTO address4 = spec(new AddressDTO());
+		address4.setZip(integerType(24));
+		address4.setCity(stringType());
+		address4.setCountry(nullValue());
+		address4.setValidated(booleanValue(true));
+		dto.setSecondaryAddressesSet(Sets.eachLike(address4));
 		dto.setAge(integerType(42));
 		dto.setHeight(decimalType(1.86));
 		dto.setShoeSize((double) decimalType());
@@ -61,15 +81,6 @@ public class TestMotherJavaBean implements TestMother {
 		address.setCity("city");
 		address.setCountry(null);
 		address.setValidated(true);
-		return address;
-	}
-
-	private static AddressDTO address(int zip) {
-		AddressDTO address = spec(new AddressDTO());
-		address.setZip(integerType(zip));
-		address.setCity(stringType());
-		address.setCountry(nullValue());
-		address.setValidated(booleanType(true));
 		return address;
 	}
 
