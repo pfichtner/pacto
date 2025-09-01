@@ -15,10 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import com.github.pfichtner.pacto.matchers.Matchers.Lists;
 import com.github.pfichtner.pacto.matchers.Matchers.Sets;
-
-import lombok.Data;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import com.github.pfichtner.pacto.testdata.Bar;
+import com.github.pfichtner.pacto.testdata.Foo;
 
 class MatchersTest {
 
@@ -53,19 +51,6 @@ class MatchersTest {
 		listArg(Lists.maxArrayLike(new Foo(), 4));
 		setArg(Sets.minArrayLike(new Foo(), 5));
 		setArg(Sets.maxArrayLike(new Foo(), 6));
-	}
-
-	@Setter
-	public static class Foo {
-		Bar[] bars1;
-		List<Bar> bars2;
-		Set<Bar> bars3;
-	}
-
-	@Data
-	@Accessors(chain = true, fluent = true)
-	public static class Bar {
-		private String value;
 	}
 
 	@Test
