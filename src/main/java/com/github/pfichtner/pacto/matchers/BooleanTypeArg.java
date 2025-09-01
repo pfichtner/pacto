@@ -4,19 +4,13 @@ import static java.lang.String.format;
 
 public class BooleanTypeArg extends PactoMatcher<Boolean> {
 
-	private final boolean value;
-
 	public BooleanTypeArg(boolean value) {
-		this.value = value;
-	}
-
-	public boolean getValue() {
-		return value;
+		super(value);
 	}
 
 	@Override
 	public String toString() {
-		return format("booleantype(%s)", value);
+		return format("booleantype(%s)", getValue());
 	}
 
 }
