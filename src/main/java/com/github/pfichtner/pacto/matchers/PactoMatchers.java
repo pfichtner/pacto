@@ -24,8 +24,7 @@ public final class PactoMatchers {
 	}
 
 	public static boolean booleanType(boolean in) {
-		BooleanTypeArg matcher = new BooleanTypeArg(in);
-		reportMatcher(matcher);
+		reportMatcher(new BooleanTypeArg(in));
 		return in;
 	}
 
@@ -34,14 +33,12 @@ public final class PactoMatchers {
 	}
 
 	public static String stringType(String in) {
-		StringTypeArg matcher = new StringTypeArg(in);
-		reportMatcher(matcher);
+		reportMatcher(new StringTypeArg(in));
 		return in;
 	}
 
 	public static String stringMatcher(String regex, String in) {
-		StringMatcherArg matcher = new StringMatcherArg(regex, in);
-		reportMatcher(matcher);
+		reportMatcher(new StringMatcherArg(regex, in));
 		return in;
 	}
 
@@ -50,14 +47,12 @@ public final class PactoMatchers {
 	}
 
 	public static int integerType(int in) {
-		IntegerTypeArg matcher = new IntegerTypeArg(in);
-		reportMatcher(matcher);
+		reportMatcher(new IntegerTypeArg(in));
 		return in;
 	}
 
 	public static long integerType(long in) {
-		IntegerTypeArg matcher = new IntegerTypeArg(in);
-		reportMatcher(matcher);
+		reportMatcher(new IntegerTypeArg(in));
 		return in;
 	}
 
@@ -66,26 +61,22 @@ public final class PactoMatchers {
 	}
 
 	public static double decimalType(double in) {
-		DecimalTypeArg matcher = new DecimalTypeArg(in);
-		reportMatcher(matcher);
+		reportMatcher(new DecimalTypeArg(in));
 		return in;
 	}
 
 	public static float decimalType(float in) {
-		DecimalTypeArg matcher = new DecimalTypeArg(in);
-		reportMatcher(matcher);
+		reportMatcher(new DecimalTypeArg(in));
 		return in;
 	}
 
 	public static <T extends Number> T numberType(T in) {
-		NumberTypeArg matcher = new NumberTypeArg(in);
-		reportMatcher(matcher);
+		reportMatcher(new NumberTypeArg(in));
 		return in;
 	}
 
 	public static <T> T nullValue() {
-		NullValueArg matcher = new NullValueArg();
-		reportMatcher(matcher);
+		reportMatcher(new NullValueArg());
 		return null;
 	}
 
