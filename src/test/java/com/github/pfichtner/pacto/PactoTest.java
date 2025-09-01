@@ -4,7 +4,7 @@ import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.PactoDslBuilder.buildDslFrom;
+import static com.github.pfichtner.pacto.PactoDslBuilder.pactFrom;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_DECIMAL_VALUE;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_STRING_VALUE;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
@@ -108,7 +108,7 @@ public class PactoTest {
 
 	@Test
 	void testDslPart() throws Exception {
-		assertThatDslPart(buildDslFrom(dtoWithSpec)).isEqualToDslPart(dtoExpectedPactDslPart());
+		assertThatDslPart(pactFrom(dtoWithSpec)).isEqualToDslPart(dtoExpectedPactDslPart());
 	}
 
 	@Test
@@ -142,7 +142,7 @@ public class PactoTest {
 	@Test
 	void testDslPartWithPartitials() throws Exception {
 		DslPart expected = new PactDslJsonBody().stringType("lastname", "Lastname2");
-		assertThatDslPart(buildDslFrom(partial)).isEqualToDslPart(expected);
+		assertThatDslPart(pactFrom(partial)).isEqualToDslPart(expected);
 	}
 
 	/**

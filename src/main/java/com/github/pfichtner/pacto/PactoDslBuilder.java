@@ -100,7 +100,7 @@ public final class PactoDslBuilder {
 				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, EachLikeArg matcher) {
 					Integer max = matcher.getMax();
 					Integer min = matcher.getMin();
-					DslPart each = buildDslFrom(matcher.getValue());
+					DslPart each = pactFrom(matcher.getValue());
 					if (max != null) {
 						return body.maxArrayLike(invocation.getAttribute(), max, each);
 					}
@@ -115,7 +115,7 @@ public final class PactoDslBuilder {
 		super();
 	}
 
-	public static DslPart buildDslFrom(Object dto) {
+	public static DslPart pactFrom(Object dto) {
 		return appendInvocations(new PactDslJsonBody(), dto);
 	}
 

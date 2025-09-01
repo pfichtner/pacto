@@ -53,7 +53,7 @@ public class AddressDTO {
 }
 
 // And again in Pact DSL:
-PactDslJsonBody body = new PactDslJsonBody()
+DslPart body = new PactDslJsonBody()
     .stringMatcher("givenname", "G.*", "Givenname1")
     .stringMatcher("lastname", "L.*", "Lastname1")
     .integerType("age", 42)
@@ -68,7 +68,7 @@ If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update bo
 **✅ With pacto (no duplication):**  
 
 ```java
-PersonDTO person = spec(new PersonDTO())
+DslPart body = pactFrom(spec(new PersonDTO())
     .givenname(regex("G.*", "Givenname1"))
     .lastname(regex("L.*", "Lastname1"))
     .age(integerType(42))
@@ -76,9 +76,7 @@ PersonDTO person = spec(new PersonDTO())
         spec(new AddressDTO())
             .zip(integerType(12345))
             .city(stringType("City"))
-    );
-
-PactDslJsonBody pactBody = buildDslFrom(person);
+    ));
 ```
 
 Now, your contract is generated **directly from the DTO** — no duplication, no drift, no extra maintenance.  
