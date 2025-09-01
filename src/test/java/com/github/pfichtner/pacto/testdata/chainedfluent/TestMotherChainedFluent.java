@@ -1,18 +1,18 @@
 package com.github.pfichtner.pacto.testdata.chainedfluent;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.Matchers.decimalType;
-import static com.github.pfichtner.pacto.matchers.Matchers.eachLike;
-import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
-import static com.github.pfichtner.pacto.matchers.Matchers.nullValue;
-import static com.github.pfichtner.pacto.matchers.Matchers.regex;
-import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.eachLike;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.regex;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 
 import java.util.List;
 import java.util.Set;
 
-import com.github.pfichtner.pacto.matchers.Matchers.Lists;
-import com.github.pfichtner.pacto.matchers.Matchers.Sets;
+import com.github.pfichtner.pacto.matchers.PactoMatchers.Lists;
+import com.github.pfichtner.pacto.matchers.PactoMatchers.Sets;
 import com.github.pfichtner.pacto.testdata.TestMother;
 
 public class TestMotherChainedFluent implements TestMother {

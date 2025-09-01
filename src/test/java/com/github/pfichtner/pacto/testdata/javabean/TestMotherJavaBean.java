@@ -1,13 +1,13 @@
 package com.github.pfichtner.pacto.testdata.javabean;
 
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.Matchers.*;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
 
 import java.util.List;
 import java.util.Set;
 
-import com.github.pfichtner.pacto.matchers.Matchers.Lists;
-import com.github.pfichtner.pacto.matchers.Matchers.Sets;
+import com.github.pfichtner.pacto.matchers.PactoMatchers.Lists;
+import com.github.pfichtner.pacto.matchers.PactoMatchers.Sets;
 import com.github.pfichtner.pacto.testdata.TestMother;
 
 public class TestMotherJavaBean implements TestMother {

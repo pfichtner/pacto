@@ -2,10 +2,10 @@ package com.github.pfichtner.pacto.matchers;
 
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.Matchers.decimalType;
-import static com.github.pfichtner.pacto.matchers.Matchers.integerType;
-import static com.github.pfichtner.pacto.matchers.Matchers.maxArrayLike;
-import static com.github.pfichtner.pacto.matchers.Matchers.minArrayLike;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -13,12 +13,12 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.pfichtner.pacto.matchers.Matchers.Lists;
-import com.github.pfichtner.pacto.matchers.Matchers.Sets;
+import com.github.pfichtner.pacto.matchers.PactoMatchers.Lists;
+import com.github.pfichtner.pacto.matchers.PactoMatchers.Sets;
 import com.github.pfichtner.pacto.testdata.Bar;
 import com.github.pfichtner.pacto.testdata.Foo;
 
-class MatchersTest {
+class PactoMatchersTest {
 
 	@Test
 	void canCompilePrimitives() {

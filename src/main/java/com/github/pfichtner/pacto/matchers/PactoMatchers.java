@@ -8,13 +8,13 @@ import java.util.Set;
 
 import org.mockito.ArgumentMatcher;
 
-public final class Matchers {
+public final class PactoMatchers {
 
 	public static final String DEFAULT_STRING_VALUE = "string";
 	public static final int DEFAULT_INTEGER_VALUE = 42;
 	public static final float DEFAULT_DECIMAL_VALUE = 12.345F;
 
-	private Matchers() {
+	private PactoMatchers() {
 		super();
 	}
 

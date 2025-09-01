@@ -3,7 +3,7 @@ package com.github.pfichtner.pacto;
 import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.appendInvocations;
-import static com.github.pfichtner.pacto.matchers.Matchers.stringType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
