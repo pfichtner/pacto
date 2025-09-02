@@ -14,6 +14,7 @@ public final class PactoMatchers {
 	public static final String DEFAULT_STRING_VALUE = "string";
 	public static final int DEFAULT_INTEGER_VALUE = 42;
 	public static final float DEFAULT_DECIMAL_VALUE = 12.345F;
+	public static final String DEFAULT_HEX_VALUE = "1234a";
 
 	private PactoMatchers() {
 		super();
@@ -77,6 +78,15 @@ public final class PactoMatchers {
 
 	public static <T extends Number> T numberType(T in) {
 		reportMatcher(new NumberTypeArg(in));
+		return in;
+	}
+
+	public static String hex() {
+		return hex(DEFAULT_HEX_VALUE);
+	}
+
+	public static String hex(String in) {
+		reportMatcher(new HexArg(in));
 		return in;
 	}
 

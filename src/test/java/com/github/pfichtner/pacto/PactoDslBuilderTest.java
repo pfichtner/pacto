@@ -19,6 +19,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentMatcher;
 
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
+import com.github.pfichtner.pacto.matchers.HexArg;
 import com.github.pfichtner.pacto.testdata.Bar;
 import com.github.pfichtner.pacto.testdata.Foo;
 
@@ -99,6 +100,14 @@ class PactoDslBuilderTest {
 		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
 		PactDslJsonBody expected = new PactDslJsonBody().maxArrayLike(invocation.attribute(), max,
 				new PactDslJsonBody().stringType("value", "max"));
+		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
+	}
+
+	@Test
+	void testHex() {
+		HexArg matcher = new HexArg("0000FFFF");
+		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
+		PactDslJsonBody expected = new PactDslJsonBody().hexValue(invocation.attribute(), "0000FFFF");
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}
 

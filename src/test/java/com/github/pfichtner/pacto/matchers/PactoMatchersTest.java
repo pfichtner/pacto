@@ -3,16 +3,16 @@ package com.github.pfichtner.pacto.matchers;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.hex;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
+import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,51 +23,53 @@ import com.github.pfichtner.pacto.testdata.Foo;
 
 class PactoMatchersTest {
 
+	TestTarget target = new TestTarget();
+
 	@Test
 	void canCompilePrimitives() {
-		floatArg(decimalType());
-		floatArg(decimalType(1.23F));
-		floatWrapperArg(decimalType());
-		floatWrapperArg(decimalType(1.23F));
-		doubleArg(decimalType());
-		doubleArg(decimalType(1.23));
+		target.floatArg(decimalType());
+		target.floatArg(decimalType(1.23F));
+		target.floatWrapperArg(decimalType());
+		target.floatWrapperArg(decimalType(1.23F));
+		target.doubleArg(decimalType());
+		target.doubleArg(decimalType(1.23));
 		// TODO fix to get rid of cast
-		doubleWrapperArg((double) decimalType());
-		doubleWrapperArg(decimalType(1.23D));
+		target.doubleWrapperArg((double) decimalType());
+		target.doubleWrapperArg(decimalType(1.23D));
 
-		intArg(integerType());
-		intArg(integerType(42));
-		integerWrapperArg(integerType());
-		integerWrapperArg(integerType(42));
-		longArg(integerType());
-		longArg(integerType(42L));
+		target.intArg(integerType());
+		target.intArg(integerType(42));
+		target.integerWrapperArg(integerType());
+		target.integerWrapperArg(integerType(42));
+		target.longArg(integerType());
+		target.longArg(integerType(42L));
 		// TODO fix to get rid of cast
-		longWrapperArg((long) integerType());
-		longWrapperArg(integerType(42L));
+		target.longWrapperArg((long) integerType());
+		target.longWrapperArg(integerType(42L));
 	}
 
 	@Test
 	void numberArg() {
-		intArg(numberType(42));
-		intArg(numberType(Integer.valueOf(42)));
-		longArg(numberType(42L));
-		longArg(numberType(Long.valueOf(42)));
-		floatArg(numberType(Float.valueOf(1.23F)));
-		floatArg(numberType(1.23F));
-		doubleArg(numberType(Double.valueOf(1.23D)));
-		doubleArg(numberType(1.23D));
-		numberArg(numberType(BigInteger.valueOf(123)));
-		numberArg(numberType(new BigDecimal(123)));
+		target.intArg(numberType(42));
+		target.intArg(numberType(Integer.valueOf(42)));
+		target.longArg(numberType(42L));
+		target.longArg(numberType(Long.valueOf(42)));
+		target.floatArg(numberType(Float.valueOf(1.23F)));
+		target.floatArg(numberType(1.23F));
+		target.doubleArg(numberType(Double.valueOf(1.23D)));
+		target.doubleArg(numberType(1.23D));
+		target.numberArg(numberType(BigInteger.valueOf(123)));
+		target.numberArg(numberType(new BigDecimal(123)));
 	}
 
 	@Test
 	void canCompileCollections() {
-		arrayArg(minArrayLike(new Foo(), 1));
-		arrayArg(maxArrayLike(new Foo(), 2));
-		listArg(Lists.minArrayLike(new Foo(), 3));
-		listArg(Lists.maxArrayLike(new Foo(), 4));
-		setArg(Sets.minArrayLike(new Foo(), 5));
-		setArg(Sets.maxArrayLike(new Foo(), 6));
+		target.arrayArg(minArrayLike(new Foo(), 1));
+		target.arrayArg(maxArrayLike(new Foo(), 2));
+		target.listArg(Lists.minArrayLike(new Foo(), 3));
+		target.listArg(Lists.maxArrayLike(new Foo(), 4));
+		target.setArg(Sets.minArrayLike(new Foo(), 5));
+		target.setArg(Sets.maxArrayLike(new Foo(), 6));
 	}
 
 	@Test
@@ -95,45 +97,22 @@ class PactoMatchersTest {
 		assertThat(invocations(foo).getAllInvocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
 				.isInstanceOfSatisfying(EachLikeArg.class, //
 						m -> {
-							assertThat(m.toString()).startsWith("maxArrayLike(").contains(String.valueOf(max));
+							assertThat(m.toString()).isEqualTo(format("maxArrayLike(%d)", max));
 							assertThat(m.max()).isEqualTo(max);
 						}));
 	}
 
-	void floatArg(float value) {
-	}
-
-	void floatWrapperArg(Float value) {
-	}
-
-	void doubleArg(double value) {
-	}
-
-	void doubleWrapperArg(Double value) {
-	}
-
-	void intArg(int value) {
-	}
-
-	void integerWrapperArg(Integer value) {
-	}
-
-	void longArg(long value) {
-	}
-
-	void longWrapperArg(Long value) {
-	}
-
-	void numberArg(Number value) {
-	}
-
-	private void arrayArg(Foo[] array) {
-	}
-
-	private void listArg(List<Foo> list) {
-	}
-
-	private void setArg(Set<Foo> list) {
+	@Test
+	void testHex() {
+		TestTarget spec = spec(target);
+		spec.stringArg(hex("0000FFFF"));
+		assertThat(invocations(spec).getAllInvocations()).singleElement() //
+				.satisfies(i -> assertThat(i.matcher()) //
+						.isInstanceOfSatisfying(HexArg.class, //
+								m -> {
+									assertThat(m.value()).isEqualTo("0000FFFF");
+									assertThat(m.toString()).isEqualTo("hex(0000FFFF)");
+								}));
 	}
 
 }
