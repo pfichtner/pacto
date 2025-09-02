@@ -24,13 +24,23 @@ import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
 public final class PactoDslBuilder {
 
-	static abstract class Extractor<T extends PactoMatcher<?>>
+	private static <T extends PactoMatcher<?>> Extractor<T> x(Class<T> clazz, Extractor.Applier<T> applier) {
+		return new Extractor<T>(clazz, applier);
+	}
+
+	private static class Extractor<T extends PactoMatcher<?>>
 			implements BiFunction<Invocation, PactDslJsonBody, PactDslJsonBody> {
 
-		private final Class<T> clazz;
+		static interface Applier<T> {
+			PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, T matcher);
+		}
 
-		public Extractor(Class<T> clazz) {
+		private final Class<T> clazz;
+		private final Applier<T> applier;
+
+		public Extractor(Class<T> clazz, Applier<T> applier) {
 			this.clazz = clazz;
+			this.applier = applier;
 		}
 
 		public boolean matches(ArgumentMatcher<?> matcher) {
@@ -39,77 +49,32 @@ public final class PactoDslBuilder {
 
 		@Override
 		public final PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body) {
-			return apply(invocation, body, clazz.cast(invocation.getMatcher()));
+			return applier.apply(invocation, body, clazz.cast(invocation.getMatcher()));
 		}
-
-		public abstract PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, T matcher);
 
 	}
 
 	private final static List<Extractor<? extends PactoMatcher<?>>> extractors = List.of( //
-			new Extractor<>(NullValueArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, NullValueArg matcher) {
-					return body.nullValue(invocation.getAttribute());
+			x(NullValueArg.class, (i, b, m) -> b.nullValue(i.getAttribute())), //
+			x(BooleanTypeArg.class, (i, b, m) -> b.booleanType(i.getAttribute(), m.getValue())), //
+			x(BooleanValueArg.class, (i, b, m) -> b.booleanValue(i.getAttribute(), m.getValue())), //
+			x(StringMatcherArg.class, (i, b, m) -> b.stringMatcher(i.getAttribute(), m.getRegex(), m.getValue())), //
+			x(StringTypeArg.class, (i, b, m) -> b.stringType(i.getAttribute(), m.getValue())), //
+			x(IntegerTypeArg.class, (i, b, m) -> b.integerType(i.getAttribute(), m.getValue())), //
+			x(DecimalTypeArg.class, (i, b, m) -> b.decimalType(i.getAttribute(), m.getValue())), //
+			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.getAttribute(), m.getValue())), //
+			x(EachLikeArg.class, (i, b, m) -> {
+				Integer max = m.getMax();
+				Integer min = m.getMin();
+				DslPart each = pactFrom(m.getValue());
+				if (max != null) {
+					return b.maxArrayLike(i.getAttribute(), max, each);
 				}
-			}, //
-			new Extractor<>(BooleanTypeArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, BooleanTypeArg matcher) {
-					return body.booleanType(invocation.getAttribute(), matcher.getValue());
+				if (min != null) {
+					return b.minArrayLike(i.getAttribute(), min, each);
 				}
-			}, //
-			new Extractor<>(BooleanValueArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, BooleanValueArg matcher) {
-					return body.booleanValue(invocation.getAttribute(), matcher.getValue());
-				}
-			}, //
-			new Extractor<>(StringMatcherArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, StringMatcherArg matcher) {
-					return body.stringMatcher(invocation.getAttribute(), matcher.getRegex(), matcher.getValue());
-				}
-			}, //
-			new Extractor<>(StringTypeArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, StringTypeArg matcher) {
-					return body.stringType(invocation.getAttribute(), matcher.getValue());
-				}
-			}, //
-			new Extractor<>(IntegerTypeArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, IntegerTypeArg matcher) {
-					return body.integerType(invocation.getAttribute(), matcher.getValue());
-				}
-			}, //
-			new Extractor<>(DecimalTypeArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, DecimalTypeArg matcher) {
-					return body.decimalType(invocation.getAttribute(), matcher.getValue());
-				}
-			}, //
-			new Extractor<>(NumberTypeArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, NumberTypeArg matcher) {
-					return body.numberType(invocation.getAttribute(), matcher.getValue());
-				}
-			}, //
-			new Extractor<>(EachLikeArg.class) {
-				@Override
-				public PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, EachLikeArg matcher) {
-					Integer max = matcher.getMax();
-					Integer min = matcher.getMin();
-					DslPart each = pactFrom(matcher.getValue());
-					if (max != null) {
-						return body.maxArrayLike(invocation.getAttribute(), max, each);
-					}
-					if (min != null) {
-						return body.minArrayLike(invocation.getAttribute(), min, each);
-					}
-					return body.eachLike(invocation.getAttribute(), each);
-				}
-			});
+				return b.eachLike(i.getAttribute(), each);
+			}));
 
 	private PactoDslBuilder() {
 		super();
