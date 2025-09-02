@@ -4,7 +4,6 @@ import static com.github.pfichtner.pacto.Pacto.invocations;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 
 import org.mockito.ArgumentMatcher;
 
@@ -28,9 +27,9 @@ public final class PactoDslBuilder {
 		return new Extractor<T>(clazz, applier);
 	}
 
-	private static class Extractor<T extends PactoMatcher<?>>
-			implements BiFunction<Invocation, PactDslJsonBody, PactDslJsonBody> {
+	private static class Extractor<T extends PactoMatcher<?>> {
 
+		@FunctionalInterface
 		static interface Applier<T> {
 			PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, T matcher);
 		}
@@ -47,9 +46,8 @@ public final class PactoDslBuilder {
 			return this.clazz.isInstance(matcher);
 		}
 
-		@Override
-		public final PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body) {
-			return applier.apply(invocation, body, clazz.cast(invocation.matcher()));
+		private PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body) {
+			return this.applier.apply(invocation, body, clazz.cast(invocation.matcher()));
 		}
 
 	}
