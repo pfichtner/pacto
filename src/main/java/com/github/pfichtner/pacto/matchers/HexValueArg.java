@@ -2,9 +2,9 @@ package com.github.pfichtner.pacto.matchers;
 
 import static java.lang.String.format;
 
-public class HexArg extends PactoMatcher<String> {
+public class HexValueArg extends PactoMatcher<String> {
 
-	public HexArg(String value) {
+	public HexValueArg(String value) {
 		super(value);
 	}
 

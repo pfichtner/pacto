@@ -21,7 +21,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentMatcher;
 
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
-import com.github.pfichtner.pacto.matchers.HexArg;
+import com.github.pfichtner.pacto.matchers.HexValueArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 import com.github.pfichtner.pacto.matchers.UuidArg;
 import com.github.pfichtner.pacto.testdata.Bar;
@@ -122,7 +122,7 @@ class PactoDslBuilderTest {
 
 	private static List<Arguments> types() throws NoSuchMethodException, SecurityException {
 		return List.of( //
-				arguments("0000FFFF", HexArg.class.getConstructor(String.class), "hexValue"), //
+				arguments("0000FFFF", HexValueArg.class.getConstructor(String.class), "hexValue"), //
 				arguments(UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5"),
 						UuidArg.class.getConstructor(UUID.class), "uuid") //
 		);

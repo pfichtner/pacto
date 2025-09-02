@@ -110,7 +110,7 @@ class PactoMatchersTest {
 		spec.stringArg(hex(in));
 		assertThat(invocations(spec).getAllInvocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
-						.isInstanceOfSatisfying(HexArg.class, //
+						.isInstanceOfSatisfying(HexValueArg.class, //
 								m -> {
 									assertThat(m.value()).isEqualTo(in);
 									assertThat(m).hasToString("hex(%s)", in);

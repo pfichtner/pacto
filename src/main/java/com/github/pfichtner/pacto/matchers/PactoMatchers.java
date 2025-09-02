@@ -88,7 +88,7 @@ public final class PactoMatchers {
 	}
 
 	public static String hex(String in) {
-		reportMatcher(new HexArg(in));
+		reportMatcher(new HexValueArg(in));
 		return in;
 	}
 
