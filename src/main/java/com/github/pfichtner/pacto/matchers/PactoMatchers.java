@@ -12,9 +12,10 @@ public final class PactoMatchers {
 
 	public static final boolean DEFAULT_BOOLEAN_VALUE = true;
 	public static final String DEFAULT_STRING_VALUE = "string";
-	public static final int DEFAULT_INTEGER_VALUE = 42;
-	public static final float DEFAULT_DECIMAL_VALUE = 12.345F;
+	public static final int DEFAULT_INTEGER_VALUE = 100;
+	public static final float DEFAULT_DECIMAL_VALUE = 100.0F;
 	public static final String DEFAULT_HEX_VALUE = "1234a";
+	public static final String DEFAULT_UUID_VALUE = "e2490de5-5bd3-43d5-b7c4-526e33f71304";
 
 	private PactoMatchers() {
 		super();
@@ -87,6 +88,15 @@ public final class PactoMatchers {
 
 	public static String hex(String in) {
 		reportMatcher(new HexArg(in));
+		return in;
+	}
+
+	public static String uuid() {
+		return uuid(DEFAULT_UUID_VALUE);
+	}
+
+	public static String uuid(String in) {
+		reportMatcher(new UuidArg(in));
 		return in;
 	}
 

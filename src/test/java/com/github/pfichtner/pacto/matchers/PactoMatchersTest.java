@@ -8,6 +8,7 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.uuid;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -112,6 +113,20 @@ class PactoMatchersTest {
 								m -> {
 									assertThat(m.value()).isEqualTo("0000FFFF");
 									assertThat(m.toString()).isEqualTo("hex(0000FFFF)");
+								}));
+	}
+
+	@Test
+	void testUuid() {
+		String in = "5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5";
+		TestTarget spec = spec(target);
+		spec.stringArg(uuid(in));
+		assertThat(invocations(spec).getAllInvocations()).singleElement() //
+				.satisfies(i -> assertThat(i.matcher()) //
+						.isInstanceOfSatisfying(UuidArg.class, //
+								m -> {
+									assertThat(m.value()).isEqualTo(in);
+									assertThat(m.toString()).isEqualTo(format("uuid(%s)", in));
 								}));
 	}
 
