@@ -31,7 +31,7 @@ public final class PactoDslBuilder {
 
 		@FunctionalInterface
 		static interface Applier<T> {
-			PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body, T matcher);
+			PactDslJsonBody append(Invocation invocation, PactDslJsonBody body, T matcher);
 		}
 
 		private final Class<T> clazz;
@@ -46,8 +46,8 @@ public final class PactoDslBuilder {
 			return this.clazz.isInstance(matcher);
 		}
 
-		private PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body) {
-			return this.applier.apply(invocation, body, clazz.cast(invocation.matcher()));
+		private PactDslJsonBody append(Invocation invocation, PactDslJsonBody body) {
+			return this.applier.append(invocation, body, clazz.cast(invocation.matcher()));
 		}
 
 	}
@@ -100,35 +100,42 @@ public final class PactoDslBuilder {
 
 	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation,
 			List<Invocation> pushbackInvocations) {
-		String attribute = invocation.attribute();
-		ArgumentMatcher<?> matcher = invocation.matcher();
-		if (matcher == null) {
-			Class<?> parameter = invocation.type();
-			if (CharSequence.class.isAssignableFrom(parameter)) {
-				return body.stringValue(attribute, invocation.arg().toString());
-			} else if (int.class.isAssignableFrom(parameter) || Integer.class.isAssignableFrom(parameter)) {
-				return body.integerType(attribute).numberValue(attribute, (int) invocation.arg());
-			} else if (long.class.isAssignableFrom(parameter) || Long.class.isAssignableFrom(parameter)) {
-				return body.integerType(attribute).numberValue(attribute, (long) invocation.arg());
-			} else if (double.class.isAssignableFrom(parameter) || Double.class.isAssignableFrom(parameter)) {
-				return body.decimalType(attribute).numberValue(attribute, (double) invocation.arg());
-			} else if (float.class.isAssignableFrom(parameter) || Float.class.isAssignableFrom(parameter)) {
-				return body.decimalType(attribute).numberValue(attribute, (float) invocation.arg());
-			} else if (boolean.class.isAssignableFrom(parameter) || Boolean.class.isAssignableFrom(parameter)) {
-				return body.booleanType(attribute).booleanValue(attribute, (boolean) invocation.arg());
-			} else if (Number.class.isAssignableFrom(parameter)) {
-				return body.numberType(attribute).numberValue(attribute, (Number) invocation.arg());
+		if (invocation.matcher() == null) {
+			PactDslJsonBody bodyWithValueAppended = appendValue(body, invocation);
+			if (bodyWithValueAppended == null) {
+				pushbackInvocations.add(invocation);
+				return body;
 			}
-			pushbackInvocations.add(invocation);
-			return body;
+			return bodyWithValueAppended;
 		}
 
 		return extractors.stream() //
-				.filter(e -> e.matches(matcher)) //
+				.filter(e -> e.matches(invocation.matcher())) //
 				.findFirst() //
-				.map(e -> e.apply(invocation, body)) //
+				.map(e -> e.append(invocation, body)) //
 				.orElseThrow(() -> new IllegalArgumentException(
-						String.format("Cannot handle %s (%s)", attribute, invocation)));
+						String.format("Cannot handle %s (%s)", invocation.attribute(), invocation)));
+	}
+
+	private static PactDslJsonBody appendValue(PactDslJsonBody body, Invocation invocation) {
+		String attribute = invocation.attribute();
+		Class<?> parameter = invocation.type();
+		if (CharSequence.class.isAssignableFrom(parameter)) {
+			return body.stringValue(attribute, invocation.arg().toString());
+		} else if (int.class.isAssignableFrom(parameter) || Integer.class.isAssignableFrom(parameter)) {
+			return body.integerType(attribute).numberValue(attribute, (int) invocation.arg());
+		} else if (long.class.isAssignableFrom(parameter) || Long.class.isAssignableFrom(parameter)) {
+			return body.integerType(attribute).numberValue(attribute, (long) invocation.arg());
+		} else if (double.class.isAssignableFrom(parameter) || Double.class.isAssignableFrom(parameter)) {
+			return body.decimalType(attribute).numberValue(attribute, (double) invocation.arg());
+		} else if (float.class.isAssignableFrom(parameter) || Float.class.isAssignableFrom(parameter)) {
+			return body.decimalType(attribute).numberValue(attribute, (float) invocation.arg());
+		} else if (boolean.class.isAssignableFrom(parameter) || Boolean.class.isAssignableFrom(parameter)) {
+			return body.booleanType(attribute).booleanValue(attribute, (boolean) invocation.arg());
+		} else if (Number.class.isAssignableFrom(parameter)) {
+			return body.numberType(attribute).numberValue(attribute, (Number) invocation.arg());
+		}
+		return null;
 	}
 
 }
