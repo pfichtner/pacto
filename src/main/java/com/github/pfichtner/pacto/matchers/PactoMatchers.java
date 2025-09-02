@@ -5,6 +5,7 @@ import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingPro
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.mockito.ArgumentMatcher;
 
@@ -15,7 +16,7 @@ public final class PactoMatchers {
 	public static final int DEFAULT_INTEGER_VALUE = 100;
 	public static final float DEFAULT_DECIMAL_VALUE = 100.0F;
 	public static final String DEFAULT_HEX_VALUE = "1234a";
-	public static final String DEFAULT_UUID_VALUE = "e2490de5-5bd3-43d5-b7c4-526e33f71304";
+	public static final UUID DEFAULT_UUID_VALUE = UUID.fromString("e2490de5-5bd3-43d5-b7c4-526e33f71304");
 
 	private PactoMatchers() {
 		super();
@@ -91,11 +92,15 @@ public final class PactoMatchers {
 		return in;
 	}
 
-	public static String uuid() {
+	public static UUID uuid() {
 		return uuid(DEFAULT_UUID_VALUE);
 	}
 
-	public static String uuid(String in) {
+	public static UUID uuid(String in) {
+		return uuid(UUID.fromString(in));
+	}
+
+	public static UUID uuid(UUID in) {
 		reportMatcher(new UuidArg(in));
 		return in;
 	}

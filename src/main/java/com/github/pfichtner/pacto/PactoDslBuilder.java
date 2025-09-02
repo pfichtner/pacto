@@ -18,6 +18,7 @@ import com.github.pfichtner.pacto.matchers.NumberTypeArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 import com.github.pfichtner.pacto.matchers.StringMatcherArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
+import com.github.pfichtner.pacto.matchers.UuidArg;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
@@ -60,6 +61,7 @@ public final class PactoDslBuilder {
 			x(StringMatcherArg.class, (i, b, m) -> b.stringMatcher(i.attribute(), m.regex(), m.value())), //
 			x(StringTypeArg.class, (i, b, m) -> b.stringType(i.attribute(), m.value())), //
 			x(HexArg.class, (i, b, m) -> b.hexValue(i.attribute(), m.value())), //
+			x(UuidArg.class, (i, b, m) -> b.uuid(i.attribute(), m.value())), //
 			x(IntegerTypeArg.class, (i, b, m) -> b.integerType(i.attribute(), m.value())), //
 			x(DecimalTypeArg.class, (i, b, m) -> b.decimalType(i.attribute(), m.value())), //
 			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.attribute(), m.value())), //

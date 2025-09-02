@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -105,28 +106,29 @@ class PactoMatchersTest {
 
 	@Test
 	void testHex() {
+		String in = "0000FFFF";
 		TestTarget spec = spec(target);
-		spec.stringArg(hex("0000FFFF"));
+		spec.stringArg(hex(in));
 		assertThat(invocations(spec).getAllInvocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
 						.isInstanceOfSatisfying(HexArg.class, //
 								m -> {
-									assertThat(m.value()).isEqualTo("0000FFFF");
-									assertThat(m.toString()).isEqualTo("hex(0000FFFF)");
+									assertThat(m.value()).isEqualTo(in);
+									assertThat(m).hasToString("hex(%s)", in);
 								}));
 	}
 
 	@Test
 	void testUuid() {
-		String in = "5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5";
+		UUID in = UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5");
 		TestTarget spec = spec(target);
-		spec.stringArg(uuid(in));
+		spec.uuidArg(uuid(in.toString()));
 		assertThat(invocations(spec).getAllInvocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
 						.isInstanceOfSatisfying(UuidArg.class, //
 								m -> {
 									assertThat(m.value()).isEqualTo(in);
-									assertThat(m.toString()).isEqualTo(format("uuid(%s)", in));
+									assertThat(m).hasToString("uuid(%s)", in);
 								}));
 	}
 
