@@ -10,7 +10,7 @@ public class PactoMatcher<T> implements ArgumentMatcher<T> {
 		this.value = value;
 	}
 
-	public T getValue() {
+	public T value() {
 		return value;
 	}
 

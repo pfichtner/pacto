@@ -10,7 +10,7 @@ public class StringTypeArg extends PactoMatcher<String> {
 
 	@Override
 	public String toString() {
-		return format("stringtype(%s)", getValue());
+		return format("stringtype(%s)", value());
 	}
 
 }

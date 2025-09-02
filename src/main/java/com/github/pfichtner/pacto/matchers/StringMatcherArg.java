@@ -11,13 +11,13 @@ public class StringMatcherArg extends PactoMatcher<String> {
 		this.regex = regex;
 	}
 
-	public String getRegex() {
+	public String regex() {
 		return regex;
 	}
 
 	@Override
 	public String toString() {
-		return format("stringMatcher(%s, %s)", regex, getValue());
+		return format("stringMatcher(%s, %s)", regex, value());
 	}
 
 }

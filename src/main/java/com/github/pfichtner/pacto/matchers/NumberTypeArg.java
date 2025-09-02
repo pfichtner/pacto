@@ -10,7 +10,7 @@ public class NumberTypeArg extends PactoMatcher<Number> {
 
 	@Override
 	public String toString() {
-		return format("numberType(%s)", getValue());
+		return format("numberType(%s)", value());
 	}
 
 }

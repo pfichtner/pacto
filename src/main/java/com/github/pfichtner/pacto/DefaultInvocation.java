@@ -28,22 +28,22 @@ public class DefaultInvocation implements Invocation {
 	}
 
 	@Override
-	public Object getDelegate() {
+	public Object delegate() {
 		return delegate;
 	}
 
 	@Override
-	public Method getMethod() {
+	public Method method() {
 		return method;
 	}
 
 	@Override
-	public Object getArg() {
+	public Object arg() {
 		return arg;
 	}
 
 	@Override
-	public ArgumentMatcher<?> getMatcher() {
+	public ArgumentMatcher<?> matcher() {
 		return matcher;
 	}
 
@@ -53,7 +53,7 @@ public class DefaultInvocation implements Invocation {
 	}
 
 	@Override
-	public String getAttribute() {
+	public String attribute() {
 		try {
 			return propertyName(method).orElse(method.getName());
 		} catch (IntrospectionException e) {
@@ -82,8 +82,8 @@ public class DefaultInvocation implements Invocation {
 	}
 
 	@Override
-	public Class<?> getType() {
-		return getMethod().getParameterTypes()[0];
+	public Class<?> type() {
+		return method().getParameterTypes()[0];
 	}
 
 	public boolean equals(Object obj) {

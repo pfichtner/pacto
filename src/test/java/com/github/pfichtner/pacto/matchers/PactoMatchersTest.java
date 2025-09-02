@@ -77,11 +77,11 @@ class PactoMatchersTest {
 		foo.setBars1(minArrayLike(spec(new Bar()).value("array-min"), min));
 		foo.setBars2(Lists.minArrayLike(spec(new Bar()).value("list-min"), min));
 		foo.setBars3(Sets.minArrayLike(spec(new Bar()).value("set-min"), min));
-		assertThat(invocations(foo).getAllInvocations()).hasSize(3).allSatisfy(i -> assertThat(i.getMatcher()) //
+		assertThat(invocations(foo).getAllInvocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
 				.isInstanceOfSatisfying(EachLikeArg.class, //
 						m -> {
 							assertThat(m.toString()).startsWith("minArrayLike(").contains(String.valueOf(min));
-							assertThat(m.getMin()).isEqualTo(min);
+							assertThat(m.min()).isEqualTo(min);
 						}));
 	}
 
@@ -92,11 +92,11 @@ class PactoMatchersTest {
 		foo.setBars1(maxArrayLike(spec(new Bar()).value("array-max"), max));
 		foo.setBars2(Lists.maxArrayLike(spec(new Bar()).value("list-max"), max));
 		foo.setBars3(Sets.maxArrayLike(spec(new Bar()).value("set-max"), max));
-		assertThat(invocations(foo).getAllInvocations()).hasSize(3).allSatisfy(i -> assertThat(i.getMatcher()) //
+		assertThat(invocations(foo).getAllInvocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
 				.isInstanceOfSatisfying(EachLikeArg.class, //
 						m -> {
 							assertThat(m.toString()).startsWith("maxArrayLike(").contains(String.valueOf(max));
-							assertThat(m.getMax()).isEqualTo(max);
+							assertThat(m.max()).isEqualTo(max);
 						}));
 	}
 

@@ -6,16 +6,16 @@ import org.mockito.ArgumentMatcher;
 
 public interface Invocation {
 
-	ArgumentMatcher<?> getMatcher();
+	ArgumentMatcher<?> matcher();
 
-	Object getArg();
+	Object arg();
 
-	Method getMethod();
+	Method method();
 
-	Object getDelegate();
+	Object delegate();
 
-	String getAttribute();
+	String attribute();
 
-	Class<?> getType();
+	Class<?> type();
 
 }

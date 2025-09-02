@@ -10,7 +10,7 @@ public class DecimalTypeArg extends PactoMatcher<Double> {
 
 	@Override
 	public String toString() {
-		return format("decimal(%f)", getValue());
+		return format("decimal(%f)", value());
 	}
 
 }

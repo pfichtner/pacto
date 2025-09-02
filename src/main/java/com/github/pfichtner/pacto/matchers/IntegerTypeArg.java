@@ -10,7 +10,7 @@ public class IntegerTypeArg extends PactoMatcher<Long> {
 
 	@Override
 	public String toString() {
-		return format("integer(%d)", getValue());
+		return format("integer(%d)", value());
 	}
 
 }

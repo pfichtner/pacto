@@ -10,7 +10,7 @@ public class BooleanTypeArg extends PactoMatcher<Boolean> {
 
 	@Override
 	public String toString() {
-		return format("booleantype(%s)", getValue());
+		return format("booleantype(%s)", value());
 	}
 
 }

@@ -46,32 +46,32 @@ class PactoDslBuilderTest {
 		}
 
 		@Override
-		public ArgumentMatcher<?> getMatcher() {
+		public ArgumentMatcher<?> matcher() {
 			return matcher;
 		}
 
 		@Override
-		public Object getArg() {
+		public Object arg() {
 			return arg;
 		}
 
 		@Override
-		public Method getMethod() {
+		public Method method() {
 			return null;
 		}
 
 		@Override
-		public Object getDelegate() {
+		public Object delegate() {
 			return null;
 		}
 
 		@Override
-		public String getAttribute() {
+		public String attribute() {
 			return attribute;
 		}
 
 		@Override
-		public Class<?> getType() {
+		public Class<?> type() {
 			return type;
 		}
 	}
@@ -87,7 +87,7 @@ class PactoDslBuilderTest {
 		int min = 101;
 		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("min"))).min(min);
 		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
-		PactDslJsonBody expected = new PactDslJsonBody().minArrayLike(invocation.getAttribute(), min,
+		PactDslJsonBody expected = new PactDslJsonBody().minArrayLike(invocation.attribute(), min,
 				new PactDslJsonBody().stringType("value", "min"));
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}
@@ -97,7 +97,7 @@ class PactoDslBuilderTest {
 		int max = 102;
 		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("max"))).max(max);
 		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
-		PactDslJsonBody expected = new PactDslJsonBody().maxArrayLike(invocation.getAttribute(), max,
+		PactDslJsonBody expected = new PactDslJsonBody().maxArrayLike(invocation.attribute(), max,
 				new PactDslJsonBody().stringType("value", "max"));
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}

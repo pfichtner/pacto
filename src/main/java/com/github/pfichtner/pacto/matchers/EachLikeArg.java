@@ -14,7 +14,7 @@ public class EachLikeArg extends PactoMatcher<Object> {
 		return this;
 	}
 
-	public Integer getMax() {
+	public Integer max() {
 		return max;
 	}
 
@@ -23,19 +23,19 @@ public class EachLikeArg extends PactoMatcher<Object> {
 		return this;
 	}
 
-	public Integer getMin() {
+	public Integer min() {
 		return min;
 	}
 
 	@Override
 	public String toString() {
 		if (max != null) {
-			return String.format("maxArrayLike(%s, %d)", getValue(), max);
+			return String.format("maxArrayLike(%s, %d)", value(), max);
 		}
 		if (min != null) {
-			return String.format("minArrayLike(%s, %d)", getValue(), min);
+			return String.format("minArrayLike(%s, %d)", value(), min);
 		}
-		return String.format("eachLike(%s)", getValue());
+		return String.format("eachLike(%s)", value());
 	}
 
 }

@@ -49,31 +49,29 @@ public final class PactoDslBuilder {
 
 		@Override
 		public final PactDslJsonBody apply(Invocation invocation, PactDslJsonBody body) {
-			return applier.apply(invocation, body, clazz.cast(invocation.getMatcher()));
+			return applier.apply(invocation, body, clazz.cast(invocation.matcher()));
 		}
 
 	}
 
 	private final static List<Extractor<? extends PactoMatcher<?>>> extractors = List.of( //
-			x(NullValueArg.class, (i, b, m) -> b.nullValue(i.getAttribute())), //
-			x(BooleanTypeArg.class, (i, b, m) -> b.booleanType(i.getAttribute(), m.getValue())), //
-			x(BooleanValueArg.class, (i, b, m) -> b.booleanValue(i.getAttribute(), m.getValue())), //
-			x(StringMatcherArg.class, (i, b, m) -> b.stringMatcher(i.getAttribute(), m.getRegex(), m.getValue())), //
-			x(StringTypeArg.class, (i, b, m) -> b.stringType(i.getAttribute(), m.getValue())), //
-			x(IntegerTypeArg.class, (i, b, m) -> b.integerType(i.getAttribute(), m.getValue())), //
-			x(DecimalTypeArg.class, (i, b, m) -> b.decimalType(i.getAttribute(), m.getValue())), //
-			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.getAttribute(), m.getValue())), //
+			x(NullValueArg.class, (i, b, m) -> b.nullValue(i.attribute())), //
+			x(BooleanTypeArg.class, (i, b, m) -> b.booleanType(i.attribute(), m.value())), //
+			x(BooleanValueArg.class, (i, b, m) -> b.booleanValue(i.attribute(), m.value())), //
+			x(StringMatcherArg.class, (i, b, m) -> b.stringMatcher(i.attribute(), m.regex(), m.value())), //
+			x(StringTypeArg.class, (i, b, m) -> b.stringType(i.attribute(), m.value())), //
+			x(IntegerTypeArg.class, (i, b, m) -> b.integerType(i.attribute(), m.value())), //
+			x(DecimalTypeArg.class, (i, b, m) -> b.decimalType(i.attribute(), m.value())), //
+			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.attribute(), m.value())), //
 			x(EachLikeArg.class, (i, b, m) -> {
-				Integer max = m.getMax();
-				Integer min = m.getMin();
-				DslPart each = pactFrom(m.getValue());
-				if (max != null) {
-					return b.maxArrayLike(i.getAttribute(), max, each);
+				DslPart each = pactFrom(m.value());
+				if (m.max() != null) {
+					return b.maxArrayLike(i.attribute(), m.max(), each);
+				} else if (m.min() != null) {
+					return b.minArrayLike(i.attribute(), m.min(), each);
+				} else {
+					return b.eachLike(i.attribute(), each);
 				}
-				if (min != null) {
-					return b.minArrayLike(i.getAttribute(), min, each);
-				}
-				return b.eachLike(i.getAttribute(), each);
 			}));
 
 	private PactoDslBuilder() {
@@ -96,7 +94,7 @@ public final class PactoDslBuilder {
 
 		DslPart bodyWithNested = body;
 		for (Invocation invocation : pushbackInvocations) {
-			bodyWithNested = appendInvocations(bodyWithNested.object(invocation.getAttribute()), invocation.getArg())
+			bodyWithNested = appendInvocations(bodyWithNested.object(invocation.attribute()), invocation.arg())
 					.closeObject();
 		}
 		return bodyWithNested;
@@ -104,24 +102,24 @@ public final class PactoDslBuilder {
 
 	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation,
 			List<Invocation> pushbackInvocations) {
-		String attribute = invocation.getAttribute();
-		ArgumentMatcher<?> matcher = invocation.getMatcher();
+		String attribute = invocation.attribute();
+		ArgumentMatcher<?> matcher = invocation.matcher();
 		if (matcher == null) {
-			Class<?> parameter = invocation.getType();
+			Class<?> parameter = invocation.type();
 			if (CharSequence.class.isAssignableFrom(parameter)) {
-				return body.stringValue(attribute, invocation.getArg().toString());
+				return body.stringValue(attribute, invocation.arg().toString());
 			} else if (int.class.isAssignableFrom(parameter) || Integer.class.isAssignableFrom(parameter)) {
-				return body.integerType(attribute).numberValue(attribute, (int) invocation.getArg());
+				return body.integerType(attribute).numberValue(attribute, (int) invocation.arg());
 			} else if (long.class.isAssignableFrom(parameter) || Long.class.isAssignableFrom(parameter)) {
-				return body.integerType(attribute).numberValue(attribute, (long) invocation.getArg());
+				return body.integerType(attribute).numberValue(attribute, (long) invocation.arg());
 			} else if (double.class.isAssignableFrom(parameter) || Double.class.isAssignableFrom(parameter)) {
-				return body.decimalType(attribute).numberValue(attribute, (double) invocation.getArg());
+				return body.decimalType(attribute).numberValue(attribute, (double) invocation.arg());
 			} else if (float.class.isAssignableFrom(parameter) || Float.class.isAssignableFrom(parameter)) {
-				return body.decimalType(attribute).numberValue(attribute, (float) invocation.getArg());
+				return body.decimalType(attribute).numberValue(attribute, (float) invocation.arg());
 			} else if (boolean.class.isAssignableFrom(parameter) || Boolean.class.isAssignableFrom(parameter)) {
-				return body.booleanType(attribute).booleanValue(attribute, (boolean) invocation.getArg());
+				return body.booleanType(attribute).booleanValue(attribute, (boolean) invocation.arg());
 			} else if (Number.class.isAssignableFrom(parameter)) {
-				return body.numberType(attribute).numberValue(attribute, (Number) invocation.getArg());
+				return body.numberType(attribute).numberValue(attribute, (Number) invocation.arg());
 			}
 			pushbackInvocations.add(invocation);
 			return body;
