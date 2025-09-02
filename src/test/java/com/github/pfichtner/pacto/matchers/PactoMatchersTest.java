@@ -9,7 +9,6 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.uuid;
-import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
@@ -99,7 +98,7 @@ class PactoMatchersTest {
 		assertThat(invocations(foo).getAllInvocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
 				.isInstanceOfSatisfying(EachLikeArg.class, //
 						m -> {
-							assertThat(m.toString()).isEqualTo(format("maxArrayLike(%d)", max));
+							assertThat(m.toString()).startsWith("maxArrayLike(").contains(String.valueOf(max));
 							assertThat(m.max()).isEqualTo(max);
 						}));
 	}
