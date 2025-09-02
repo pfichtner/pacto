@@ -85,17 +85,15 @@ public final class PactoDslBuilder {
 	}
 
 	protected static DslPart appendInvocations(PactDslJsonBody body, List<Invocation> invocations) {
-		List<Invocation> pushbackInvocations = new ArrayList<>();
-		for (Invocation invocation : invocations) {
-			body = append(body, invocation, pushbackInvocations);
-		}
+		List<Invocation> handleLater = new ArrayList<>();
+		DslPart bodyWithInvocations = invocations.stream() //
+				.reduce(body, (b, i) -> append(b, i, handleLater), (b1, b2) -> b1);
+		return handleLater.stream() //
+				.reduce(bodyWithInvocations, PactoDslBuilder::appendInvocation, (b1, b2) -> b1);
+	}
 
-		DslPart bodyWithNested = body;
-		for (Invocation invocation : pushbackInvocations) {
-			bodyWithNested = appendInvocations(bodyWithNested.object(invocation.attribute()), invocation.arg())
-					.closeObject();
-		}
-		return bodyWithNested;
+	private static DslPart appendInvocation(DslPart body, Invocation invocation) {
+		return appendInvocations(body.object(invocation.attribute()), invocation.arg()).closeObject();
 	}
 
 	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation,
