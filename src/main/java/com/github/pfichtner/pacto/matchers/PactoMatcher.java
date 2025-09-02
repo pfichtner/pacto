@@ -4,7 +4,7 @@ import org.mockito.ArgumentMatcher;
 
 public class PactoMatcher<T> implements ArgumentMatcher<T> {
 
-	private T value;
+	private final T value;
 
 	public PactoMatcher(T value) {
 		this.value = value;
