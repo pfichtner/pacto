@@ -8,6 +8,7 @@ import static net.bytebuddy.matcher.ElementMatchers.isFinal;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
 import static net.bytebuddy.matcher.ElementMatchers.not;
 
+import java.lang.reflect.Constructor;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
@@ -22,22 +23,39 @@ import net.bytebuddy.implementation.MethodCall;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.auxiliary.AuxiliaryType.NamingStrategy;
 
+/**
+ * Pacto is the core class of the pacto library. It provides proxy-based
+ * recording of DTO method calls to generate Pact matchers automatically.
+ * <p>
+ * You can wrap your DTO with {@link #spec(Object)} to record interactions and
+ * then generate a Pact contract. Recorded invocations can be inspected with
+ * {@link #invocations(Object)}. You can retrieve the original object behind a
+ * proxy with {@link #delegate(Object)}.
+ */
 public class Pacto {
 
-	private static record Data(Object intercept, Recorder recorder) {
+	private static record Entry(Object intercept, Recorder recorder) {
 	}
 
-	private static Map<Object, Data> data = new IdentityHashMap<>();
+	private static Map<Object, Entry> data = new IdentityHashMap<>();
 
+	/**
+	 * Wraps a DTO with a proxy that records method invocations and matcher
+	 * arguments.
+	 *
+	 * @param intercept the original DTO to wrap
+	 * @param <T>       the type of the DTO
+	 * @return a proxy instance of the DTO that records matcher calls
+	 * @throws RuntimeException if proxy creation fails
+	 */
 	public static <T> T spec(T intercept) {
 		try {
 			@SuppressWarnings("unchecked")
 			Class<T> type = (Class<T>) intercept.getClass();
-			Class<? extends T> proxyClass = proxyClass(type);
-
 			Recorder recorder = new Recorder();
-			T interceptable = proxyClass.getDeclaredConstructor(type, Recorder.class).newInstance(intercept, recorder);
-			data.put(interceptable, new Data(intercept, recorder));
+			Constructor<? extends T> constructor = proxyClass(type).getDeclaredConstructor(type, Recorder.class);
+			T interceptable = constructor.newInstance(intercept, recorder);
+			data.put(interceptable, new Entry(intercept, recorder));
 			copyFields(intercept, interceptable);
 			return interceptable;
 		} catch (Exception e) {
@@ -71,21 +89,36 @@ public class Pacto {
 		;
 	}
 
+	/**
+	 * Returns the recorded invocation details of a DTO proxy.
+	 *
+	 * @param object the proxy instance returned by {@link #spec(Object)}
+	 * @return details of method invocations and matchers
+	 * @throws IllegalArgumentException if the object was not intercepted by
+	 *                                  {@link #spec(Object)}
+	 */
 	public static InvocationDetails invocations(Object object) {
-		Data data = interceptor(object);
-		if (data == null) {
+		Entry entry = entryFor(object);
+		if (entry == null) {
 			throw new IllegalArgumentException(object + " not intercepted");
 		}
-		return new DefaultInvocationDetails(data.recorder().invocations());
+		return new DefaultInvocationDetails(entry.recorder().invocations());
 	}
 
+	/**
+	 * Returns the original DTO object behind a proxy.
+	 *
+	 * @param object the proxy instance returned by {@link #spec(Object)}
+	 * @param <T>    the type of the DTO
+	 * @return the original DTO object, or the object itself if not proxied
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T delegate(T object) {
-		Data pair = interceptor(object);
-		return pair == null ? object : (T) pair.intercept;
+		Entry entry = entryFor(object);
+		return entry == null ? object : (T) entry.intercept;
 	}
 
-	private static Data interceptor(Object object) {
+	private static Entry entryFor(Object object) {
 		return data.get(object);
 	}
 
