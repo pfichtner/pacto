@@ -183,6 +183,21 @@ pacto supports a rich set of matchers to make your contracts robust and expressi
 
 ---
 
+## Disadvantages / Drawbacks
+
+While **pacto** simplifies contract generation, there are a few considerations:  
+
+- ⚠️ **Unsupported field types:** Most common fields (strings, numbers, booleans, nested DTOs) are handled automatically. For custom or complex types, you may need to provide manual mapping or custom matcher logic.  
+- ⚠️ **Manual updates for special cases:** If a DTO contains unsupported fields and you change them, you'll need to adjust the contract manually.  
+- ⚠️ **Additional abstraction:** pacto introduces an extra layer on top of Pact JVM. While convenient, this means debugging or understanding matcher behavior may require looking at both pacto and underlying Pact documentation.  
+- ⚠️ **Learning curve:** Users need to understand the pacto DSL and its mapping conventions, even if they are already familiar with Pact JVM.  
+
+In most standard scenarios, these drawbacks are minor compared to the benefits of **avoiding duplication, reducing boilerplate, and keeping contracts in sync with DTOs**.
+
+
+---
+
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
