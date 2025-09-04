@@ -6,7 +6,7 @@
     
     <groupId>io.github.pfichtner</groupId>
     <artifactId>pacto</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>Pacto</name>
     <description>Java library that allows you to generate Pact contracts directly from your Data Transfer Objects (DTOs)</description>
     <url>https://github.com/pfichtner/pacto</url>
@@ -89,16 +89,20 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
@@ -147,16 +151,15 @@
                             </execution>
                         </executions>
                     </plugin>
-
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.7.0</version>
-                        <extensions>true</extensions>
-                        <configuration>
-				<publishingServerId>central</publishingServerId>
-				<autoPublish>true</autoPublish>
-                        </configuration>
+                       <groupId>org.sonatype.central</groupId>
+                       <artifactId>central-publishing-maven-plugin</artifactId>
+                       <version>0.8.0</version>
+                       <extensions>true</extensions>
+                       <configuration>
+                          <publishingServerId>central</publishingServerId>
+                          <autoPublish>true</autoPublish>
+                       </configuration>
                     </plugin>
                 </plugins>
             </build>
