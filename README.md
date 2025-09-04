@@ -3,8 +3,9 @@
 
 [![Java CI with Maven](https://github.com/pfichtner/pacto/actions/workflows/maven.yml/badge.svg)](https://github.com/pfichtner/pacto/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.pfichtner/pacto.svg)](https://search.maven.org/artifact/io.github.pfichtner/pacto)
+[![Pact](https://img.shields.io/badge/Pact-JVM-blue?logo=pact)](https://docs.pact.io/)
 
-Generate Pact contracts directly from your DTOs — keep tests simple, reliable, and always in sync.
+Generate [Pact](https://docs.pact.io/) contracts directly from your DTOs — keep tests simple, reliable, and always in sync.
 
 **pacto** is a Java library/project that allows you to generate [Pact](https://docs.pact.io/) contracts directly from your Data Transfer Objects (DTOs). Using **pacto**, you can define DTOs with concrete values and flexible matchers, then automatically produce Pact contracts for consumer-driven contract testing.
 
@@ -12,7 +13,7 @@ Generate Pact contracts directly from your DTOs — keep tests simple, reliable,
 
 ## Features
 
-- Generate Pact contracts directly from Java DTOs.
+- Generate [Pact](https://docs.pact.io/) contracts directly from Java DTOs.
 - Supports nested DTOs.
 - Flexible matching with `stringType`, `integerType`, `regex`, and other matchers.
 - Simplifies consumer-driven contract testing.
@@ -22,7 +23,7 @@ Generate Pact contracts directly from your DTOs — keep tests simple, reliable,
 
 ## Why use pacto?  
 
-Contract testing with Pact is powerful—but writing and maintaining Pact DSLs by hand can be repetitive and error-prone. **pacto** solves this by generating contracts directly from your DTOs.  
+Contract testing with [Pact](https://docs.pact.io/) is powerful—but writing and maintaining Pact DSLs by hand can be repetitive and error-prone. **pacto** solves this by generating contracts directly from your DTOs.  
 
 **Key benefits:**  
 - 🔄 **No duplication** – Contracts are generated from the same DTOs you already use.  
@@ -32,7 +33,7 @@ Contract testing with Pact is powerful—but writing and maintaining Pact DSLs b
 - 🧩 **Supports complex models** – Works seamlessly with nested DTOs.  
 - 🚀 **Easy adoption** – Integrates into existing Java projects with minimal setup.  
 
-With **pacto**, you get reliable consumer-driven contract tests with less effort and fewer mistakes.  
+With **pacto**, you get reliable consumer-driven contract tests powered by [Pact](https://docs.pact.io/) with less effort and fewer mistakes.  
 
 ---
 
