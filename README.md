@@ -81,17 +81,38 @@ DslPart body = pactFrom(spec(new PersonDTO())
 
 Now, your contract is generated **directly from the DTO** — no duplication, no drift, no extra maintenance.  
 
----
+## How to use pacto?
+
+pacto is available on Maven Central. You can include it as a dependency:
+
+```xml
+<dependency>
+  <groupId>io.github.pfichtner</groupId>
+  <artifactId>pacto</artifactId>
+  <version>0.0.1</version>
+</dependency>
+```
+
+--- 
 
 ## Matchers
 
 pacto supports flexible matchers to make your contracts robust:
 
-- `stringType("example")` – Matches any string.
-- `integerType(42)` – Matches any integer.
-- `regex("G.*", "Givenname1")` – Matches strings with a regex pattern.
-
-Nested DTOs are supported via `spec(nestedDTO)`.
+- `stringType()` / `stringType("example")` – Matches any string.
+- `stringMatcher("regex", "example")` – Matches strings with a regex pattern.
+- `includeStr("example")` – Matches strings that include the given substring.
+- `integerType()` / `integerType(int|long)` – Matches any integer number type.
+- `decimalType()` / `decimalType(double|float)` – Matches any floating point number type.
+- `numberType(Number)` – Matches any number type.
+- `booleanType()` / `booleanType(boolean)` – Matches any boolean.
+- `booleanValue(boolean)` – Matches a specific boolean value.
+- `hex()` / `hex(String)` – Matches any hex value.
+- `uuid()` / `uuid(String|UUID)` – Matches any UUID.
+- `nullValue()` – Matches a null value.
+- `eachLike(value)` – Matches an array with at least one element like `value`.
+- `minArrayLike(value, min)` – Array with at least `min` elements like `value`.
+- `maxArrayLike(value, max)` – Array with at most `max` elements like `value`.
 
 ---
 
