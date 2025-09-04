@@ -42,7 +42,7 @@ public class PactoTest {
 
 	private final Gson gson = new Gson();
 
-	public PactoTest(Class<TestMother> clazz) throws Exception {
+	public PactoTest(Class<TestMother> clazz) throws Exception  {
 		TestMother testMother = clazz.getConstructor().newInstance();
 		dto = testMother.dto();
 		dtoWithSpec = testMother.dtoWithSpec();
@@ -71,7 +71,7 @@ public class PactoTest {
 	}
 
 	@Test
-	void testDelegate() throws Exception {
+	void testDelegate()  {
 		assertThat(delegate(spec(dto))).isSameAs(dto);
 	}
 
@@ -107,12 +107,12 @@ public class PactoTest {
 	}
 
 	@Test
-	void testDslPart() throws Exception {
+	void testDslPart() {
 		assertThatDslPart(dslFrom(dtoWithSpec)).isEqualToDslPart(dtoExpectedPactDslPart());
 	}
 
 	@Test
-	void partitial() throws Exception {
+	void partitial()  {
 		String expected = """
 				{
 					"givenname":"Givenname2",
@@ -140,7 +140,7 @@ public class PactoTest {
 	}
 
 	@Test
-	void testDslPartWithPartitials() throws Exception {
+	void testDslPartWithPartitials()  {
 		DslPart expected = new PactDslJsonBody().stringType("lastname", "Lastname2");
 		assertThatDslPart(dslFrom(partial)).isEqualToDslPart(expected);
 	}
