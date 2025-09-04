@@ -82,7 +82,7 @@ public class Pacto {
 		if (data == null) {
 			throw new IllegalArgumentException(object + " not intercepted");
 		}
-		return new DefaultInvocations(data.recorder().getInvocations());
+		return new DefaultInvocationDetails(data.recorder().getInvocations());
 	}
 
 	@SuppressWarnings("unchecked")

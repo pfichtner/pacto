@@ -2,12 +2,12 @@ package com.github.pfichtner.pacto;
 
 import java.util.List;
 
-public class DefaultInvocations implements InvocationDetails {
+public class DefaultInvocationDetails implements InvocationDetails {
 
 	private final List<Invocation> invocations;
 
-	public DefaultInvocations(List<Invocation> list) {
-		invocations = list;
+	public DefaultInvocationDetails(List<Invocation> invocations) {
+		this.invocations = invocations;
 	}
 
 	@Override

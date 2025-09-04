@@ -3,9 +3,9 @@ package com.github.pfichtner.pacto.testdata;
 import java.util.List;
 import java.util.Set;
 
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
+@Data
 public class Foo {
 	Bar[] bars1;
 	List<Bar> bars2;
