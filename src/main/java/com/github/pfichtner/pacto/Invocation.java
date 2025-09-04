@@ -2,11 +2,11 @@ package com.github.pfichtner.pacto;
 
 import java.lang.reflect.Method;
 
-import org.mockito.ArgumentMatcher;
+import com.github.pfichtner.pacto.matchers.PactoMatcher;
 
 public interface Invocation {
 
-	ArgumentMatcher<?> matcher();
+	PactoMatcher<?> matcher();
 
 	Object arg();
 

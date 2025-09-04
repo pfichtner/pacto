@@ -5,8 +5,6 @@ import static com.github.pfichtner.pacto.Pacto.invocations;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mockito.ArgumentMatcher;
-
 import com.github.pfichtner.pacto.matchers.BooleanTypeArg;
 import com.github.pfichtner.pacto.matchers.BooleanValueArg;
 import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
@@ -44,7 +42,7 @@ public final class PactoDslBuilder {
 			this.applier = applier;
 		}
 
-		public boolean matches(ArgumentMatcher<?> matcher) {
+		public boolean matches(PactoMatcher<?> matcher) {
 			return this.clazz.isInstance(matcher);
 		}
 

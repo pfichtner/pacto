@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.mockito.ArgumentMatcher;
+import com.github.pfichtner.pacto.matchers.PactoMatcher;
 
 public class DefaultInvocation implements Invocation {
 
@@ -17,9 +17,9 @@ public class DefaultInvocation implements Invocation {
 	private final Method method;
 	private final Object arg;
 	private final Object result;
-	private final ArgumentMatcher<?> matcher;
+	private final PactoMatcher<?> matcher;
 
-	public DefaultInvocation(Object delegate, Method method, Object arg, Object result, ArgumentMatcher<?> matcher) {
+	public DefaultInvocation(Object delegate, Method method, Object arg, Object result, PactoMatcher<?> matcher) {
 		this.delegate = delegate;
 		this.method = method;
 		this.arg = arg;
@@ -43,7 +43,7 @@ public class DefaultInvocation implements Invocation {
 	}
 
 	@Override
-	public ArgumentMatcher<?> matcher() {
+	public PactoMatcher<?> matcher() {
 		return matcher;
 	}
 

@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.ArgumentMatcher;
 
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.HexValueArg;
@@ -37,7 +36,7 @@ class PactoDslBuilderTest {
 		private final String attribute;
 		private final Class<?> type;
 		private final Object arg;
-		private ArgumentMatcher<?> matcher;
+		private PactoMatcher<?> matcher;
 
 		public InvocationStub(Class<?> type, Object value) {
 			this.attribute = "testAttribute";
@@ -45,13 +44,13 @@ class PactoDslBuilderTest {
 			this.arg = value;
 		}
 
-		public InvocationStub withMatcher(ArgumentMatcher<?> matcher) {
+		public InvocationStub withMatcher(PactoMatcher<?> matcher) {
 			this.matcher = matcher;
 			return this;
 		}
 
 		@Override
-		public ArgumentMatcher<?> matcher() {
+		public PactoMatcher<?> matcher() {
 			return matcher;
 		}
 
