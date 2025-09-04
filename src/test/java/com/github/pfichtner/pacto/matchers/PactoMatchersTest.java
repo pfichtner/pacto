@@ -28,6 +28,7 @@ class PactoMatchersTest {
 	TestTarget target = new TestTarget();
 
 	@Test
+	@PostCleanMatcherStack
 	void canCompilePrimitives() {
 		target.floatArg(decimalType());
 		target.floatArg(decimalType(1.23F));
@@ -38,7 +39,6 @@ class PactoMatchersTest {
 		// TODO fix to get rid of cast
 		target.doubleWrapperArg((double) decimalType());
 		target.doubleWrapperArg(decimalType(1.23D));
-
 		target.intArg(integerType());
 		target.intArg(integerType(42));
 		target.integerWrapperArg(integerType());
@@ -51,6 +51,7 @@ class PactoMatchersTest {
 	}
 
 	@Test
+	@PostCleanMatcherStack
 	void numberArg() {
 		target.intArg(numberType(42));
 		target.intArg(numberType(Integer.valueOf(42)));
@@ -65,6 +66,7 @@ class PactoMatchersTest {
 	}
 
 	@Test
+	@PostCleanMatcherStack
 	void canCompileCollections() {
 		target.arrayArg(minArrayLike(new Foo(), 1));
 		target.arrayArg(maxArrayLike(new Foo(), 2));
