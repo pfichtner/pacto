@@ -8,7 +8,7 @@ import com.github.pfichtner.pacto.testdata.Foo;
 
 public class TestTarget {
 
-	public void stringArg(String value) {
+	void stringArg(String value) {
 	}
 
 	void floatArg(float value) {

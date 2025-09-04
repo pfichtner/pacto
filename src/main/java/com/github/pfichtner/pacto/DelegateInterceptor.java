@@ -21,7 +21,7 @@ public class DelegateInterceptor {
 	@RuntimeType
 	public Object intercept(@Origin Method method, @AllArguments Object[] args, @SuperCall Callable<Object> zuper)
 			throws Exception {
-		recorder.recordInterception(delegate, method, args, method.invoke(delegate, args));
+		recorder.recordInterception(delegate, method, args, null);
 		return zuper.call();
 	}
 
