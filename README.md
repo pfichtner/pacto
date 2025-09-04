@@ -105,7 +105,7 @@ RequestResponsePact pact = ConsumerPactBuilder
     .path("/person")
     .method("POST")
     .body(
-        pactFrom(
+        dslFrom(
             spec(new PersonDTO())
                 .givenname(stringMatcher("G.*", "Givenname1"))
                 .lastname(stringMatcher("L.*", "Lastname1"))
@@ -120,7 +120,7 @@ RequestResponsePact pact = ConsumerPactBuilder
     .willRespondWith()
     .status(200)
     .body(
-        pactFrom(
+        dslFrom(
             spec(new PersonDTO())
                 .givenname(stringType("Givenname1"))
                 .lastname(stringType("Lastname1"))

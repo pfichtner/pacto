@@ -64,7 +64,7 @@ public final class PactoDslBuilder {
 			x(DecimalTypeArg.class, (i, b, m) -> b.decimalType(i.attribute(), m.value())), //
 			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.attribute(), m.value())), //
 			x(EachLikeArg.class, (i, b, m) -> {
-				DslPart each = pactFrom(m.value());
+				DslPart each = dslFrom(m.value());
 				if (m.max() != null) {
 					return b.maxArrayLike(i.attribute(), m.max(), each);
 				} else if (m.min() != null) {
@@ -78,7 +78,7 @@ public final class PactoDslBuilder {
 		super();
 	}
 
-	public static DslPart pactFrom(Object dto) {
+	public static DslPart dslFrom(Object dto) {
 		return appendInvocations(new PactDslJsonBody(), dto);
 	}
 
