@@ -7,12 +7,12 @@ public class DefaultInvocationDetails implements InvocationDetails {
 	private final List<Invocation> invocations;
 
 	public DefaultInvocationDetails(List<Invocation> invocations) {
-		this.invocations = invocations;
+		this.invocations = List.copyOf(invocations);
 	}
 
 	@Override
-	public List<Invocation> getAllInvocations() {
-		return invocations;
+	public List<Invocation> invocations() {
+		return List.copyOf(invocations);
 	}
 
 }

@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface InvocationDetails {
 
-	List<Invocation> getAllInvocations();
+	List<Invocation> invocations();
 
 }

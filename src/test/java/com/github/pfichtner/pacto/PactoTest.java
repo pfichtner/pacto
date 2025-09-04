@@ -51,7 +51,7 @@ public class PactoTest {
 
 	@Test
 	void testInvocations() {
-		assertThat(invocations(dtoWithSpec).getAllInvocations())
+		assertThat(invocations(dtoWithSpec).invocations())
 				.extracting(i -> i.attribute(), i -> i.matcher() == null ? null : i.matcher().getClass())
 				.containsExactly( //
 						tuple("givenname", StringMatcherArg.class), //

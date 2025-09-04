@@ -83,7 +83,7 @@ public final class PactoDslBuilder {
 	}
 
 	private static DslPart appendInvocations(PactDslJsonBody body, Object object) {
-		return appendInvocations(body, invocations(object).getAllInvocations());
+		return appendInvocations(body, invocations(object).invocations());
 	}
 
 	protected static DslPart appendInvocations(PactDslJsonBody body, List<Invocation> invocations) {

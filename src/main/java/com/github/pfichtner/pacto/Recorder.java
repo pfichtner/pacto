@@ -19,8 +19,8 @@ public class Recorder {
 		}
 	}
 
-	public List<Invocation> getInvocations() {
-		return invocations;
+	public List<Invocation> invocations() {
+		return List.copyOf(invocations);
 	}
 
 }

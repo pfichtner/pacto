@@ -83,7 +83,7 @@ class PactoMatchersTest {
 		foo.setBars1(minArrayLike(spec(new Bar()).value("array-min"), min));
 		foo.setBars2(Lists.minArrayLike(spec(new Bar()).value("list-min"), min));
 		foo.setBars3(Sets.minArrayLike(spec(new Bar()).value("set-min"), min));
-		assertThat(invocations(foo).getAllInvocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
+		assertThat(invocations(foo).invocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
 				.isInstanceOfSatisfying(EachLikeArg.class, //
 						m -> {
 							assertThat(m.toString()).startsWith("minArrayLike(").contains(String.valueOf(min));
@@ -98,7 +98,7 @@ class PactoMatchersTest {
 		foo.setBars1(maxArrayLike(spec(new Bar()).value("array-max"), max));
 		foo.setBars2(Lists.maxArrayLike(spec(new Bar()).value("list-max"), max));
 		foo.setBars3(Sets.maxArrayLike(spec(new Bar()).value("set-max"), max));
-		assertThat(invocations(foo).getAllInvocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
+		assertThat(invocations(foo).invocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
 				.isInstanceOfSatisfying(EachLikeArg.class, //
 						m -> {
 							assertThat(m.toString()).startsWith("maxArrayLike(").contains(String.valueOf(max));
@@ -111,7 +111,7 @@ class PactoMatchersTest {
 		String in = "xyz";
 		TestTarget spec = spec(target);
 		spec.stringArg(includeStr(in));
-		assertThat(invocations(spec).getAllInvocations()).singleElement() //
+		assertThat(invocations(spec).invocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
 						.isInstanceOfSatisfying(IncludeStrArg.class, //
 								m -> {
@@ -125,7 +125,7 @@ class PactoMatchersTest {
 		String in = "0000FFFF";
 		TestTarget spec = spec(target);
 		spec.stringArg(hex(in));
-		assertThat(invocations(spec).getAllInvocations()).singleElement() //
+		assertThat(invocations(spec).invocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
 						.isInstanceOfSatisfying(HexValueArg.class, //
 								m -> {
@@ -139,7 +139,7 @@ class PactoMatchersTest {
 		UUID in = UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5");
 		TestTarget spec = spec(target);
 		spec.uuidArg(uuid(in.toString()));
-		assertThat(invocations(spec).getAllInvocations()).singleElement() //
+		assertThat(invocations(spec).invocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
 						.isInstanceOfSatisfying(UuidArg.class, //
 								m -> {
