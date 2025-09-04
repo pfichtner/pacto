@@ -102,7 +102,9 @@ pacto is available on Maven Central. You can include it as a dependency:
 
 ## Matchers
 
-pacto supports flexible matchers to make your contracts robust:
+pacto supports a rich set of matchers to make your contracts robust and expressive.  
+
+> **Standing on the shoulders of giants:** pacto more or less acts as **syntax sugar** (though technically it has to capture the arguments passed to the matcher static methods) and delegates to the [Pact JVM matchers](https://docs.pact.io/implementation_guides/jvm/consumer) under the hood. You benefit from the full power and documentation of Pact itself.
 
 - `stringType()` / `stringType("example")` – Matches any string.
 - `stringMatcher("regex", "example")` – Matches strings with a regex pattern.
