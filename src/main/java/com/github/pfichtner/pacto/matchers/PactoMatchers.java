@@ -1,13 +1,11 @@
 package com.github.pfichtner.pacto.matchers;
 
-import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingProgress;
-
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.mockito.ArgumentMatcher;
+import com.github.pfichtner.pacto.MatcherRegistry;
 
 public final class PactoMatchers {
 
@@ -173,8 +171,8 @@ public final class PactoMatchers {
 		}
 	}
 
-	private static void reportMatcher(ArgumentMatcher<?> matcher) {
-		mockingProgress().getArgumentMatcherStorage().reportMatcher(matcher);
+	private static void reportMatcher(PactoMatcher<?> matcher) {
+		MatcherRegistry.register(matcher);
 	}
 
 }

@@ -1,8 +1,6 @@
 package com.github.pfichtner.pacto.matchers;
 
-import org.mockito.ArgumentMatcher;
-
-public class PactoMatcher<T> implements ArgumentMatcher<T> {
+public class PactoMatcher<T> {
 
 	private final T value;
 
@@ -12,11 +10,6 @@ public class PactoMatcher<T> implements ArgumentMatcher<T> {
 
 	public T value() {
 		return value;
-	}
-
-	@Override
-	public boolean matches(T argument) {
-		throw new IllegalStateException("not implemented");
 	}
 
 }
