@@ -63,6 +63,7 @@
             <groupId>au.com.dius.pact.consumer</groupId>
             <artifactId>junit5</artifactId>
             <version>4.6.17</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.javacrumbs.json-unit</groupId>
