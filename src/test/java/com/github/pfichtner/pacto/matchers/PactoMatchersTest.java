@@ -4,6 +4,7 @@ import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.hex;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.includeStr;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
@@ -101,6 +102,20 @@ class PactoMatchersTest {
 							assertThat(m.toString()).startsWith("maxArrayLike(").contains(String.valueOf(max));
 							assertThat(m.max()).isEqualTo(max);
 						}));
+	}
+
+	@Test
+	void testIncludeStr() {
+		String in = "xyz";
+		TestTarget spec = spec(target);
+		spec.stringArg(includeStr(in));
+		assertThat(invocations(spec).getAllInvocations()).singleElement() //
+				.satisfies(i -> assertThat(i.matcher()) //
+						.isInstanceOfSatisfying(IncludeStrArg.class, //
+								m -> {
+									assertThat(m.value()).isEqualTo(in);
+									assertThat(m).hasToString("includeStr(%s)", in);
+								}));
 	}
 
 	@Test

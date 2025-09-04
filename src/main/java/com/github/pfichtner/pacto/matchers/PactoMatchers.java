@@ -50,6 +50,11 @@ public final class PactoMatchers {
 		return in;
 	}
 
+	public static String includeStr(String in) {
+		reportMatcher(new IncludeStrArg(in));
+		return in;
+	}
+
 	public static int integerType() {
 		return integerType(DEFAULT_INTEGER_VALUE);
 	}
