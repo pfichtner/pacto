@@ -37,36 +37,60 @@ With **pacto**, you get reliable consumer-driven contract tests powered by [Pact
 
 ---
 
-## The problem: duplication without pacto  
+## The problem: duplication without pacto
+
+```java
+// DTO definitions — the single source of truth for both examples
+@Data
+@Accessors(chain = true, fluent = true)
+public class PersonDTO {
+    private String givenname;
+    private String lastname;
+    private int age;
+    private AddressDTO address;
+}
+
+@Data
+@Accessors(chain = true, fluent = true)
+public class AddressDTO {
+    private int zip;
+    private String city;
+}
+```
 
 Without pacto, you need to define your data structures **twice** — once in your DTO, and once again in Pact’s DSL.  
 
 **❌ Manual Pact DSL (with duplication):**  
 
 ```java
-public class PersonDTO {
-    private String givenname;
-    private String lastname;
-    private int age;
-    private AddressDTO address;
-    // getters/setters
-}
-
-public class AddressDTO {
-    private int zip;
-    private String city;
-    // getters/setters
-}
-
 // And again in Pact DSL:
-DslPart body = new PactDslJsonBody()
-    .stringMatcher("givenname", "G.*", "Givenname1")
-    .stringMatcher("lastname", "L.*", "Lastname1")
-    .integerType("age", 42)
-    .object("address")
-        .integerType("zip", 12345)
-        .stringType("city", "City")
-    .closeObject();
+RequestResponsePact pact = ConsumerPactBuilder
+    .consumer("SomeConsumer")
+    .hasPactWith("SomeProvider")
+    .uponReceiving("POST /person")
+    .path("/person")
+    .method("POST")
+    .body(new PactDslJsonBody()
+        .stringMatcher("givenname", "G.*", "Givenname1")
+        .stringMatcher("lastname", "L.*", "Lastname1")
+        .integerType("age", 42)
+        .object("address")
+            .integerType("zip", 12345)
+            .stringType("city", "City")
+        .closeObject()
+    )
+    .willRespondWith()
+    .status(200)
+    .body(new PactDslJsonBody()
+        .stringType("givenname", "Givenname1")
+        .stringType("lastname", "Lastname1")
+        .integerType("age", 42)
+        .object("address")
+            .integerType("zip", 12345)
+            .stringType("city", "City")
+        .closeObject()
+    )
+    .toPact();
 ```
 
 If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update both places or your contract drifts out of sync.  
@@ -74,18 +98,53 @@ If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update bo
 **✅ With pacto (no duplication):**  
 
 ```java
-DslPart body = pactFrom(spec(new PersonDTO())
-    .givenname(stringMatcher("G.*", "Givenname1"))
-    .lastname(stringMatcher("L.*", "Lastname1"))
-    .age(integerType(42))
-    .address(
-        spec(new AddressDTO())
-            .zip(integerType(12345))
-            .city(stringType("City"))
-    ));
+RequestResponsePact pact = ConsumerPactBuilder
+    .consumer("SomeConsumer")
+    .hasPactWith("SomeProvider")
+    .uponReceiving("POST /person")
+    .path("/person")
+    .method("POST")
+    .body(
+        pactFrom(
+            spec(new PersonDTO())
+                .givenname(stringMatcher("G.*", "Givenname1"))
+                .lastname(stringMatcher("L.*", "Lastname1"))
+                .age(integerType(42))
+                .address(
+                    spec(new AddressDTO())
+                        .zip(integerType(12345))
+                        .city(stringType("City"))
+                )
+        )
+    )
+    .willRespondWith()
+    .status(200)
+    .body(
+        pactFrom(
+            spec(new PersonDTO())
+                .givenname(stringType("Givenname1"))
+                .lastname(stringType("Lastname1"))
+                .age(integerType(42))
+                .address(
+                    spec(new AddressDTO())
+                        .zip(integerType(12345))
+                        .city(stringType("City"))
+                )
+        )
+    )
+    .toPact();
 ```
 
 Now, your contract is generated **directly from the DTO** — no duplication, no drift, no extra maintenance.  
+No DTO duplication → single source of truth.
+- Compile-time safety; fewer typos.
+- Nested objects & arrays handled automatically.
+- Auto-update contracts when DTO changes.
+- Concise matcher syntax.
+- Reusable and composable matchers.
+- Reduced risk of contract drift.
+
+With pacto, you avoid duplication, reduce boilerplate, and ensure your contracts stay in sync with your DTOs.
 
 ## How to use pacto?
 
