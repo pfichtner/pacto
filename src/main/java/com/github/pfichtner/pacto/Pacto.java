@@ -1,11 +1,13 @@
 package com.github.pfichtner.pacto;
 
+import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_DELEGATE;
+import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_RECORDER;
+import static com.github.pfichtner.pacto.RecordingAdvice.copyFields;
 import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
 import static net.bytebuddy.matcher.ElementMatchers.not;
 
-import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
@@ -36,40 +38,32 @@ public class Pacto {
 			Recorder recorder = new Recorder();
 			T interceptable = proxyClass.getDeclaredConstructor(type, Recorder.class).newInstance(intercept, recorder);
 			data.put(interceptable, new Data(intercept, recorder));
-			copyData(intercept, interceptable);
+			copyFields(intercept, interceptable);
 			return interceptable;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static void copyData(Object source, Object target) throws IllegalAccessException {
-		for (Field field : source.getClass().getDeclaredFields()) {
-			if (field.getDeclaringClass() != Object.class) {
-				field.setAccessible(true);
-				field.set(target, field.get(source));
-			}
-		}
-	}
-
 	private static <T> Class<? extends T> proxyClass(Class<T> type) throws NoSuchMethodException, SecurityException {
 		return new ByteBuddy() //
-				.with(new NamingStrategy.SuffixingRandom("ByteBuddySubclass")) //
+				.with(new NamingStrategy.SuffixingRandom("PactoProxy")) //
 				.subclass(type) //
-				.defineField("delegate", type, Visibility.PRIVATE, FieldManifestation.FINAL, FieldPersistence.TRANSIENT) //
-				.defineField("recorder", Recorder.class, Visibility.PRIVATE, FieldManifestation.FINAL,
+				.defineField(FIELDNAME_DELEGATE, type, Visibility.PRIVATE, FieldManifestation.FINAL,
+						FieldPersistence.TRANSIENT) //
+				.defineField(FIELDNAME_RECORDER, Recorder.class, Visibility.PRIVATE, FieldManifestation.FINAL,
 						FieldPersistence.TRANSIENT) //
 				.defineConstructor(Visibility.PUBLIC).withParameters(type, Recorder.class).intercept( //
 						MethodCall.invoke(type.getDeclaredConstructor()) //
-								.andThen(FieldAccessor.ofField("delegate").setsArgumentAt(0)) //
-								.andThen(FieldAccessor.ofField("recorder").setsArgumentAt(1)) //
+								.andThen(FieldAccessor.ofField(FIELDNAME_DELEGATE).setsArgumentAt(0)) //
+								.andThen(FieldAccessor.ofField(FIELDNAME_RECORDER).setsArgumentAt(1)) //
 				) //
 				.method(not(isStatic()) //
 						.and(not(isFinal())) //
 						.and(not(isDeclaredBy(Object.class))) //
 				) //
 				.intercept(Advice.to(RecordingAdvice.class) //
-						.wrap(MethodDelegation.toField("delegate")) //
+						.wrap(MethodDelegation.toField(FIELDNAME_DELEGATE)) //
 				) //
 				.make() //
 				.load(type.getClassLoader(), ClassLoadingStrategy.Default.INJECTION) //
