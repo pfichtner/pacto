@@ -39,19 +39,24 @@ class PactoMatchersTest {
 	void canCompilePrimitives() {
 		target.floatArg(decimalType());
 		target.floatArg(decimalType(1.23F));
-		target.floatWrapperArg(decimalType());
-		target.floatWrapperArg(decimalType(1.23F));
 		target.doubleArg(decimalType());
 		target.doubleArg(decimalType(1.23));
+		target.intArg(integerType());
+		target.intArg(integerType(42));
+		target.longArg(integerType());
+		target.longArg(integerType(42L));
+	}
+
+	@Test
+	@PostCleanMatcherStack
+	void canCompileWrappers() {
+		target.floatWrapperArg(decimalType());
+		target.floatWrapperArg(decimalType(1.23F));
 		// TODO fix to get rid of cast
 		target.doubleWrapperArg((double) decimalType());
 		target.doubleWrapperArg(decimalType(1.23D));
-		target.intArg(integerType());
-		target.intArg(integerType(42));
 		target.integerWrapperArg(integerType());
 		target.integerWrapperArg(integerType(42));
-		target.longArg(integerType());
-		target.longArg(integerType(42L));
 		// TODO fix to get rid of cast
 		target.longWrapperArg((long) integerType());
 		target.longWrapperArg(integerType(42L));

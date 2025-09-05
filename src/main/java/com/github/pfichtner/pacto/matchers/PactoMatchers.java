@@ -395,7 +395,8 @@ public final class PactoMatchers {
 	}
 
 	/**
-	 * Matches any date matching the default format {@value #DEFAULT_DATETIME_FORMAT}.
+	 * Matches any date matching the default format
+	 * {@value #DEFAULT_DATETIME_FORMAT}.
 	 *
 	 * @param in the example date
 	 * @return the same value
