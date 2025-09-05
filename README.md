@@ -166,6 +166,9 @@ pacto supports a rich set of matchers to make your contracts robust and expressi
 
 > **Standing on the shoulders of giants:** pacto more or less acts as **syntax sugar** (though technically it has to capture the arguments passed to the matcher static methods) and delegates to the [Pact JVM matchers](https://docs.pact.io/implementation_guides/jvm/consumer) under the hood. You benefit from the full power and documentation of Pact itself.
 
+- `nullValue()` – Matches a null value.
+- `equalsTo(value)` – Match exact value
+- `id(int|long)` – Matches an ID (special alias for integer types)
 - `stringType()` / `stringType("example")` – Matches any string.
 - `stringMatcher("regex", "example")` – Matches strings with a regex pattern.
 - `includeStr("example")` – Matches strings that include the given substring.
@@ -176,7 +179,11 @@ pacto supports a rich set of matchers to make your contracts robust and expressi
 - `booleanValue(boolean)` – Matches a specific boolean value.
 - `hex()` / `hex(String)` – Matches any hex value.
 - `uuid()` / `uuid(String|UUID)` – Matches any UUID.
-- `nullValue()` – Matches a null value.
+- `time(("format"), LocalDateTime|Date)` - Matches times given the format
+- `date(("format"), LocalDate|Date)` - Matches dates given the format
+- `datetime(("format",) LocalDate|Date)` - Matches datetimes given the format
+- `ipAddress()` – Matches any IP address
+- `matchUrl("basepath"(, "fragments"))` – Matches URL structures
 - `eachLike(value)` – Matches an array with at least one element like `value`.
 - `minArrayLike(value, min)` – Array with at least `min` elements like `value`.
 - `maxArrayLike(value, max)` – Array with at most `max` elements like `value`.
