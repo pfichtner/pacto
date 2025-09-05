@@ -39,7 +39,8 @@ public final class PactoMatchers {
 	public static final String DEFAULT_HEX_VALUE = "1234a";
 	public static final UUID DEFAULT_UUID_VALUE = UUID.fromString("e2490de5-5bd3-43d5-b7c4-526e33f71304");
 	public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
-	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+	public static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	// Prevent instantiation
 	private PactoMatchers() {
@@ -330,8 +331,54 @@ public final class PactoMatchers {
 	 * @param in the example date
 	 * @return the same value
 	 */
+	public static LocalDate date(LocalDate in) {
+		reportMatcher(new DateArg(DEFAULT_DATE_FORMAT, toDate(in)));
+		return in;
+	}
+
+	/**
+	 * Matches any date matching the passed format.
+	 *
+	 * @param format the date format
+	 * @param in     the example date
+	 * @return the same value
+	 */
+	public static LocalDate date(String format, LocalDate in) {
+		reportMatcher(new DateArg(format, toDate(in)));
+		return in;
+	}
+
+	/**
+	 * Matches any date matching the default format {@value #DEFAULT_DATE_FORMAT}.
+	 *
+	 * @param in the example date
+	 * @return the same value
+	 */
+	public static Date date(Date in) {
+		reportMatcher(new DateArg(DEFAULT_DATE_FORMAT, in));
+		return in;
+	}
+
+	/**
+	 * Matches any date matching the passed format.
+	 *
+	 * @param format the date format
+	 * @param in     the example date
+	 * @return the same value
+	 */
+	public static Date date(String format, Date in) {
+		reportMatcher(new DateArg(format, in));
+		return in;
+	}
+
+	/**
+	 * Matches any date matching default format {@value #DEFAULT_DATETIME_FORMAT}.
+	 *
+	 * @param in the example date
+	 * @return the same value
+	 */
 	public static LocalDate datetime(LocalDate in) {
-		reportMatcher(new DatetimeArg(DEFAULT_DATE_FORMAT, toDate(in)));
+		reportMatcher(new DatetimeArg(DEFAULT_DATETIME_FORMAT, toDate(in)));
 		return in;
 	}
 
@@ -348,13 +395,13 @@ public final class PactoMatchers {
 	}
 
 	/**
-	 * Matches any date matching the default format {@value #DEFAULT_DATE_FORMAT}.
+	 * Matches any date matching the default format {@value #DEFAULT_DATETIME_FORMAT}.
 	 *
 	 * @param in the example date
 	 * @return the same value
 	 */
 	public static Date datetime(Date in) {
-		reportMatcher(new DatetimeArg(DEFAULT_DATE_FORMAT, in));
+		reportMatcher(new DatetimeArg(DEFAULT_DATETIME_FORMAT, in));
 		return in;
 	}
 

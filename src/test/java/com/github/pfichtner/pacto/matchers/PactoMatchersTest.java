@@ -3,6 +3,7 @@ package com.github.pfichtner.pacto.matchers;
 import static com.github.pfichtner.pacto.MatcherRegistry.pullMatchers;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.date;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.datetime;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
@@ -86,6 +87,18 @@ class PactoMatchersTest {
 	@Test
 	@PostCleanMatcherStack
 	void canCompileDate() {
+		String format = "yyyy-MM-dd";
+		target.dateArg(date(new Date()));
+		target.dateArg(date(format, new Date()));
+		target.localDateArg(date(LocalDate.now()));
+		target.localDateArg(date(format, LocalDate.now()));
+		assertThat(pullMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(DateArg.class,
+				m2 -> assertThat(m2.value()).isEqualTo(format)));
+	}
+
+	@Test
+	@PostCleanMatcherStack
+	void canCompileDatetime() {
 		String format = "yyyy-MM-dd HH:mm:ss";
 		target.dateArg(datetime(new Date()));
 		target.dateArg(datetime(format, new Date()));
