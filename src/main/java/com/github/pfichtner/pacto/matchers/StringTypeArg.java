@@ -4,7 +4,7 @@ public class StringTypeArg extends PactoMatcher<String> {
 
 	public StringTypeArg(String value) {
 		super(value);
-		withToStringFormat("stringtype(%s)");
+		withToStringFormat("stringType(%s)");
 	}
 
 }
