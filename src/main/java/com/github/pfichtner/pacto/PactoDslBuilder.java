@@ -18,6 +18,7 @@ import com.github.pfichtner.pacto.matchers.NumberTypeArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 import com.github.pfichtner.pacto.matchers.StringMatcherArg;
 import com.github.pfichtner.pacto.matchers.StringTypeArg;
+import com.github.pfichtner.pacto.matchers.TimeArg;
 import com.github.pfichtner.pacto.matchers.UuidArg;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
@@ -67,6 +68,7 @@ public final class PactoDslBuilder {
 			x(DecimalTypeArg.class, (i, b, m) -> b.decimalType(i.attribute(), m.value())), //
 			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.attribute(), m.value())), //
 			x(IdArg.class, (i, b, m) -> b.id(i.attribute(), m.value())), //
+			x(TimeArg.class, (i, b, m) -> b.time(i.attribute(), m.value(), m.example())), //
 			x(EachLikeArg.class, (i, b, m) -> {
 				DslPart each = dslFrom(m.value());
 				if (m.max() != null) {

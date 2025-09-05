@@ -6,8 +6,11 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.includeStr;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.time;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.uuid;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -53,6 +56,9 @@ public class TestInputDataProvider implements ArgumentsProvider {
 		String string = "xyz";
 		Number number = 123;
 		long longVal = 123L;
+		String timeFormat = "HH:mm";
+		Date date = new GregorianCalendar(2025 + 1900, 8, 5, 18, 25).getTime();
+
 		return Stream.of( //
 				new TestInputData<>(nullVal, o -> new NullValueArg(), (o, v) -> o.objectArg(v), __ -> nullValue(),
 						"nullValue", (o, a, v) -> o.nullValue(a)), //
@@ -67,7 +73,11 @@ public class TestInputDataProvider implements ArgumentsProvider {
 				new TestInputData<>(longVal, o -> new IdArg(o), (o, v) -> o.numberArg(v), v -> id(v), "id(%s)",
 						(o, a, v) -> o.id(a, v)), //
 				new TestInputData<>(uuid, o -> new UuidArg(o), (o, v) -> o.uuidArg(v), v -> uuid(v), "uuid(%s)",
-						(o, a, v) -> o.uuid(a, v)) //
+						(o, a, v) -> o.uuid(a, v)), //
+				new TestInputData<>(timeFormat, o -> new TimeArg(o, date), (o, v) -> o.dateArg(date), v -> {
+					time(v, date);
+					return v;
+				}, "time(%s,18:25)", (o, a, v) -> o.time(a, v, date)) //
 		).map(Arguments::of);
 	}
 

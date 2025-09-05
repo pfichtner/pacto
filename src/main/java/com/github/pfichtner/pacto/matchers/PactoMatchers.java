@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto.matchers;
 
 import java.lang.reflect.Array;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -257,6 +258,18 @@ public final class PactoMatchers {
 	 */
 	public static UUID uuid(UUID in) {
 		reportMatcher(new UuidArg(in));
+		return in;
+	}
+
+	/**
+	 * Matches any time matching the passed format.
+	 *
+	 * @param format the time format
+	 * @param in the example time
+	 * @return the same value
+	 */
+	public static Date time(String format, Date in) {
+		reportMatcher(new TimeArg(format, in));
 		return in;
 	}
 

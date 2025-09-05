@@ -1,5 +1,6 @@
 package com.github.pfichtner.pacto.matchers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -41,7 +42,10 @@ public class TestTarget {
 	void numberArg(Number value) {
 	}
 
-	public void uuidArg(UUID value) {
+	void uuidArg(UUID value) {
+	}
+
+	void dateArg(Date value) {
 	}
 
 	void arrayArg(Foo[] array) {
