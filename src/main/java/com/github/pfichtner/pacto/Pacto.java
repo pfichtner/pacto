@@ -34,7 +34,16 @@ import net.bytebuddy.implementation.auxiliary.AuxiliaryType.NamingStrategy;
  */
 public class Pacto {
 
-	private static record Entry(Object intercept, Recorder recorder) {
+	// record downgrade, because java baseline lowered to JDK 11
+	private static class Entry {
+		private Object intercept;
+		private Recorder recorder;
+
+		private Entry(Object intercept, Recorder recorder) {
+			this.intercept = intercept;
+			this.recorder = recorder;
+		}
+
 	}
 
 	private static Map<Object, Entry> data = new IdentityHashMap<>();
@@ -102,7 +111,7 @@ public class Pacto {
 		if (entry == null) {
 			throw new IllegalArgumentException(object + " not intercepted");
 		}
-		return new DefaultInvocationDetails(entry.recorder().invocations());
+		return new DefaultInvocationDetails(entry.recorder.invocations());
 	}
 
 	/**
