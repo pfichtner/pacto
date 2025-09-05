@@ -191,7 +191,6 @@ public final class PactoMatchers {
 	/**
 	 * Matches any id type.
 	 *
-	 * @param <T> id type
 	 * @param in  example value
 	 * @return same value
 	 */
@@ -203,7 +202,6 @@ public final class PactoMatchers {
 	/**
 	 * Matches any id type.
 	 *
-	 * @param <T> id type
 	 * @param in  example value
 	 * @return same value
 	 */
