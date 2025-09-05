@@ -18,10 +18,10 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.pfichtner.pacto.matchers.TestInputDataProvider;
-import com.github.pfichtner.pacto.matchers.TestInputDataProvider.TestInputData;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
+import com.github.pfichtner.pacto.matchers.TestInputDataProvider;
+import com.github.pfichtner.pacto.matchers.TestInputDataProvider.TestInputData;
 import com.github.pfichtner.pacto.testdata.Bar;
 import com.github.pfichtner.pacto.testdata.Foo;
 
@@ -110,7 +110,7 @@ class PactoDslBuilderTest {
 	@ParameterizedTest
 	@ArgumentsSource(value = TestInputDataProvider.class)
 	void testMatchers(TestInputData<?> testInputData) throws Exception {
-		InvocationStub invocation = new InvocationStub(new Foo()).withMatcher(testInputData.pactoMatcher());
+		Invocation invocation = new InvocationStub(new Foo()).withMatcher(testInputData.pactoMatcher());
 		PactDslJsonBody expected = testInputData.handle(new PactDslJsonBody(), invocation.attribute());
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}
@@ -133,7 +133,7 @@ class PactoDslBuilderTest {
 		);
 	}
 
-	private DslPart callSut(InvocationStub invocation) {
+	private DslPart callSut(Invocation invocation) {
 		return appendInvocations(new PactDslJsonBody(), List.of(invocation));
 	}
 

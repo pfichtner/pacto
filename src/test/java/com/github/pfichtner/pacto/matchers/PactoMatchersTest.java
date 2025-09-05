@@ -107,9 +107,9 @@ class PactoMatchersTest {
 	@ParameterizedTest
 	@ArgumentsSource(value = TestInputDataProvider.class)
 	void testAll(TestInputData<?> testInputData) {
-		TestTarget spec = testInputData.handle(spec(target));
+		TestTarget testTarget = testInputData.handle(spec(target));
 		Object value = testInputData.in();
-		assertThat(invocations(spec).invocations()).singleElement() //
+		assertThat(invocations(testTarget).invocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
 						.isInstanceOfSatisfying(testInputData.type(), m -> assertSoftly(s -> { //
 							s.assertThat(m.value()).isEqualTo(value);
