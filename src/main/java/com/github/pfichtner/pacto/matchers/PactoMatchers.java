@@ -189,6 +189,30 @@ public final class PactoMatchers {
 	}
 
 	/**
+	 * Matches any id type.
+	 *
+	 * @param <T> id type
+	 * @param in  example value
+	 * @return same value
+	 */
+	public static int id(int in) {
+		reportMatcher(new IdArg(in));
+		return in;
+	}
+
+	/**
+	 * Matches any id type.
+	 *
+	 * @param <T> id type
+	 * @param in  example value
+	 * @return same value
+	 */
+	public static long id(long in) {
+		reportMatcher(new IdArg(in));
+		return in;
+	}
+
+	/**
 	 * Matches any hex string.
 	 *
 	 * @return default hex value

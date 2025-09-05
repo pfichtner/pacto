@@ -2,14 +2,7 @@ package com.github.pfichtner.pacto.matchers;
 
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.hex;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.uuid;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
@@ -137,12 +130,14 @@ class PactoMatchersTest {
 		String hex = "0000FFFF";
 		String string = "xyz";
 		Number number = 123;
+		long longVal = 123L;
 		return List.of( //
 				new Entry<>(NullValueArg.class, null, (o, v) -> o.stringArg(nullValue()), "nullValue"), //
 				new Entry<>(StringTypeArg.class, string, (o, v) -> o.stringArg(stringType(v)), "stringType(%s)"), //
 				new Entry<>(IncludeStrArg.class, string, (o, v) -> o.stringArg(includeStr(v)), "includeStr(%s)"), //
-				new Entry<>(NumberTypeArg.class, number, (o, v) -> o.numberArg(numberType(v)), "numberType(%s)"), //
 				new Entry<>(HexValueArg.class, hex, (o, v) -> o.stringArg(hex(v)), "hex(%s)"), //
+				new Entry<>(NumberTypeArg.class, number, (o, v) -> o.numberArg(numberType(v)), "numberType(%s)"), //
+				new Entry<>(IdArg.class, longVal, (o, v) -> o.numberArg(id(v)), "id(%s)"), //
 				new Entry<>(UuidArg.class, uuid, (o, v) -> o.uuidArg(uuid(v.toString())), "uuid(%s)"), //
 				new Entry<>(UuidArg.class, uuid, (o, v) -> o.uuidArg(uuid(v)), "uuid(%s)") //
 		);

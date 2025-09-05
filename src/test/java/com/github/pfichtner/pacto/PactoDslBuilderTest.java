@@ -21,6 +21,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.HexValueArg;
+import com.github.pfichtner.pacto.matchers.IdArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 import com.github.pfichtner.pacto.matchers.UuidArg;
 import com.github.pfichtner.pacto.testdata.Bar;
@@ -113,9 +114,10 @@ class PactoDslBuilderTest {
 		PactoMatcher<?> matcher = constructor.newInstance(arg);
 		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
 		PactDslJsonBody pactDslJsonBody = new PactDslJsonBody();
-		Method method = pactDslJsonBody.getClass().getMethod(methodname, String.class, String[].class);
-		PactDslJsonBody expected = (PactDslJsonBody) method.invoke(pactDslJsonBody, invocation.attribute(),
-				new String[] { arg.toString() });
+		Class<?> varargs = methodname.equals("id") ? long[].class : String[].class;
+		Method method = pactDslJsonBody.getClass().getMethod(methodname, String.class, varargs);
+		Object args = methodname.equals("id") ? new long[] { (long) arg } : new String[] { arg.toString() };
+		PactDslJsonBody expected = (PactDslJsonBody) method.invoke(pactDslJsonBody, invocation.attribute(), args);
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}
 
@@ -123,7 +125,8 @@ class PactoDslBuilderTest {
 		return List.of( //
 				arguments("0000FFFF", HexValueArg.class.getConstructor(String.class), "hexValue"), //
 				arguments(UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5"),
-						UuidArg.class.getConstructor(UUID.class), "uuid") //
+						UuidArg.class.getConstructor(UUID.class), "uuid"), //
+				arguments(123L, IdArg.class.getConstructor(long.class), "id") //
 		);
 	}
 

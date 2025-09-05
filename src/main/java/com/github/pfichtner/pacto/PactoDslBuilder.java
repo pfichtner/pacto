@@ -10,6 +10,7 @@ import com.github.pfichtner.pacto.matchers.BooleanValueArg;
 import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.HexValueArg;
+import com.github.pfichtner.pacto.matchers.IdArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.NullValueArg;
 import com.github.pfichtner.pacto.matchers.NumberTypeArg;
@@ -63,6 +64,7 @@ public final class PactoDslBuilder {
 			x(IntegerTypeArg.class, (i, b, m) -> b.integerType(i.attribute(), m.value())), //
 			x(DecimalTypeArg.class, (i, b, m) -> b.decimalType(i.attribute(), m.value())), //
 			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.attribute(), m.value())), //
+			x(IdArg.class, (i, b, m) -> b.id(i.attribute(), m.value())), //
 			x(EachLikeArg.class, (i, b, m) -> {
 				DslPart each = dslFrom(m.value());
 				if (m.max() != null) {
