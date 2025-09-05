@@ -1,13 +1,6 @@
 package com.github.pfichtner.pacto.matchers;
 
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.hex;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.id;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.includeStr;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.nullValue;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.time;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.uuid;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -57,7 +50,8 @@ public class TestInputDataProvider implements ArgumentsProvider {
 		Number number = 123;
 		long longVal = 123L;
 		String timeFormat = "HH:mm";
-		Date date = new GregorianCalendar(2025 + 1900, 8, 5, 18, 25).getTime();
+		String dateFormat = "yyyy-MM-dd HH:mm";
+		Date date = new GregorianCalendar(2025, 8, 5, 18, 25).getTime();
 
 		return Stream.of( //
 				new TestInputData<>(nullVal, o -> new NullValueArg(), (o, v) -> o.objectArg(v), __ -> nullValue(),
@@ -77,7 +71,11 @@ public class TestInputDataProvider implements ArgumentsProvider {
 				new TestInputData<>(timeFormat, o -> new TimeArg(o, date), (o, v) -> o.dateArg(date), v -> {
 					time(v, date);
 					return v;
-				}, "time(%s,18:25)", (o, a, v) -> o.time(a, v, date)) //
+				}, "time(%s,18:25)", (o, a, v) -> o.time(a, v, date)), //
+				new TestInputData<>(dateFormat, o -> new DateArg(o, date), (o, v) -> o.dateArg(date), v -> {
+					date(v, date);
+					return v;
+				}, "date(%s,2025-09-05 18:25)", (o, a, v) -> o.date(a, v, date)) //
 		).map(Arguments::of);
 	}
 

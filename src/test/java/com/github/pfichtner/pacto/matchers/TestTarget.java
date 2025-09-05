@@ -1,5 +1,6 @@
 package com.github.pfichtner.pacto.matchers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +48,9 @@ public class TestTarget {
 	}
 
 	void dateArg(Date value) {
+	}
+
+	void localDateArg(LocalDate value) {
 	}
 
 	void localDateTimeArg(LocalDateTime value) {

@@ -3,6 +3,7 @@ package com.github.pfichtner.pacto.matchers;
 import static com.github.pfichtner.pacto.MatcherRegistry.pullMatchers;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.date;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -78,6 +80,18 @@ class PactoMatchersTest {
 		target.localDateTimeArg(time(LocalDateTime.now()));
 		target.localDateTimeArg(time(format, LocalDateTime.now()));
 		assertThat(pullMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(TimeArg.class,
+				m2 -> assertThat(m2.value()).isEqualTo(format)));
+	}
+
+	@Test
+	@PostCleanMatcherStack
+	void canCompileDate() {
+		String format = "yyyy-MM-dd HH:mm:ss";
+		target.dateArg(date(new Date()));
+		target.dateArg(date(format, new Date()));
+		target.localDateArg(date(LocalDate.now()));
+		target.localDateArg(date(format, LocalDate.now()));
+		assertThat(pullMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(DateArg.class,
 				m2 -> assertThat(m2.value()).isEqualTo(format)));
 	}
 

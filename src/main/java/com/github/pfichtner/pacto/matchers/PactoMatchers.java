@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto.matchers;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -38,6 +39,7 @@ public final class PactoMatchers {
 	public static final String DEFAULT_HEX_VALUE = "1234a";
 	public static final UUID DEFAULT_UUID_VALUE = UUID.fromString("e2490de5-5bd3-43d5-b7c4-526e33f71304");
 	public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
+	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	// Prevent instantiation
 	private PactoMatchers() {
@@ -287,10 +289,6 @@ public final class PactoMatchers {
 		return in;
 	}
 
-	private static Date toDate(LocalDateTime dateToConvert) {
-		return Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
-	}
-
 	/**
 	 * Matches any time matching the default format {@value #DEFAULT_TIME_FORMAT}.
 	 *
@@ -311,6 +309,52 @@ public final class PactoMatchers {
 	 */
 	public static Date time(String format, Date in) {
 		reportMatcher(new TimeArg(format, in));
+		return in;
+	}
+
+	/**
+	 * Matches any date matching default format {@value #DEFAULT_DATE_FORMAT}.
+	 *
+	 * @param in the example date
+	 * @return the same value
+	 */
+	public static LocalDate date(LocalDate in) {
+		reportMatcher(new DateArg(DEFAULT_DATE_FORMAT, toDate(in)));
+		return in;
+	}
+
+	/**
+	 * Matches any date matching the passed format.
+	 *
+	 * @param format the date format
+	 * @param in     the example date
+	 * @return the same value
+	 */
+	public static LocalDate date(String format, LocalDate in) {
+		reportMatcher(new DateArg(format, toDate(in)));
+		return in;
+	}
+
+	/**
+	 * Matches any date matching the default format {@value #DEFAULT_DATE_FORMAT}.
+	 *
+	 * @param in the example date
+	 * @return the same value
+	 */
+	public static Date date(Date in) {
+		reportMatcher(new DateArg(DEFAULT_DATE_FORMAT, in));
+		return in;
+	}
+
+	/**
+	 * Matches any date matching the passed format.
+	 *
+	 * @param format the date format
+	 * @param in     the example date
+	 * @return the same value
+	 */
+	public static Date date(String format, Date in) {
+		reportMatcher(new DateArg(format, in));
 		return in;
 	}
 
@@ -456,6 +500,14 @@ public final class PactoMatchers {
 			return Set.of(value);
 		}
 
+	}
+
+	private static Date toDate(LocalDate dateToConvert) {
+		return Date.from(dateToConvert.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	private static Date toDate(LocalDateTime dateToConvert) {
+		return Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	/** Register a matcher in the internal registry. */
