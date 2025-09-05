@@ -42,7 +42,7 @@ public class PactoTest {
 
 	private final Gson gson = new Gson();
 
-	public PactoTest(Class<TestMother> clazz) throws Exception {
+	public PactoTest(Class<TestMother> clazz) throws Exception  {
 		TestMother testMother = clazz.getConstructor().newInstance();
 		dto = testMother.dto();
 		dtoWithSpec = testMother.dtoWithSpec();
@@ -71,34 +71,35 @@ public class PactoTest {
 	}
 
 	@Test
-	void testDelegate() {
+	void testDelegate()  {
 		assertThat(delegate(spec(dto))).isSameAs(dto);
 	}
 
 	@Test
 	void doesSerializeLikeTheObjectItself() {
-		String expected = String.join("\n", //
-				"{", //
-				"	\"givenname\":\"Givenname2\",", //
-				"	\"lastname\":\"Lastname2\",", //
-				"	\"primaryAddress\":{", //
-				"		\"zip\":21,\"city\":\"string\",\"validated\":true", //
-				"	},", //
-				"	\"secondaryAddresses\":[", //
-				"		{\"zip\":22,\"city\":\"string\",\"validated\":false}", //
-				"	],", //
-				"	\"secondaryAddressesList\":[", //
-				"		{\"zip\":23,\"city\":\"string\",\"validated\":true}", //
-				"	],", //
-				"	\"secondaryAddressesSet\":[", //
-				"		{\"zip\":24,\"city\":\"string\",\"validated\":true}", //
-				"	],", //
-				"	\"age\":42,", //
-				"	\"height\":1.86,", //
-				"	\"shoeSize\":100.0,", //
-				"	\"children\":2,", //
-				"	\"salary\":123", //
-				"}");
+		String expected = """
+				{
+					"givenname":"Givenname2",
+					"lastname":"Lastname2",
+					"primaryAddress":{
+						"zip":21,"city":"string","validated":true
+					},
+					"secondaryAddresses":[
+						{"zip":22,"city":"string","validated":false}
+					],
+					"secondaryAddressesList":[
+						{"zip":23,"city":"string","validated":true}
+					],
+					"secondaryAddressesSet":[
+						{"zip":24,"city":"string","validated":true}
+					],
+					"age":42,
+					"height":1.86,
+					"shoeSize":100.0,
+					"children":2,
+					"salary":123
+				}
+				""";
 
 		String serialized = gson.toJson(dtoWithSpec);
 		assertThatJson(serialized).isEqualTo(expected);
@@ -111,34 +112,35 @@ public class PactoTest {
 	}
 
 	@Test
-	void partitial() {
-		String expected = String.join("\n", //
-				"{", //
-				"	\"givenname\":\"Givenname2\",", //
-				"	\"lastname\":\"Lastname2\",", //
-				"	\"primaryAddress\":{", //
-				"		\"zip\":21,\"city\":\"city\",\"validated\":true", //
-				"	},", //
-				"	\"secondaryAddresses\":[", //
-				"		{\"zip\":22,\"city\":\"city\",\"validated\":true}", //
-				"	],", //
-				"	\"secondaryAddressesList\":[", //
-				"		{\"zip\":23,\"city\":\"city\",\"validated\":true}", //
-				"	],", //
-				"	\"secondaryAddressesSet\":[", //
-				"		{\"zip\":24,\"city\":\"city\",\"validated\":true}", //
-				"	],", //
-				"	\"age\":42,", //
-				"	\"height\":1.86,", //
-				"	\"children\":2", //
-				"}");
+	void partitial()  {
+		String expected = """
+				{
+					"givenname":"Givenname2",
+					"lastname":"Lastname2",
+					"primaryAddress":{
+						"zip":21,"city":"city","validated":true
+					},
+					"secondaryAddresses":[
+						{"zip":22,"city":"city","validated":true}
+					],
+					"secondaryAddressesList":[
+						{"zip":23,"city":"city","validated":true}
+					],
+					"secondaryAddressesSet":[
+						{"zip":24,"city":"city","validated":true}
+					],
+					"age":42,
+					"height":1.86,
+					"children":2
+				}
+				""";
 
 		String serialized = gson.toJson(partial);
 		assertThatJson(serialized).isEqualTo(expected);
 	}
 
 	@Test
-	void testDslPartWithPartitials() {
+	void testDslPartWithPartitials()  {
 		DslPart expected = new PactDslJsonBody().stringType("lastname", "Lastname2");
 		assertThatDslPart(dslFrom(partial)).isEqualToDslPart(expected);
 	}
