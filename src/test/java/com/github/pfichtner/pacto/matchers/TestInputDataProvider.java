@@ -52,6 +52,7 @@ public class TestInputDataProvider implements ArgumentsProvider {
 		String timeFormat = "HH:mm";
 		String dateFormat = "yyyy-MM-dd HH:mm";
 		Date date = new GregorianCalendar(2025, 8, 5, 18, 25).getTime();
+		String ipAddress = "127.0.0.1";
 
 		return Stream.of( //
 				new TestInputData<>(nullVal, o -> new NullValueArg(), (o, v) -> o.objectArg(v), __ -> nullValue(),
@@ -75,7 +76,10 @@ public class TestInputDataProvider implements ArgumentsProvider {
 				new TestInputData<>(dateFormat, o -> new DateArg(o, date), (o, v) -> o.dateArg(date), v -> {
 					date(v, date);
 					return v;
-				}, "date(%s,2025-09-05 18:25)", (o, a, v) -> o.date(a, v, date)) //
+				}, "date(%s,2025-09-05 18:25)", (o, a, v) -> o.date(a, v, date)), //
+				new TestInputData<>(ipAddress, o -> new IpAddressArg(), (o, v) -> o.stringArg(v), v -> ipAddress(v),
+						"ipAddress", (o, a, v) -> o.ipAddress(a)) //
+
 		).map(Arguments::of);
 	}
 

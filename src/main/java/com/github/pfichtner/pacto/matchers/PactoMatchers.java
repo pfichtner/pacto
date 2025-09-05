@@ -237,6 +237,18 @@ public final class PactoMatchers {
 	}
 
 	/**
+	 * Matches any ip address string.
+	 * 
+	 * @param in example ip address string
+	 *
+	 * @return same value
+	 */
+	public static String ipAddress(String in) {
+		reportMatcher(new IpAddressArg());
+		return in;
+	}
+
+	/**
 	 * Matches any UUID.
 	 *
 	 * @return default UUID
