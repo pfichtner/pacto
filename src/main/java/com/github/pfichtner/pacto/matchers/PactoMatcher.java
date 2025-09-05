@@ -5,7 +5,7 @@ import static java.lang.String.format;
 public class PactoMatcher<T> {
 
 	private final T value;
-	private String toStringFormat;
+	private String toString;
 
 	public PactoMatcher(T value) {
 		this.value = value;
@@ -16,13 +16,13 @@ public class PactoMatcher<T> {
 	}
 
 	protected PactoMatcher<T> withToStringFormat(String toStringFormat) {
-		this.toStringFormat = toStringFormat;
+		toString = format(toStringFormat, value());
 		return this;
 	}
 
 	@Override
 	public String toString() {
-		return format(toStringFormat, value());
+		return toString == null ? super.toString() : toString;
 	}
 
 }
