@@ -50,7 +50,7 @@ public class TestInputDataProvider implements ArgumentsProvider {
 		Number number = 123;
 		long longVal = 123L;
 		String timeFormat = "HH:mm";
-		String dateFormat = "yyyy-MM-dd HH:mm";
+		String datetimeFormat = "yyyy-MM-dd HH:mm";
 		Date date = new GregorianCalendar(2025, 8, 5, 18, 25).getTime();
 		String ipAddress = "127.0.0.1";
 
@@ -73,10 +73,10 @@ public class TestInputDataProvider implements ArgumentsProvider {
 					time(v, date);
 					return v;
 				}, "time(%s,18:25)", (o, a, v) -> o.time(a, v, date)), //
-				new TestInputData<>(dateFormat, o -> new DateArg(o, date), (o, v) -> o.dateArg(date), v -> {
-					date(v, date);
+				new TestInputData<>(datetimeFormat, o -> new DatetimeArg(o, date), (o, v) -> o.dateArg(date), v -> {
+					datetime(v, date);
 					return v;
-				}, "date(%s,2025-09-05 18:25)", (o, a, v) -> o.date(a, v, date)), //
+				}, "datetime(%s,2025-09-05 18:25)", (o, a, v) -> o.datetime(a, v, date)), //
 				new TestInputData<>(ipAddress, o -> new IpAddressArg(), (o, v) -> o.stringArg(v), v -> ipAddress(v),
 						"ipAddress", (o, a, v) -> o.ipAddress(a)) //
 

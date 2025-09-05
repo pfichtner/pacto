@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.github.pfichtner.pacto.matchers.BooleanTypeArg;
 import com.github.pfichtner.pacto.matchers.BooleanValueArg;
-import com.github.pfichtner.pacto.matchers.DateArg;
+import com.github.pfichtner.pacto.matchers.DatetimeArg;
 import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.HexValueArg;
@@ -72,7 +72,7 @@ public final class PactoDslBuilder {
 			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.attribute(), m.value())), //
 			x(IdArg.class, (i, b, m) -> b.id(i.attribute(), m.value())), //
 			x(TimeArg.class, (i, b, m) -> b.time(i.attribute(), m.value(), m.example())), //
-			x(DateArg.class, (i, b, m) -> b.date(i.attribute(), m.value(), m.example())), //
+			x(DatetimeArg.class, (i, b, m) -> b.datetime(i.attribute(), m.value(), m.example())), //
 			x(EachLikeArg.class, (i, b, m) -> {
 				DslPart each = dslFrom(m.value());
 				if (m.max() != null) {

@@ -330,8 +330,8 @@ public final class PactoMatchers {
 	 * @param in the example date
 	 * @return the same value
 	 */
-	public static LocalDate date(LocalDate in) {
-		reportMatcher(new DateArg(DEFAULT_DATE_FORMAT, toDate(in)));
+	public static LocalDate datetime(LocalDate in) {
+		reportMatcher(new DatetimeArg(DEFAULT_DATE_FORMAT, toDate(in)));
 		return in;
 	}
 
@@ -342,8 +342,8 @@ public final class PactoMatchers {
 	 * @param in     the example date
 	 * @return the same value
 	 */
-	public static LocalDate date(String format, LocalDate in) {
-		reportMatcher(new DateArg(format, toDate(in)));
+	public static LocalDate datetime(String format, LocalDate in) {
+		reportMatcher(new DatetimeArg(format, toDate(in)));
 		return in;
 	}
 
@@ -353,8 +353,8 @@ public final class PactoMatchers {
 	 * @param in the example date
 	 * @return the same value
 	 */
-	public static Date date(Date in) {
-		reportMatcher(new DateArg(DEFAULT_DATE_FORMAT, in));
+	public static Date datetime(Date in) {
+		reportMatcher(new DatetimeArg(DEFAULT_DATE_FORMAT, in));
 		return in;
 	}
 
@@ -365,8 +365,8 @@ public final class PactoMatchers {
 	 * @param in     the example date
 	 * @return the same value
 	 */
-	public static Date date(String format, Date in) {
-		reportMatcher(new DateArg(format, in));
+	public static Date datetime(String format, Date in) {
+		reportMatcher(new DatetimeArg(format, in));
 		return in;
 	}
 
