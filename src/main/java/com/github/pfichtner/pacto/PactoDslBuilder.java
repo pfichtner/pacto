@@ -16,6 +16,7 @@ import com.github.pfichtner.pacto.matchers.IdArg;
 import com.github.pfichtner.pacto.matchers.IncludeStrArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
 import com.github.pfichtner.pacto.matchers.IpAddressArg;
+import com.github.pfichtner.pacto.matchers.MatchUrlArg;
 import com.github.pfichtner.pacto.matchers.NullValueArg;
 import com.github.pfichtner.pacto.matchers.NumberTypeArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
@@ -68,6 +69,7 @@ public final class PactoDslBuilder {
 			x(HexValueArg.class, (i, b, m) -> b.hexValue(i.attribute(), m.value())), //
 			x(IpAddressArg.class, (i, b, m) -> b.ipAddress(i.attribute())), //
 			x(UuidArg.class, (i, b, m) -> b.uuid(i.attribute(), m.value())), //
+			x(MatchUrlArg.class, (i, b, m) -> b.matchUrl(i.attribute(), m.value(), m.pathFragments())), //
 			x(IntegerTypeArg.class, (i, b, m) -> b.integerType(i.attribute(), m.value())), //
 			x(DecimalTypeArg.class, (i, b, m) -> b.decimalType(i.attribute(), m.value())), //
 			x(NumberTypeArg.class, (i, b, m) -> b.numberType(i.attribute(), m.value())), //

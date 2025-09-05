@@ -70,6 +70,8 @@ public class TestInputDataProvider implements ArgumentsProvider {
 						(o, a, v) -> o.id(a, v)), //
 				new TestInputData<>(uuid, o -> new UuidArg(o), (o, v) -> o.uuidArg(v), v -> uuid(v), "uuid(%s)",
 						(o, a, v) -> o.uuid(a, v)), //
+				new TestInputData<>("matchUrl", o -> new MatchUrlArg(o), (o, v) -> o.stringArg(v), v -> matchUrl(v),
+						"matchUrl(%s)", (o, a, v) -> o.matchUrl(a, v)), //
 				new TestInputData<>(timeFormat, o -> new TimeArg(o, date), (o, v) -> o.dateArg(date), v -> {
 					time(v, date);
 					return v;

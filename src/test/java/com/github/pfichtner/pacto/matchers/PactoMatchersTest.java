@@ -9,7 +9,7 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.time;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
@@ -75,6 +75,17 @@ class PactoMatchersTest {
 		target.doubleArg(numberType(1.23D));
 		target.numberArg(numberType(BigInteger.valueOf(123)));
 		target.numberArg(numberType(new BigDecimal(123)));
+	}
+
+	@Test
+	@PostCleanMatcherStack
+	void canCompileUrl() {
+		target.stringArg(matchUrl("http://localhost:8080"));
+		assertThat(pullMatchers()).singleElement().isInstanceOfSatisfying(MatchUrlArg.class,
+				m -> assertThat(m).hasToString("matchUrl(http://localhost:8080)"));
+		target.stringArg(matchUrl("http://localhost:8080", "foo", "bar"));
+		assertThat(pullMatchers()).singleElement().isInstanceOfSatisfying(MatchUrlArg.class,
+				m -> assertThat(m).hasToString("matchUrl(http://localhost:8080/foo/bar)"));
 	}
 
 	@Test

@@ -279,6 +279,11 @@ public final class PactoMatchers {
 		return in;
 	}
 
+	public static String matchUrl(String basePath, String... pathFragments) {
+		reportMatcher(new MatchUrlArg(basePath, pathFragments));
+		return basePath;
+	}
+
 	/**
 	 * Matches any time matching default format {@value #DEFAULT_TIME_FORMAT}.
 	 *
