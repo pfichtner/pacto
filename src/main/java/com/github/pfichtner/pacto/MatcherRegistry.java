@@ -14,7 +14,7 @@ public class MatcherRegistry {
 	}
 
 	public static List<PactoMatcher<?>> pullMatchers() {
-		List<PactoMatcher<?>> matchers = new ArrayList<>(registry.get());
+		var matchers = List.copyOf(registry.get());
 		reset();
 		return matchers;
 	}
