@@ -442,6 +442,18 @@ public final class PactoMatchers {
 	}
 
 	/**
+	 * Matches the passed value.
+	 *
+	 * @param in  the object to match
+	 * @param <T> type
+	 * @return the same value
+	 */
+	public static <T> T equalsTo(T in) {
+		reportMatcher(new EqualsToArg(in));
+		return in;
+	}
+
+	/**
 	 * Matches an array with at least one element like the given value.
 	 *
 	 * @param <T>   element type

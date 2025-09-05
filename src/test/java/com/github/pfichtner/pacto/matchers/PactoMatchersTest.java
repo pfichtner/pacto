@@ -3,14 +3,7 @@ package com.github.pfichtner.pacto.matchers;
 import static com.github.pfichtner.pacto.MatcherRegistry.pullMatchers;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.date;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.datetime;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.time;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
@@ -19,6 +12,8 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -75,6 +70,19 @@ class PactoMatchersTest {
 		target.doubleArg(numberType(1.23D));
 		target.numberArg(numberType(BigInteger.valueOf(123)));
 		target.numberArg(numberType(new BigDecimal(123)));
+	}
+
+	@Test
+	@PostCleanMatcherStack
+	void canCompileObject() {
+		target.objectArg(equalsTo(null));
+		target.objectArg(equalsTo(""));
+		target.stringArg(equalsTo(""));
+		target.numberArg(equalsTo(123));
+		target.numberArg(equalsTo(123L));
+		target.arrayArg(equalsTo(new Foo[] { new Foo() }));
+		target.listArg(equalsTo(List.of(new Foo())));
+		target.setArg(equalsTo(Set.of(new Foo())));
 	}
 
 	@Test

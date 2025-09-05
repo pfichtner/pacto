@@ -44,6 +44,7 @@ public class TestInputDataProvider implements ArgumentsProvider {
 	@Override
 	public Stream<Arguments> provideArguments(ExtensionContext context) throws Exception {
 		Object nullVal = null;
+		Object objVal = new Object();
 		UUID uuid = UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5");
 		String hex = "0000FFFF";
 		String string = "xyz";
@@ -58,6 +59,8 @@ public class TestInputDataProvider implements ArgumentsProvider {
 		return Stream.of( //
 				new TestInputData<>(nullVal, o -> new NullValueArg(), (o, v) -> o.objectArg(v), __ -> nullValue(),
 						"nullValue", (o, a, v) -> o.nullValue(a)), //
+				new TestInputData<>(objVal, o -> new EqualsToArg(o), (o, v) -> o.objectArg(v), v -> equalsTo(v),
+						"equalsTo(%s)", (o, a, v) -> o.equalTo(a, v)), //
 				new TestInputData<>(string, o -> new StringTypeArg(o), (o, v) -> o.stringArg(v), v -> stringType(v),
 						"stringType(%s)", (o, a, v) -> o.stringType(a, v)), //
 				new TestInputData<>(string, o -> new IncludeStrArg(o), (o, v) -> o.stringArg(v), v -> includeStr(v),

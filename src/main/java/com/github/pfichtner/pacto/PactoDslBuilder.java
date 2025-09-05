@@ -11,6 +11,7 @@ import com.github.pfichtner.pacto.matchers.DateArg;
 import com.github.pfichtner.pacto.matchers.DatetimeArg;
 import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
+import com.github.pfichtner.pacto.matchers.EqualsToArg;
 import com.github.pfichtner.pacto.matchers.HexValueArg;
 import com.github.pfichtner.pacto.matchers.IdArg;
 import com.github.pfichtner.pacto.matchers.IncludeStrArg;
@@ -61,6 +62,7 @@ public final class PactoDslBuilder {
 
 	private final static List<Extractor<? extends PactoMatcher<?>>> extractors = List.of( //
 			x(NullValueArg.class, (i, b, m) -> b.nullValue(i.attribute())), //
+			x(EqualsToArg.class, (i, b, m) -> b.equalTo(i.attribute(), m.value())), //
 			x(BooleanTypeArg.class, (i, b, m) -> b.booleanType(i.attribute(), m.value())), //
 			x(BooleanValueArg.class, (i, b, m) -> b.booleanValue(i.attribute(), m.value())), //
 			x(StringMatcherArg.class, (i, b, m) -> b.stringMatcher(i.attribute(), m.regex(), m.value())), //
