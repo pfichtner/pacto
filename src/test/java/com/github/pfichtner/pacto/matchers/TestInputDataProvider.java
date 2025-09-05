@@ -22,7 +22,7 @@ import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 public class TestInputDataProvider implements ArgumentsProvider {
 
 	public static record TestInputData<T>(T in, Function<T, PactoMatcher<T>> creator,
-			BiConsumer<TestTarget, T> consumer, String toStringFormat,
+			BiConsumer<TestTarget, T> consumer, Function<T, T> supplier, String toStringFormat,
 			TriFunction<PactDslJsonBody, String, T, PactDslJsonBody> operator) {
 
 		public PactoMatcher<T> pactoMatcher() {
@@ -35,7 +35,7 @@ public class TestInputDataProvider implements ArgumentsProvider {
 		}
 
 		public TestTarget handle(TestTarget target) {
-			consumer.accept(target, in);
+			consumer.accept(target, supplier.apply(in));
 			return target;
 		}
 
@@ -54,19 +54,19 @@ public class TestInputDataProvider implements ArgumentsProvider {
 		Number number = 123;
 		long longVal = 123L;
 		return Stream.of( //
-				new TestInputData<>(nullVal, o -> new NullValueArg(), (o, v) -> o.stringArg(nullValue()), "nullValue",
-						(o, a, v) -> o.nullValue(a)), //
-				new TestInputData<>(string, o -> new StringTypeArg(o), (o, v) -> o.stringArg(stringType(v)),
+				new TestInputData<>(nullVal, o -> new NullValueArg(), (o, v) -> o.objectArg(v), __ -> nullValue(),
+						"nullValue", (o, a, v) -> o.nullValue(a)), //
+				new TestInputData<>(string, o -> new StringTypeArg(o), (o, v) -> o.stringArg(v), v -> stringType(v),
 						"stringType(%s)", (o, a, v) -> o.stringType(a, v)), //
-				new TestInputData<>(string, o -> new IncludeStrArg(o), (o, v) -> o.stringArg(includeStr(v)),
+				new TestInputData<>(string, o -> new IncludeStrArg(o), (o, v) -> o.stringArg(v), v -> includeStr(v),
 						"includeStr(%s)", (o, a, v) -> o.includesStr(a, v)), //
-				new TestInputData<>(hex, o -> new HexValueArg(o), (o, v) -> o.stringArg(hex(v)), "hex(%s)",
+				new TestInputData<>(hex, o -> new HexValueArg(o), (o, v) -> o.stringArg(v), v -> hex(v), "hex(%s)",
 						(o, a, v) -> o.hexValue(a, v)), //
-				new TestInputData<>(number, o -> new NumberTypeArg(o), (o, v) -> o.numberArg(numberType(v)),
+				new TestInputData<>(number, o -> new NumberTypeArg(o), (o, v) -> o.numberArg(v), v -> numberType(v),
 						"numberType(%s)", (o, a, v) -> o.numberType(a, v)), //
-				new TestInputData<>(longVal, o -> new IdArg(o), (o, v) -> o.numberArg(id(v)), "id(%s)",
+				new TestInputData<>(longVal, o -> new IdArg(o), (o, v) -> o.numberArg(v), v -> id(v), "id(%s)",
 						(o, a, v) -> o.id(a, v)), //
-				new TestInputData<>(uuid, o -> new UuidArg(o), (o, v) -> o.uuidArg(uuid(v)), "uuid(%s)",
+				new TestInputData<>(uuid, o -> new UuidArg(o), (o, v) -> o.uuidArg(v), v -> uuid(v), "uuid(%s)",
 						(o, a, v) -> o.uuid(a, v)) //
 		).map(Arguments::of);
 	}

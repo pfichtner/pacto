@@ -8,6 +8,9 @@ import com.github.pfichtner.pacto.testdata.Foo;
 
 public class TestTarget {
 
+	void objectArg(Object value) {
+	}
+
 	void stringArg(String value) {
 	}
 
