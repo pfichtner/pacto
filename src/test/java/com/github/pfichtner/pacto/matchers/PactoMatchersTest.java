@@ -11,12 +11,17 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.uuid;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Lists;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Sets;
@@ -84,11 +89,10 @@ class PactoMatchersTest {
 		foo.setBars2(Lists.minArrayLike(spec(new Bar()).value("list-min"), min));
 		foo.setBars3(Sets.minArrayLike(spec(new Bar()).value("set-min"), min));
 		assertThat(invocations(foo).invocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
-				.isInstanceOfSatisfying(EachLikeArg.class, //
-						m -> {
-							assertThat(m.toString()).startsWith("minArrayLike(").contains(String.valueOf(min));
-							assertThat(m.min()).isEqualTo(min);
-						}));
+				.isInstanceOfSatisfying(EachLikeArg.class, m -> assertSoftly(s -> { //
+					s.assertThat(m.toString()).startsWith("minArrayLike(").contains(String.valueOf(min));
+					s.assertThat(m.min()).isEqualTo(min);
+				})));
 	}
 
 	@Test
@@ -99,53 +103,44 @@ class PactoMatchersTest {
 		foo.setBars2(Lists.maxArrayLike(spec(new Bar()).value("list-max"), max));
 		foo.setBars3(Sets.maxArrayLike(spec(new Bar()).value("set-max"), max));
 		assertThat(invocations(foo).invocations()).hasSize(3).allSatisfy(i -> assertThat(i.matcher()) //
-				.isInstanceOfSatisfying(EachLikeArg.class, //
-						m -> {
-							assertThat(m.toString()).startsWith("maxArrayLike(").contains(String.valueOf(max));
-							assertThat(m.max()).isEqualTo(max);
-						}));
+				.isInstanceOfSatisfying(EachLikeArg.class, m -> assertSoftly(s -> { //
+					s.assertThat(m.toString()).startsWith("maxArrayLike(").contains(String.valueOf(max));
+					s.assertThat(m.max()).isEqualTo(max);
+				})));
 	}
 
-	@Test
-	void testIncludeStr() {
-		String in = "xyz";
-		TestTarget spec = spec(target);
-		spec.stringArg(includeStr(in));
+	@ParameterizedTest
+	@MethodSource("args")
+	void testAll(Entry<?> entry) {
+		TestTarget spec = entry.handle(spec(target));
+		Object value = entry.in();
 		assertThat(invocations(spec).invocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
-						.isInstanceOfSatisfying(IncludeStrArg.class, //
-								m -> {
-									assertThat(m.value()).isEqualTo(in);
-									assertThat(m).hasToString("includeStr(%s)", in);
-								}));
+						.isInstanceOfSatisfying(entry.type(), m -> assertSoftly(s -> { //
+							s.assertThat(m.value()).isEqualTo(value);
+							s.assertThat(m).hasToString(entry.toStringFormat(), value);
+						})));
 	}
 
-	@Test
-	void testHex() {
-		String in = "0000FFFF";
-		TestTarget spec = spec(target);
-		spec.stringArg(hex(in));
-		assertThat(invocations(spec).invocations()).singleElement() //
-				.satisfies(i -> assertThat(i.matcher()) //
-						.isInstanceOfSatisfying(HexValueArg.class, //
-								m -> {
-									assertThat(m.value()).isEqualTo(in);
-									assertThat(m).hasToString("hex(%s)", in);
-								}));
-	}
+	static record Entry<T>(Class<? extends PactoMatcher<?>> type, T in, BiConsumer<TestTarget, T> consumer,
+			String toStringFormat) {
 
-	@Test
-	void testUuid() {
-		UUID in = UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5");
-		TestTarget spec = spec(target);
-		spec.uuidArg(uuid(in.toString()));
-		assertThat(invocations(spec).invocations()).singleElement() //
-				.satisfies(i -> assertThat(i.matcher()) //
-						.isInstanceOfSatisfying(UuidArg.class, //
-								m -> {
-									assertThat(m.value()).isEqualTo(in);
-									assertThat(m).hasToString("uuid(%s)", in);
-								}));
+		public TestTarget handle(TestTarget target) {
+			consumer.accept(target, in);
+			return target;
+		}
+
+	};
+
+	private static List<Entry<?>> args() {
+		UUID uuid = UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5");
+		String hex = "0000FFFF";
+		return List.of( //
+				new Entry<>(IncludeStrArg.class, "xyz", (o, v) -> o.stringArg(includeStr(v)), "includeStr(%s)"), //
+				new Entry<>(HexValueArg.class, hex, (o, v) -> o.stringArg(hex(v)), "hex(%s)"), //
+				new Entry<>(UuidArg.class, uuid, (o, v) -> o.uuidArg(uuid(v.toString())), "uuid(%s)"), //
+				new Entry<>(UuidArg.class, uuid, (o, v) -> o.uuidArg(uuid(v)), "uuid(%s)") //
+		);
 	}
 
 }
