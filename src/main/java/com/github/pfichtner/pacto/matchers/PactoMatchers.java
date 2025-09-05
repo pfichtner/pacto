@@ -240,20 +240,20 @@ public final class PactoMatchers {
 	}
 
 	/**
-	 * Matches a UUID from string.
+	 * Matches any UUID.
 	 *
-	 * @param in UUID string
-	 * @return UUID instance
+	 * @param in the example UUID
+	 * @return UUID from string
 	 */
 	public static UUID uuid(String in) {
 		return uuid(UUID.fromString(in));
 	}
 
 	/**
-	 * Matches the given UUID.
+	 * Matches any UUID.
 	 *
-	 * @param in UUID
-	 * @return same UUID
+	 * @param in the example UUID
+	 * @return the same value
 	 */
 	public static UUID uuid(UUID in) {
 		reportMatcher(new UuidArg(in));
