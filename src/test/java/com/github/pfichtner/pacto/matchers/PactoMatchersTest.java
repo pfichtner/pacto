@@ -72,8 +72,10 @@ class PactoMatchersTest {
 	@Test
 	@PostCleanMatcherStack
 	void canCompileDateTime() {
-		String format = "HH:mm";
+		String format = "HH:mm:ss";
+		target.dateArg(time(new Date()));
 		target.dateArg(time(format, new Date()));
+		target.localDateTimeArg(time(LocalDateTime.now()));
 		target.localDateTimeArg(time(format, LocalDateTime.now()));
 		assertThat(pullMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(TimeArg.class,
 				m2 -> assertThat(m2.value()).isEqualTo(format)));

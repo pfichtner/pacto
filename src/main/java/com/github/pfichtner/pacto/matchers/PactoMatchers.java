@@ -37,6 +37,7 @@ public final class PactoMatchers {
 	public static final float DEFAULT_DECIMAL_VALUE = 100.0F;
 	public static final String DEFAULT_HEX_VALUE = "1234a";
 	public static final UUID DEFAULT_UUID_VALUE = UUID.fromString("e2490de5-5bd3-43d5-b7c4-526e33f71304");
+	public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
 
 	// Prevent instantiation
 	private PactoMatchers() {
@@ -264,6 +265,17 @@ public final class PactoMatchers {
 	}
 
 	/**
+	 * Matches any time matching default format {@value #DEFAULT_TIME_FORMAT}.
+	 *
+	 * @param in the example time
+	 * @return the same value
+	 */
+	public static LocalDateTime time(LocalDateTime in) {
+		reportMatcher(new TimeArg(DEFAULT_TIME_FORMAT, toDate(in)));
+		return in;
+	}
+
+	/**
 	 * Matches any time matching the passed format.
 	 *
 	 * @param format the time format
@@ -277,6 +289,17 @@ public final class PactoMatchers {
 
 	private static Date toDate(LocalDateTime dateToConvert) {
 		return Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
+	 * Matches any time matching the default format {@value #DEFAULT_TIME_FORMAT}.
+	 *
+	 * @param in the example time
+	 * @return the same value
+	 */
+	public static Date time(Date in) {
+		reportMatcher(new TimeArg(DEFAULT_TIME_FORMAT, in));
+		return in;
 	}
 
 	/**
