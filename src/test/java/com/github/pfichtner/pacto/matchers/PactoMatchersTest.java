@@ -2,20 +2,22 @@ package com.github.pfichtner.pacto.matchers;
 
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
-import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.BiConsumer;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
+import com.github.pfichtner.pacto.matchers.TestInputDataProvider.TestInputData;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Lists;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Sets;
 import com.github.pfichtner.pacto.testdata.Bar;
@@ -103,44 +105,16 @@ class PactoMatchersTest {
 	}
 
 	@ParameterizedTest
-	@MethodSource("args")
-	void testAll(Entry<?> entry) {
-		TestTarget spec = entry.handle(spec(target));
-		Object value = entry.in();
+	@ArgumentsSource(value = TestInputDataProvider.class)
+	void testAll(TestInputData<?> testInputData) {
+		TestTarget spec = testInputData.handle(spec(target));
+		Object value = testInputData.in();
 		assertThat(invocations(spec).invocations()).singleElement() //
 				.satisfies(i -> assertThat(i.matcher()) //
-						.isInstanceOfSatisfying(entry.type(), m -> assertSoftly(s -> { //
+						.isInstanceOfSatisfying(testInputData.type(), m -> assertSoftly(s -> { //
 							s.assertThat(m.value()).isEqualTo(value);
-							s.assertThat(m).hasToString(entry.toStringFormat(), value);
+							s.assertThat(m).hasToString(testInputData.toStringFormat(), value);
 						})));
-	}
-
-	static record Entry<T>(Class<? extends PactoMatcher<?>> type, T in, BiConsumer<TestTarget, T> consumer,
-			String toStringFormat) {
-
-		public TestTarget handle(TestTarget target) {
-			consumer.accept(target, in);
-			return target;
-		}
-
-	};
-
-	private static List<Entry<?>> args() {
-		UUID uuid = UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5");
-		String hex = "0000FFFF";
-		String string = "xyz";
-		Number number = 123;
-		long longVal = 123L;
-		return List.of( //
-				new Entry<>(NullValueArg.class, null, (o, v) -> o.stringArg(nullValue()), "nullValue"), //
-				new Entry<>(StringTypeArg.class, string, (o, v) -> o.stringArg(stringType(v)), "stringType(%s)"), //
-				new Entry<>(IncludeStrArg.class, string, (o, v) -> o.stringArg(includeStr(v)), "includeStr(%s)"), //
-				new Entry<>(HexValueArg.class, hex, (o, v) -> o.stringArg(hex(v)), "hex(%s)"), //
-				new Entry<>(NumberTypeArg.class, number, (o, v) -> o.numberArg(numberType(v)), "numberType(%s)"), //
-				new Entry<>(IdArg.class, longVal, (o, v) -> o.numberArg(id(v)), "id(%s)"), //
-				new Entry<>(UuidArg.class, uuid, (o, v) -> o.uuidArg(uuid(v.toString())), "uuid(%s)"), //
-				new Entry<>(UuidArg.class, uuid, (o, v) -> o.uuidArg(uuid(v)), "uuid(%s)") //
-		);
 	}
 
 }

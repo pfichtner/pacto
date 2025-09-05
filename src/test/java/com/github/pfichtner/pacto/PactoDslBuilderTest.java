@@ -7,31 +7,31 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import com.github.pfichtner.pacto.matchers.TestInputDataProvider;
+import com.github.pfichtner.pacto.matchers.TestInputDataProvider.TestInputData;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
-import com.github.pfichtner.pacto.matchers.HexValueArg;
-import com.github.pfichtner.pacto.matchers.IdArg;
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
-import com.github.pfichtner.pacto.matchers.UuidArg;
 import com.github.pfichtner.pacto.testdata.Bar;
 import com.github.pfichtner.pacto.testdata.Foo;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
+import lombok.ToString;
 
 class PactoDslBuilderTest {
 
+	@ToString
 	private final class InvocationStub implements Invocation {
 
 		private final String attribute;
@@ -39,9 +39,9 @@ class PactoDslBuilderTest {
 		private final Object arg;
 		private PactoMatcher<?> matcher;
 
-		public InvocationStub(Class<?> type, Object value) {
+		public InvocationStub(Object value) {
 			this.attribute = "testAttribute";
-			this.type = type;
+			this.type = value.getClass();
 			this.arg = value;
 		}
 
@@ -84,14 +84,14 @@ class PactoDslBuilderTest {
 	@ParameterizedTest
 	@MethodSource("values")
 	void test(Class<?> type, Object value, String expected) {
-		assertThat(callSut(new InvocationStub(type, value))).hasToString("{\"testAttribute\":" + expected + "}");
+		assertThat(callSut(new InvocationStub(value))).hasToString("{\"testAttribute\":" + expected + "}");
 	}
 
 	@Test
 	void testMin() {
 		int min = 101;
 		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("min"))).min(min);
-		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
+		InvocationStub invocation = new InvocationStub(new Foo()).withMatcher(matcher);
 		PactDslJsonBody expected = new PactDslJsonBody().minArrayLike(invocation.attribute(), min,
 				new PactDslJsonBody().stringType("value", "min"));
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
@@ -101,33 +101,18 @@ class PactoDslBuilderTest {
 	void testMax() {
 		int max = 102;
 		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("max"))).max(max);
-		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
+		InvocationStub invocation = new InvocationStub(new Foo()).withMatcher(matcher);
 		PactDslJsonBody expected = new PactDslJsonBody().maxArrayLike(invocation.attribute(), max,
 				new PactDslJsonBody().stringType("value", "max"));
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}
 
 	@ParameterizedTest
-	@MethodSource("types")
-	void testMatchers(Object arg, Constructor<? extends PactoMatcher<?>> constructor, String methodname)
-			throws Exception {
-		PactoMatcher<?> matcher = constructor.newInstance(arg);
-		InvocationStub invocation = new InvocationStub(Foo.class, new Foo()).withMatcher(matcher);
-		PactDslJsonBody pactDslJsonBody = new PactDslJsonBody();
-		Class<?> varargs = methodname.equals("id") ? long[].class : String[].class;
-		Method method = pactDslJsonBody.getClass().getMethod(methodname, String.class, varargs);
-		Object args = methodname.equals("id") ? new long[] { (long) arg } : new String[] { arg.toString() };
-		PactDslJsonBody expected = (PactDslJsonBody) method.invoke(pactDslJsonBody, invocation.attribute(), args);
+	@ArgumentsSource(value = TestInputDataProvider.class)
+	void testMatchers(TestInputData<?> testInputData) throws Exception {
+		InvocationStub invocation = new InvocationStub(new Foo()).withMatcher(testInputData.pactoMatcher());
+		PactDslJsonBody expected = testInputData.handle(new PactDslJsonBody(), invocation.attribute());
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
-	}
-
-	private static List<Arguments> types() throws NoSuchMethodException, SecurityException {
-		return List.of( //
-				arguments("0000FFFF", HexValueArg.class.getConstructor(String.class), "hexValue"), //
-				arguments(UUID.fromString("5d9c57fe-d2ea-42aa-b2f1-d203d6bb6cb5"),
-						UuidArg.class.getConstructor(UUID.class), "uuid"), //
-				arguments(123L, IdArg.class.getConstructor(long.class), "id") //
-		);
 	}
 
 	private static List<Arguments> values() {
