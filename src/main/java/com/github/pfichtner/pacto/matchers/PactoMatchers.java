@@ -1,6 +1,8 @@
 package com.github.pfichtner.pacto.matchers;
 
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -192,7 +194,7 @@ public final class PactoMatchers {
 	/**
 	 * Matches any id type.
 	 *
-	 * @param in  example value
+	 * @param in example value
 	 * @return same value
 	 */
 	public static int id(int in) {
@@ -203,7 +205,7 @@ public final class PactoMatchers {
 	/**
 	 * Matches any id type.
 	 *
-	 * @param in  example value
+	 * @param in example value
 	 * @return same value
 	 */
 	public static long id(long in) {
@@ -265,7 +267,23 @@ public final class PactoMatchers {
 	 * Matches any time matching the passed format.
 	 *
 	 * @param format the time format
-	 * @param in the example time
+	 * @param in     the example time
+	 * @return the same value
+	 */
+	public static LocalDateTime time(String format, LocalDateTime in) {
+		reportMatcher(new TimeArg(format, toDate(in)));
+		return in;
+	}
+
+	private static Date toDate(LocalDateTime dateToConvert) {
+		return Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
+	 * Matches any time matching the passed format.
+	 *
+	 * @param format the time format
+	 * @param in     the example time
 	 * @return the same value
 	 */
 	public static Date time(String format, Date in) {

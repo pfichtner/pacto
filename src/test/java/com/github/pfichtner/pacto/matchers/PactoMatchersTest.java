@@ -1,5 +1,6 @@
 package com.github.pfichtner.pacto.matchers;
 
+import static com.github.pfichtner.pacto.MatcherRegistry.pullMatchers;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.decimalType;
@@ -7,19 +8,22 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.integerType;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.maxArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.minArrayLike;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.numberType;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.time;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import com.github.pfichtner.pacto.matchers.TestInputDataProvider.TestInputData;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Lists;
 import com.github.pfichtner.pacto.matchers.PactoMatchers.Sets;
+import com.github.pfichtner.pacto.matchers.TestInputDataProvider.TestInputData;
 import com.github.pfichtner.pacto.testdata.Bar;
 import com.github.pfichtner.pacto.testdata.Foo;
 
@@ -63,6 +67,16 @@ class PactoMatchersTest {
 		target.doubleArg(numberType(1.23D));
 		target.numberArg(numberType(BigInteger.valueOf(123)));
 		target.numberArg(numberType(new BigDecimal(123)));
+	}
+
+	@Test
+	@PostCleanMatcherStack
+	void canCompileDateTime() {
+		String format = "HH:mm";
+		target.dateArg(time(format, new Date()));
+		target.localDateTimeArg(time(format, LocalDateTime.now()));
+		assertThat(pullMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(TimeArg.class,
+				m2 -> assertThat(m2.value()).isEqualTo(format)));
 	}
 
 	@Test
