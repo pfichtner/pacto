@@ -12,7 +12,6 @@ public class TimeArg extends PactoMatcher<String> {
 	public TimeArg(String format, Date example) {
 		super(format);
 		this.example = example;
-		withToStringFormat("time(%s)");
 	}
 
 	public Date example() {
