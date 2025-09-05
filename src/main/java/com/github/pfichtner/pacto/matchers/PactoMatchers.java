@@ -279,6 +279,13 @@ public final class PactoMatchers {
 		return in;
 	}
 
+	/**
+	 * Matches a URL composed of the given base path and optional path fragments.
+	 *
+	 * @param basePath      the base path of the URL
+	 * @param pathFragments optional additional path fragments to append
+	 * @return the base path
+	 */
 	public static String matchUrl(String basePath, String... pathFragments) {
 		reportMatcher(new MatchUrlArg(basePath, pathFragments));
 		return basePath;
