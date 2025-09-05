@@ -110,7 +110,7 @@ class PactoDslBuilderTest {
 	@ParameterizedTest
 	@ArgumentsSource(value = TestInputDataProvider.class)
 	void testMatchers(TestInputData<?> testInputData) throws Exception {
-		Invocation invocation = new InvocationStub(new Foo()).withMatcher(testInputData.pactoMatcher());
+		Invocation invocation = new InvocationStub(new Foo()).withMatcher(testInputData.matcher());
 		PactDslJsonBody expected = testInputData.handle(new PactDslJsonBody(), invocation.attribute());
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}

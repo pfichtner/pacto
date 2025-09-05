@@ -21,17 +21,17 @@ import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
 public class TestInputDataProvider implements ArgumentsProvider {
 
-	public static record TestInputData<T>(T in, Function<T, PactoMatcher<T>> creator,
+	public static record TestInputData<T>(T in, Function<T, PactoMatcher<T>> matcherCreator,
 			BiConsumer<TestTarget, T> consumer, Function<T, T> supplier, String toStringFormat,
 			TriFunction<PactDslJsonBody, String, T, PactDslJsonBody> operator) {
 
-		public PactoMatcher<T> pactoMatcher() {
-			return creator.apply(in);
+		public PactoMatcher<T> matcher() {
+			return matcherCreator.apply(in);
 		}
 
 		@SuppressWarnings("unchecked")
 		public Class<? extends PactoMatcher<T>> type() {
-			return (Class<? extends PactoMatcher<T>>) pactoMatcher().getClass();
+			return (Class<? extends PactoMatcher<T>>) matcher().getClass();
 		}
 
 		public TestTarget handle(TestTarget target) {
