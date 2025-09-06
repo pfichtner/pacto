@@ -34,11 +34,11 @@ import net.bytebuddy.implementation.auxiliary.AuxiliaryType.NamingStrategy;
  */
 public class Pacto {
 
-	public static interface HasDelegate<T> {
+	protected static interface HasDelegate<T> {
 		T __pacto_delegate();
 	}
 
-	public static interface HasRecorder {
+	protected static interface HasRecorder {
 		Recorder __pacto_recorder();
 	}
 
