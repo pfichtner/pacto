@@ -125,10 +125,17 @@ public class Pacto {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T delegate(T object) {
-		if (object instanceof HasDelegate<?>) {
-			return (T) ((HasDelegate<?>) object).__pacto_delegate();
-		}
-		return object;
+		return isSpec(object) ? (T) ((HasDelegate<?>) object).__pacto_delegate() : object;
+	}
+
+	/**
+	 * Returns the <code>true</code> if this is a DTO object behind a proxy.
+	 *
+	 * @param object the proxy instance returned by {@link #spec(Object)}
+	 * @return <code>true</code> if the object itself is proxied
+	 */
+	public static boolean isSpec(Object object) {
+		return object instanceof HasDelegate<?>;
 	}
 
 }

@@ -3,7 +3,7 @@ package com.github.pfichtner.pacto;
 import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
-import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.Pacto.isSpec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_DECIMAL_VALUE;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_STRING_VALUE;
@@ -42,7 +42,7 @@ public class PactoTest {
 
 	private final Gson gson = new Gson();
 
-	public PactoTest(Class<TestMother> clazz) throws Exception  {
+	public PactoTest(Class<TestMother> clazz) throws Exception {
 		TestMother testMother = clazz.getConstructor().newInstance();
 		dto = testMother.dto();
 		dtoWithSpec = testMother.dtoWithSpec();
@@ -71,8 +71,17 @@ public class PactoTest {
 	}
 
 	@Test
-	void testDelegate()  {
-		assertThat(delegate(spec(dto))).isSameAs(dto);
+	void testIsSpec() {
+		assertThat(isSpec(dto)).isFalse();
+		assertThat(isSpec(dtoWithSpec)).isTrue();
+		assertThat(isSpec(partial)).isTrue();
+	}
+
+	@Test
+	void testDelegate() {
+		assertThat(delegate(dto)).isEqualTo(dto).isSameAs(dto);
+		assertThat(delegate(dtoWithSpec)).isEqualTo(dtoWithSpec).isNotSameAs(dtoWithSpec);
+		assertThat(delegate(partial)).isEqualTo(partial).isNotSameAs(partial);
 	}
 
 	@Test
@@ -112,7 +121,7 @@ public class PactoTest {
 	}
 
 	@Test
-	void partitial()  {
+	void partitial() {
 		String expected = """
 				{
 					"givenname":"Givenname2",
@@ -140,7 +149,7 @@ public class PactoTest {
 	}
 
 	@Test
-	void testDslPartWithPartitials()  {
+	void testDslPartWithPartitials() {
 		DslPart expected = new PactDslJsonBody().stringType("lastname", "Lastname2");
 		assertThatDslPart(dslFrom(partial)).isEqualToDslPart(expected);
 	}
