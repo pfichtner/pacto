@@ -4,11 +4,13 @@ import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.isSpec;
+import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_DECIMAL_VALUE;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_STRING_VALUE;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatRuntimeException;
 import static org.assertj.core.api.Assertions.tuple;
 
 import org.junit.jupiter.api.Test;
@@ -42,11 +44,18 @@ public class PactoTest {
 
 	private final Gson gson = new Gson();
 
-	public PactoTest(Class<TestMother> clazz) throws Exception {
+	PactoTest(Class<TestMother> clazz) throws Exception {
 		TestMother testMother = clazz.getConstructor().newInstance();
 		dto = testMother.dto();
 		dtoWithSpec = testMother.dtoWithSpec();
 		partial = testMother.partial();
+	}
+
+	@Test
+	void testNestedSpec() {
+		assertThatRuntimeException().isThrownBy(() -> {
+			spec(spec(dto));
+		});
 	}
 
 	@Test
