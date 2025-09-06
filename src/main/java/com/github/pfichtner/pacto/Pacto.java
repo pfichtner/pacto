@@ -56,7 +56,7 @@ public class Pacto {
 			@SuppressWarnings("unchecked")
 			Class<T> type = (Class<T>) intercept.getClass();
 			Recorder recorder = new Recorder();
-			Constructor<? extends T> constructor = proxyClass(type).getDeclaredConstructor(type, Recorder.class);
+			Constructor<? extends T> constructor = proxyClass(type).getDeclaredConstructor(type, recorder.getClass());
 			T interceptable = constructor.newInstance(intercept, recorder);
 			copyFields(intercept, interceptable);
 			return interceptable;
