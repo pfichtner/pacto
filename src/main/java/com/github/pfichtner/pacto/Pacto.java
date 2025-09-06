@@ -6,16 +6,16 @@ import static com.github.pfichtner.pacto.RecordingAdvice.copyFields;
 import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
+import static net.bytebuddy.matcher.ElementMatchers.named;
 import static net.bytebuddy.matcher.ElementMatchers.not;
 
 import java.lang.reflect.Constructor;
-import java.util.IdentityHashMap;
-import java.util.Map;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.modifier.FieldManifestation;
 import net.bytebuddy.description.modifier.FieldPersistence;
+import net.bytebuddy.description.modifier.SyntheticState;
 import net.bytebuddy.description.modifier.Visibility;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.FieldAccessor;
@@ -34,10 +34,13 @@ import net.bytebuddy.implementation.auxiliary.AuxiliaryType.NamingStrategy;
  */
 public class Pacto {
 
-	private static record Entry(Object intercept, Recorder recorder) {
+	public static interface HasDelegate<T> {
+		T __pacto_delegate();
 	}
 
-	private static Map<Object, Entry> data = new IdentityHashMap<>();
+	public static interface HasRecorder {
+		Recorder __pacto_recorder();
+	}
 
 	/**
 	 * Wraps a DTO with a proxy that records method invocations and matcher
@@ -55,7 +58,6 @@ public class Pacto {
 			Recorder recorder = new Recorder();
 			Constructor<? extends T> constructor = proxyClass(type).getDeclaredConstructor(type, Recorder.class);
 			T interceptable = constructor.newInstance(intercept, recorder);
-			data.put(interceptable, new Entry(intercept, recorder));
 			copyFields(intercept, interceptable);
 			return interceptable;
 		} catch (Exception e) {
@@ -64,9 +66,12 @@ public class Pacto {
 	}
 
 	private static <T> Class<? extends T> proxyClass(Class<T> type) throws NoSuchMethodException, SecurityException {
+		String getDelegateMethodname = HasDelegate.class.getMethod("__pacto_delegate").getName();
+		String getRecorderMethodname = HasRecorder.class.getMethod("__pacto_recorder").getName();
 		return new ByteBuddy() //
 				.with(new NamingStrategy.SuffixingRandom("PactoProxy")) //
 				.subclass(type) //
+				.implement(HasDelegate.class, HasRecorder.class) //
 				.defineField(FIELDNAME_DELEGATE, type, Visibility.PRIVATE, FieldManifestation.FINAL,
 						FieldPersistence.TRANSIENT) //
 				.defineField(FIELDNAME_RECORDER, Recorder.class, Visibility.PRIVATE, FieldManifestation.FINAL,
@@ -76,9 +81,15 @@ public class Pacto {
 								.andThen(FieldAccessor.ofField(FIELDNAME_DELEGATE).setsArgumentAt(0)) //
 								.andThen(FieldAccessor.ofField(FIELDNAME_RECORDER).setsArgumentAt(1)) //
 				) //
+				.defineMethod(getDelegateMethodname, type, Visibility.PUBLIC, SyntheticState.SYNTHETIC) //
+				.intercept(FieldAccessor.ofField(FIELDNAME_DELEGATE)) //
+				.defineMethod(getRecorderMethodname, Recorder.class, Visibility.PUBLIC, SyntheticState.SYNTHETIC) //
+				.intercept(FieldAccessor.ofField(FIELDNAME_RECORDER)) //
 				.method(not(isStatic()) //
 						.and(not(isFinal())) //
 						.and(not(isDeclaredBy(Object.class))) //
+						.and(not(named(getDelegateMethodname))) //
+						.and(not(named(getRecorderMethodname))) //
 				) //
 				.intercept(Advice.to(RecordingAdvice.class) //
 						.wrap(MethodDelegation.toField(FIELDNAME_DELEGATE)) //
@@ -98,11 +109,11 @@ public class Pacto {
 	 *                                  {@link #spec(Object)}
 	 */
 	public static InvocationDetails invocations(Object object) {
-		Entry entry = entryFor(object);
-		if (entry == null) {
+		if (!(object instanceof HasRecorder)) {
 			throw new IllegalArgumentException(object + " not intercepted");
 		}
-		return new DefaultInvocationDetails(entry.recorder().invocations());
+		Recorder recorder = ((HasRecorder) object).__pacto_recorder();
+		return new DefaultInvocationDetails(recorder.invocations());
 	}
 
 	/**
@@ -114,12 +125,10 @@ public class Pacto {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T delegate(T object) {
-		Entry entry = entryFor(object);
-		return entry == null ? object : (T) entry.intercept;
-	}
-
-	private static Entry entryFor(Object object) {
-		return data.get(object);
+		if (object instanceof HasDelegate<?>) {
+			return (T) ((HasDelegate<?>) object).__pacto_delegate();
+		}
+		return object;
 	}
 
 }
