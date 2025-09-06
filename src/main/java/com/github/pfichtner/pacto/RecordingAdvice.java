@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto;
 
-import java.lang.reflect.Field;
+import static com.github.pfichtner.pacto.util.Reflections.copyFields;
+
 import java.lang.reflect.Method;
 
 import net.bytebuddy.asm.Advice;
@@ -25,17 +26,6 @@ public class RecordingAdvice {
 		}
 
 		copyFields(delegate, proxy);
-	}
-
-	public static void copyFields(Object source, Object target) throws IllegalAccessException {
-		Class<?> clazz = source.getClass();
-		while (clazz != null) {
-			for (Field field : clazz.getDeclaredFields()) {
-				field.setAccessible(true);
-				field.set(target, field.get(source));
-			}
-			clazz = clazz.getSuperclass();
-		}
 	}
 
 }

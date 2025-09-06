@@ -2,7 +2,7 @@ package com.github.pfichtner.pacto;
 
 import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_DELEGATE;
 import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_RECORDER;
-import static com.github.pfichtner.pacto.RecordingAdvice.copyFields;
+import static com.github.pfichtner.pacto.util.Reflections.copyFields;
 import static java.lang.String.format;
 import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;
@@ -74,13 +74,15 @@ public class Pacto {
 		Class<T> type = (Class<T>) intercept.getClass();
 		Recorder recorder = new Recorder();
 		try {
-			Constructor<? extends T> constructor = proxyClass(type).getDeclaredConstructor(type, recorder.getClass());
-			T interceptable = constructor.newInstance(intercept, recorder);
-			copyFields(intercept, interceptable);
-			return interceptable;
+			return copyFields(intercept, constructor(type, recorder.getClass()).newInstance(intercept, recorder));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private static <T> Constructor<? extends T> constructor(Class<T> type, Class<?> clazz)
+			throws NoSuchMethodException {
+		return proxyClass(type).getDeclaredConstructor(type, clazz);
 	}
 
 	private static <T> Class<? extends T> proxyClass(Class<T> type) throws NoSuchMethodException, SecurityException {
