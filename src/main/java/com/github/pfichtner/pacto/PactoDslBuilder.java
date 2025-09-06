@@ -2,8 +2,13 @@ package com.github.pfichtner.pacto;
 
 import static com.github.pfichtner.pacto.Pacto.invocations;
 
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.github.pfichtner.pacto.matchers.BooleanTypeArg;
 import com.github.pfichtner.pacto.matchers.BooleanValueArg;
@@ -94,8 +99,8 @@ public final class PactoDslBuilder {
 		super();
 	}
 
-	public static DslPart dslFrom(Object dto) {
-		return appendInvocations(new PactDslJsonBody(), dto);
+	public static DslPart dslFrom(Object object) {
+		return appendInvocations(new PactDslJsonBody(), object);
 	}
 
 	private static DslPart appendInvocations(PactDslJsonBody body, Object object) {
@@ -105,9 +110,9 @@ public final class PactoDslBuilder {
 	protected static DslPart appendInvocations(PactDslJsonBody body, List<Invocation> invocations) {
 		List<Invocation> handleLater = new ArrayList<>();
 		DslPart bodyWithInvocations = invocations.stream() //
-				.reduce(body, (b, i) -> append(b, i, handleLater), (b1, b2) -> b1);
+				.reduce(body, (b, i) -> append(b, i, handleLater), (b1, __) -> b1);
 		return handleLater.stream() //
-				.reduce(bodyWithInvocations, PactoDslBuilder::appendInvocation, (b1, b2) -> b1);
+				.reduce(bodyWithInvocations, PactoDslBuilder::appendInvocation, (b1, __) -> b1);
 	}
 
 	private static DslPart appendInvocation(DslPart body, Invocation invocation) {
@@ -150,6 +155,16 @@ public final class PactoDslBuilder {
 			return body.booleanType(attribute).booleanValue(attribute, (boolean) invocation.arg());
 		} else if (Number.class.isAssignableFrom(parameter)) {
 			return body.numberType(attribute).numberValue(attribute, (Number) invocation.arg());
+		} else if (Date.class.isAssignableFrom(parameter) || LocalDate.class.isAssignableFrom(parameter)) {
+			return body.date(attribute);
+		} else if (LocalDateTime.class.isAssignableFrom(parameter)) {
+			return body.time(attribute);
+		} else if (URL.class.isAssignableFrom(parameter)) {
+			return body.matchUrl(attribute, (String) invocation.arg());
+		} else if (UUID.class.isAssignableFrom(parameter)) {
+			return body.uuid(attribute);
+		} else if (invocation.arg().getClass().isArray()) {
+			return body.equalTo(attribute, invocation.arg());
 		}
 		return null;
 	}
