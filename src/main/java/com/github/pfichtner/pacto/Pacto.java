@@ -3,6 +3,7 @@ package com.github.pfichtner.pacto;
 import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_DELEGATE;
 import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_RECORDER;
 import static com.github.pfichtner.pacto.RecordingAdvice.copyFields;
+import static java.lang.String.format;
 import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
@@ -10,6 +11,8 @@ import static net.bytebuddy.matcher.ElementMatchers.named;
 import static net.bytebuddy.matcher.ElementMatchers.not;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.asm.Advice;
@@ -42,6 +45,18 @@ public class Pacto {
 		Recorder __pacto_recorder();
 	}
 
+	private static final String getDelegateMethodname = getOnlyMethod(HasDelegate.class).getName();
+	private static final String getRecorderMethodname = getOnlyMethod(HasRecorder.class).getName();
+
+	private static Method getOnlyMethod(Class<?> clazz) {
+		Method[] methods = clazz.getMethods();
+		if (methods.length != 1) {
+			throw new IllegalStateException(
+					format("%s defines not exactly one method, found %s", clazz.getName(), Arrays.toString(methods)));
+		}
+		return methods[0];
+	}
+
 	/**
 	 * Wraps a DTO with a proxy that records method invocations and matcher
 	 * arguments.
@@ -66,8 +81,6 @@ public class Pacto {
 	}
 
 	private static <T> Class<? extends T> proxyClass(Class<T> type) throws NoSuchMethodException, SecurityException {
-		String getDelegateMethodname = HasDelegate.class.getMethod("__pacto_delegate").getName();
-		String getRecorderMethodname = HasRecorder.class.getMethod("__pacto_recorder").getName();
 		return new ByteBuddy() //
 				.with(new NamingStrategy.SuffixingRandom("PactoProxy")) //
 				.subclass(type) //
