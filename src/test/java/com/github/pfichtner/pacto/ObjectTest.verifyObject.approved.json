@@ -36,19 +36,19 @@
     ".dateArg": {
       "rules": [
         {
-          "format": "yyyy"
+          "format": "yyyy-MM"
         },
         {
           "format": "yyyy-MM-dd"
         },
         {
-          "format": "HH:MM"
+          "format": "hh:mm"
         },
         {
           "format": "yyyy-MM-dd HH:mm:ss"
         },
         {
-          "format": "HH:MM"
+          "format": "hh:mm"
         },
         {
           "format": "HH:mm:ss"
@@ -130,13 +130,13 @@
     ".localDateArg": {
       "rules": [
         {
-          "format": "yyyy"
+          "format": "yyyy-MM"
         },
         {
           "format": "yyyy-MM-dd"
         },
         {
-          "format": "HH:MM"
+          "format": "hh:mm"
         },
         {
           "format": "yyyy-MM-dd HH:mm:ss"
@@ -148,7 +148,7 @@
     ".localDateTimeArg": {
       "rules": [
         {
-          "format": "HH:MM"
+          "format": "hh:mm"
         },
         {
           "format": "HH:mm:ss"

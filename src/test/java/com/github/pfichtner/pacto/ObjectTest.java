@@ -43,7 +43,7 @@ class ObjectTest {
 
 	private static ArgumentProvider argumentProvider() {
 		return (m, t) -> {
-			if (t == String.class) {
+			if (CharSequence.class.isAssignableFrom(t)) {
 				if ("hex".equals(m)) {
 					return "00FF";
 				} else if ("uuid".equals(m)) {
@@ -51,9 +51,9 @@ class ObjectTest {
 				} else if ("ipAddress".equals(m)) {
 					return "127.0.0.1";
 				} else if ("date".equals(m)) {
-					return "yyyy";
+					return "yyyy-MM";
 				} else if ("time".equals(m) || "datetime".equals(m)) {
-					return "HH:MM";
+					return "hh:mm";
 				}
 				return "example";
 			} else if (t == int.class || t == Integer.class) {
