@@ -23,12 +23,11 @@ public class TestMotherJavaBean implements TestMother {
 		PersonDTO dto = spec(dto());
 		dto.setGivenname(stringMatcher("G.*", "Givenname1"));
 		dto.setLastname(stringMatcher("L.*", "Lastname1"));
-		dto.setGivenname("Givenname2"); // last one wins
+		dto.setGivenname("Givenname2");
 		dto.setLastname(stringType("Lastname2"));
 		AddressDTO address1 = address();
 		address1.setZip(integerType(21));
-		address1.setValidated(true); // last one wins
-		// TODO support like
+		address1.setValidated(true);
 		dto.setPrimaryAddress(address1);
 		AddressDTO address2 = address();
 		address2.setZip(integerType(22));
@@ -70,7 +69,7 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setHeight(1.86);
 		dto.setChildren(2);
 		PersonDTO spec = spec(dto);
-		spec.setLastname(stringType("Lastname2")); // last one wins
+		spec.setLastname(stringType("Lastname2"));
 		return spec;
 	}
 

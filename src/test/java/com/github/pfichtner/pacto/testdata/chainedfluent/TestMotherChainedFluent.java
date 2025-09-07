@@ -23,9 +23,8 @@ public class TestMotherChainedFluent implements TestMother {
 		return spec(dto()) //
 				.givenname(stringMatcher("G.*", "Givenname1")) //
 				.lastname(stringMatcher("L.*", "Lastname1")) //
-				.givenname("Givenname2") // last one wins
-				.lastname(stringType("Lastname2")) // last one wins
-				// TODO support like
+				.givenname("Givenname2") //
+				.lastname(stringType("Lastname2")) //
 				.primaryAddress(spec(new AddressDTO()).zip(integerType(21)).city(stringType()).country(nullValue())
 						.validated(true)) //
 				.secondaryAddresses(eachLike(spec(new AddressDTO()).zip(integerType(22)).city(stringType())
@@ -55,7 +54,7 @@ public class TestMotherChainedFluent implements TestMother {
 				.age(42) //
 				.height(1.86) //
 				.children(2) //
-		).lastname(stringType("Lastname2")) // last one wins
+		).lastname(stringType("Lastname2")) //
 		;
 	}
 

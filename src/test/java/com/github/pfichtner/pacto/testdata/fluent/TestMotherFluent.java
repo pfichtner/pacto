@@ -23,12 +23,11 @@ public class TestMotherFluent implements TestMother {
 		PersonDTO dto = spec(dto());
 		dto.givenname(stringMatcher("G.*", "Givenname1"));
 		dto.lastname(stringMatcher("L.*", "Lastname1"));
-		dto.givenname("Givenname2"); // last one wins
+		dto.givenname("Givenname2");
 		dto.lastname(stringType("Lastname2"));
 		AddressDTO address1 = address();
 		address1.zip(integerType(21));
-		address1.validated(true); // last one wins
-		// TODO support like
+		address1.validated(true);
 		dto.primaryAddress(address1);
 		AddressDTO address2 = address();
 		address2.zip(integerType(22));
@@ -70,7 +69,7 @@ public class TestMotherFluent implements TestMother {
 		dto.height(1.86);
 		dto.children(2);
 		PersonDTO spec = spec(dto);
-		spec.lastname(stringType("Lastname2")); // last one wins
+		spec.lastname(stringType("Lastname2"));
 		return spec;
 	}
 

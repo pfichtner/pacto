@@ -23,9 +23,8 @@ public class TestMotherChained implements TestMother {
 		return spec(dto()) //
 				.setGivenname(stringMatcher("G.*", "Givenname1")) //
 				.setLastname(stringMatcher("L.*", "Lastname1")) //
-				.setGivenname("Givenname2") // last one wins
-				.setLastname(stringType("Lastname2")) // last one wins
-				// TODO support like
+				.setGivenname("Givenname2") //
+				.setLastname(stringType("Lastname2")) //
 				.setPrimaryAddress(spec(new AddressDTO()).setZip(integerType(21)).setCity(stringType())
 						.setCountry(nullValue()).setValidated(true)) //
 				.setSecondaryAddresses(eachLike(spec(new AddressDTO()).setZip(integerType(22)).setCity(stringType())
@@ -57,7 +56,7 @@ public class TestMotherChained implements TestMother {
 				.setAge(42) //
 				.setHeight(1.86) //
 				.setChildren(2) //
-		).setLastname(stringType("Lastname2")) // last one wins
+		).setLastname(stringType("Lastname2")) //
 		;
 	}
 
