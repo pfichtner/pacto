@@ -4,6 +4,7 @@ import static java.lang.reflect.Modifier.isPrivate;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Comparator.comparing;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -49,19 +50,13 @@ class StaticMethodInvoker {
 				.toArray(Method[]::new);
 	}
 
-	private void callTargetMethods(Object value) {
+	private void callTargetMethods(Object value)
+			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		for (Method method : sort(target.getClass().getDeclaredMethods())) {
 			Class<?>[] paramTypes = method.getParameterTypes();
-			if (paramTypes.length != 1)
-				continue;
-
-			if (isAssignable(paramTypes[0], value.getClass())) {
-				try {
-					method.setAccessible(true);
-					method.invoke(target, value);
-				} catch (Exception e) {
-					System.err.println("Failed calling " + method.getName() + " with " + value + ": " + e);
-				}
+			if (paramTypes.length == 1 && isAssignable(paramTypes[0], value.getClass())) {
+				method.setAccessible(true);
+				method.invoke(target, value);
 			}
 		}
 	}
