@@ -128,7 +128,8 @@ public class Pacto {
 	 */
 	public static InvocationDetails invocations(Object object) {
 		if (!(object instanceof HasRecorder)) {
-			throw new IllegalArgumentException(object + " not intercepted");
+			throw new IllegalArgumentException(
+					format("%s of type (%s) not intercepted", object, object.getClass().getName()));
 		}
 		Recorder recorder = ((HasRecorder) object).__pacto_recorder();
 		return new DefaultInvocationDetails(recorder.invocations());
