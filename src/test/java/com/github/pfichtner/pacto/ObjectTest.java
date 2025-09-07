@@ -6,7 +6,6 @@ import static com.google.gson.JsonParser.parseString;
 import static org.approvaltests.JsonApprovals.verifyAsJson;
 
 import java.lang.reflect.Array;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -73,7 +72,8 @@ class ObjectTest {
 				LocalDateTime localDateTime = (LocalDateTime) argumentProvider().getArgument(m, LocalDateTime.class);
 				return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 			} else if (t == java.time.LocalDate.class) {
-				return LocalDate.of(2025, 9, 7);
+				LocalDateTime localDateTime = (LocalDateTime) argumentProvider().getArgument(m, LocalDateTime.class);
+				return localDateTime.toLocalDate();
 			} else if (t == java.time.LocalDateTime.class) {
 				return LocalDateTime.of(2025, 9, 7, 14, 30, 0);
 			} else if (t.isArray()) {
