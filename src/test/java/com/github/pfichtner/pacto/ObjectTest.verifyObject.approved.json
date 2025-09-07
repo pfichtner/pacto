@@ -1,23 +1,21 @@
 {
   "body": {
     "arrayArg": [
-      null
-    ],
-    "dateArg": "2000-01-31",
-    "doubleArg": 3.14,
-    "doubleWrapperArg": 3.14,
-    "floatArg": 100.0,
-    "floatWrapperArg": 100.0,
-    "intArg": 100,
-    "integerWrapperArg": 100,
-    "localDateArg": "2000-01-31",
-    "localDateTimeArg": "T14:00:00",
-    "longArg": 123,
-    "longWrapperArg": 123,
-    "numberArg": 100.0,
-    "objectArg": [
       {}
     ],
+    "dateArg": "14:30:00",
+    "doubleArg": 3.14,
+    "doubleWrapperArg": 3.14,
+    "floatArg": 2.7100000381469727,
+    "floatWrapperArg": 2.71,
+    "intArg": 42,
+    "integerWrapperArg": 42,
+    "localDateArg": "2025-09-07 00:00:00",
+    "localDateTimeArg": "14:30:00",
+    "longArg": 123,
+    "longWrapperArg": 123,
+    "numberArg": 123,
+    "objectArg": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
     "stringArg": "example",
     "uuidArg": "e2490de5-5bd3-43d5-b7c4-526e33f71304"
   },
@@ -25,8 +23,12 @@
     ".arrayArg": {
       "rules": [
         {},
-        {},
-        {}
+        {
+          "max": 42
+        },
+        {
+          "min": 42
+        }
       ],
       "ruleLogic": "AND",
       "cascaded": false
@@ -34,22 +36,22 @@
     ".dateArg": {
       "rules": [
         {
-          "format": "yyyy-MM-dd"
+          "format": "yyyy"
         },
         {
           "format": "yyyy-MM-dd"
         },
         {
-          "format": "yyyy-MM-dd"
+          "format": "HH:MM"
         },
         {
-          "format": "yyyy-MM-dd"
+          "format": "yyyy-MM-dd HH:mm:ss"
         },
         {
-          "format": "yyyy-MM-dd"
+          "format": "HH:MM"
         },
         {
-          "format": "yyyy-MM-dd"
+          "format": "HH:mm:ss"
         }
       ],
       "ruleLogic": "AND",
@@ -99,9 +101,7 @@
     },
     ".intArg": {
       "rules": [
-        {
-          "numberType": "INTEGER"
-        },
+        {},
         {
           "numberType": "INTEGER"
         },
@@ -130,16 +130,16 @@
     ".localDateArg": {
       "rules": [
         {
-          "format": "yyyy-MM-dd"
+          "format": "yyyy"
         },
         {
           "format": "yyyy-MM-dd"
         },
         {
-          "format": "yyyy-MM-dd"
+          "format": "HH:MM"
         },
         {
-          "format": "yyyy-MM-dd"
+          "format": "yyyy-MM-dd HH:mm:ss"
         }
       ],
       "ruleLogic": "AND",
@@ -148,10 +148,10 @@
     ".localDateTimeArg": {
       "rules": [
         {
-          "format": "\u0027T\u0027HH:mm:ss"
+          "format": "HH:MM"
         },
         {
-          "format": "\u0027T\u0027HH:mm:ss"
+          "format": "HH:mm:ss"
         }
       ],
       "ruleLogic": "AND",
@@ -159,9 +159,7 @@
     },
     ".longArg": {
       "rules": [
-        {
-          "numberType": "INTEGER"
-        },
+        {},
         {
           "numberType": "INTEGER"
         }
@@ -216,65 +214,51 @@
         {},
         {},
         {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "numberType": "DECIMAL"
+        },
+        {
+          "numberType": "DECIMAL"
+        },
+        {
+          "numberType": "DECIMAL"
+        },
+        {},
+        {},
+        {
           "regex": "[0-9a-fA-F]+"
         },
         {
           "regex": "[0-9a-fA-F]+"
         },
         {
-          "format": "yyyy"
+          "numberType": "INTEGER"
         },
         {
-          "format": "yyyy-MM-dd"
-        },
-        {
-          "format": "yyyy"
-        },
-        {
-          "format": "yyyy-MM-dd"
-        },
-        {
-          "format": "HH:MM"
-        },
-        {
-          "format": "HH:MM"
-        },
-        {
-          "format": "HH:mm:ss"
-        },
-        {
-          "format": "HH:mm:ss"
-        },
-        {
-          "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-        },
-        {
-          "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-        },
-        {
-          "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-        },
-        {
-          "regex": "(\\d{1,3}\\.)+\\d{1,3}"
-        },
-        {
-          "format": "yyyy-MM-dd HH:mm:ss"
-        },
-        {
-          "format": "yyyy-MM-dd HH:mm:ss"
-        },
-        {
-          "format": "HH:MM"
-        },
-        {
-          "format": "HH:MM"
-        },
-        {},
-        {},
-        {},
-        {},
-        {
-          "regex": "example"
+          "numberType": "INTEGER"
         },
         {
           "value": "example"
@@ -289,24 +273,35 @@
           "numberType": "INTEGER"
         },
         {
-          "numberType": "DECIMAL"
-        },
-        {
-          "numberType": "DECIMAL"
-        },
-        {
-          "numberType": "DECIMAL"
+          "regex": "(\\d{1,3}\\.)+\\d{1,3}"
         },
         {
           "regex": ".*\\/()$"
         },
         {},
         {},
+        {},
+        {},
         {
-          "min": 42
+          "format": "\u0027T\u0027HH:mm:ss"
         },
         {
-          "max": 42
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "format": "\u0027T\u0027HH:mm:ss"
+        },
+        {
+          "format": "yyyy-MM-dd"
+        },
+        {
+          "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+        },
+        {
+          "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+        },
+        {
+          "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
         }
       ],
       "ruleLogic": "AND",

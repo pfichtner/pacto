@@ -2,6 +2,7 @@ package com.github.pfichtner.pacto;
 
 import static java.lang.reflect.Modifier.isPrivate;
 import static java.lang.reflect.Modifier.isStatic;
+import static java.util.Comparator.comparing;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -23,7 +24,7 @@ class StaticMethodInvoker {
 	}
 
 	public void invoke() throws Exception {
-		for (Method method : matcherClass.getDeclaredMethods()) {
+		for (Method method : sort(matcherClass.getDeclaredMethods())) {
 			if (isStatic(method.getModifiers()) && !isPrivate(method.getModifiers())) {
 				Object[] args = Arrays.stream(method.getParameterTypes())
 						.map(t -> argumentProvider.getArgument(method.getName(), t)).toArray();
@@ -41,8 +42,15 @@ class StaticMethodInvoker {
 		}
 	}
 
+	private static Method[] sort(Method[] values) {
+		return Arrays.stream(values) //
+				.sorted(comparing(Method::getName) //
+						.thenComparing(m -> Arrays.toString(m.getParameterTypes()))) //
+				.toArray(Method[]::new);
+	}
+
 	private void callTargetMethods(Object value) {
-		for (Method method : target.getClass().getDeclaredMethods()) {
+		for (Method method : sort(target.getClass().getDeclaredMethods())) {
 			Class<?>[] paramTypes = method.getParameterTypes();
 			if (paramTypes.length != 1)
 				continue;

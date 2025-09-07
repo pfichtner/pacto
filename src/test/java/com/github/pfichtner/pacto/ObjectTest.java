@@ -8,6 +8,7 @@ import static org.approvaltests.JsonApprovals.verifyAsJson;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +48,7 @@ class ObjectTest {
 				if ("hex".equals(m)) {
 					return "00FF";
 				} else if ("uuid".equals(m)) {
-					return "e2490de5-5bd3-43d5-b7c4-526e33f71304";
+					return ((UUID) argumentProvider().getArgument(m, UUID.class)).toString();
 				} else if ("ipAddress".equals(m)) {
 					return "127.0.0.1";
 				} else if ("date".equals(m)) {
@@ -67,13 +68,14 @@ class ObjectTest {
 			} else if (t == boolean.class || t == Boolean.class) {
 				return true;
 			} else if (t == UUID.class) {
-				return UUID.randomUUID();
+				return UUID.fromString("e2490de5-5bd3-43d5-b7c4-526e33f71304");
 			} else if (t == Date.class) {
-				return new Date();
+				LocalDateTime localDateTime = (LocalDateTime) argumentProvider().getArgument(m, LocalDateTime.class);
+				return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 			} else if (t == java.time.LocalDate.class) {
-				return LocalDate.now();
+				return LocalDate.of(2025, 9, 7);
 			} else if (t == java.time.LocalDateTime.class) {
-				return LocalDateTime.now();
+				return LocalDateTime.of(2025, 9, 7, 14, 30, 0);
 			} else if (t.isArray()) {
 				return Array.newInstance(t.getComponentType(), 0);
 			} else if (List.class.isAssignableFrom(t)) {
