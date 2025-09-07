@@ -10,16 +10,20 @@ public class MatcherRegistry {
 	private static final ThreadLocal<List<PactoMatcher<?>>> registry = ThreadLocal.withInitial(ArrayList::new);
 
 	public static void register(PactoMatcher<?> matcher) {
-		registry.get().add(matcher);
+		registry().add(matcher);
 	}
 
 	public static List<PactoMatcher<?>> pullMatchers() {
-		var matchers = List.copyOf(registry.get());
+		var matchers = List.copyOf(registry());
 		reset();
 		return matchers;
 	}
 
 	public static void reset() {
-		registry.get().clear();
+		registry().clear();
+	}
+
+	private static List<PactoMatcher<?>> registry() {
+		return registry.get();
 	}
 }
