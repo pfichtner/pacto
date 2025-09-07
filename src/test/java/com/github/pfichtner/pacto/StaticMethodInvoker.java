@@ -65,25 +65,27 @@ class StaticMethodInvoker {
 	}
 
 	private static Class<?> wrap(Class<?> type) {
-		if (!type.isPrimitive())
+		if (!type.isPrimitive()) {
 			return type;
-		if (type == int.class)
+		} else if (type == int.class) {
 			return Integer.class;
-		if (type == long.class)
+		} else if (type == long.class) {
 			return Long.class;
-		if (type == double.class)
+		} else if (type == double.class) {
 			return Double.class;
-		if (type == float.class)
+		} else if (type == float.class) {
 			return Float.class;
-		if (type == boolean.class)
+		} else if (type == boolean.class) {
 			return Boolean.class;
-		if (type == char.class)
+		} else if (type == char.class) {
 			return Character.class;
-		if (type == byte.class)
+		} else if (type == byte.class) {
 			return Byte.class;
-		if (type == short.class)
+		} else if (type == short.class) {
 			return Short.class;
-		return type;
+		} else {
+			return type;
+		}
 	}
 
 }

@@ -139,32 +139,37 @@ public final class PactoDslBuilder {
 	}
 
 	private static PactDslJsonBody appendValue(PactDslJsonBody body, Invocation invocation) {
-		String attribute = invocation.attribute();
-		Class<?> parameter = invocation.type();
-		if (CharSequence.class.isAssignableFrom(parameter)) {
-			return body.stringValue(attribute, invocation.arg().toString());
-		} else if (int.class.isAssignableFrom(parameter) || Integer.class.isAssignableFrom(parameter)) {
-			return body.integerType(attribute).numberValue(attribute, (int) invocation.arg());
-		} else if (long.class.isAssignableFrom(parameter) || Long.class.isAssignableFrom(parameter)) {
-			return body.integerType(attribute).numberValue(attribute, (long) invocation.arg());
-		} else if (double.class.isAssignableFrom(parameter) || Double.class.isAssignableFrom(parameter)) {
-			return body.decimalType(attribute).numberValue(attribute, (double) invocation.arg());
-		} else if (float.class.isAssignableFrom(parameter) || Float.class.isAssignableFrom(parameter)) {
-			return body.decimalType(attribute).numberValue(attribute, (float) invocation.arg());
-		} else if (boolean.class.isAssignableFrom(parameter) || Boolean.class.isAssignableFrom(parameter)) {
-			return body.booleanType(attribute).booleanValue(attribute, (boolean) invocation.arg());
-		} else if (Number.class.isAssignableFrom(parameter)) {
-			return body.numberType(attribute).numberValue(attribute, (Number) invocation.arg());
-		} else if (Date.class.isAssignableFrom(parameter) || LocalDate.class.isAssignableFrom(parameter)) {
+		PactDslJsonBody typeFor = typeFor(body, invocation.attribute(), invocation.arg(), invocation.type());
+		return typeFor == null //
+				? typeFor(body, invocation.attribute(), invocation.arg(), invocation.arg().getClass()) //
+				: typeFor;
+	}
+
+	private static PactDslJsonBody typeFor(PactDslJsonBody body, String attribute, Object arg, Class<?> type) {
+		if (CharSequence.class.isAssignableFrom(type)) {
+			return body.stringValue(attribute, arg.toString());
+		} else if (int.class.isAssignableFrom(type) || Integer.class.isAssignableFrom(type)) {
+			return body.integerType(attribute).numberValue(attribute, (int) arg);
+		} else if (long.class.isAssignableFrom(type) || Long.class.isAssignableFrom(type)) {
+			return body.integerType(attribute).numberValue(attribute, (long) arg);
+		} else if (double.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
+			return body.decimalType(attribute).numberValue(attribute, (double) arg);
+		} else if (float.class.isAssignableFrom(type) || Float.class.isAssignableFrom(type)) {
+			return body.decimalType(attribute).numberValue(attribute, (float) arg);
+		} else if (boolean.class.isAssignableFrom(type) || Boolean.class.isAssignableFrom(type)) {
+			return body.booleanType(attribute).booleanValue(attribute, (boolean) arg);
+		} else if (Number.class.isAssignableFrom(type)) {
+			return body.numberType(attribute).numberValue(attribute, (Number) arg);
+		} else if (Date.class.isAssignableFrom(type) || LocalDate.class.isAssignableFrom(type)) {
 			return body.date(attribute);
-		} else if (LocalDateTime.class.isAssignableFrom(parameter)) {
+		} else if (LocalDateTime.class.isAssignableFrom(type)) {
 			return body.time(attribute);
-		} else if (URL.class.isAssignableFrom(parameter)) {
-			return body.matchUrl(attribute, (String) invocation.arg());
-		} else if (UUID.class.isAssignableFrom(parameter)) {
+		} else if (URL.class.isAssignableFrom(type)) {
+			return body.matchUrl(attribute, (String) arg);
+		} else if (UUID.class.isAssignableFrom(type)) {
 			return body.uuid(attribute);
-		} else if (invocation.arg().getClass().isArray()) {
-			return body.equalTo(attribute, invocation.arg());
+		} else if (type.isArray()) {
+			return body.equalTo(attribute, arg);
 		}
 		return null;
 	}
