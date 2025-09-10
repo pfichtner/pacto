@@ -21,12 +21,11 @@
         </license>
     </licenses>
 
-    <scm>
-        <url>https://github.com/pfichtner/pacto</url>
-        <connection>scm:git:git://github.com/pfichtner/pacto.git</connection>
-        <developerConnection>scm:git:ssh://github.com:pfichtner/pacto.git</developerConnection>
-      <tag>v0.0.5</tag>
-  </scm>
+	<scm>
+		<url>https://github.com/pfichtner/pacto</url>
+		<connection>scm:git:https://github.com/pfichtner/pacto.git</connection>
+		<developerConnection>scm:git:https://github.com/pfichtner/pacto.git</developerConnection>
+	</scm>
 
     <developers>
         <developer>
