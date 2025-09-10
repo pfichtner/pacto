@@ -136,6 +136,10 @@ public class Pacto {
 		;
 	}
 
+	public static <T> T like(T object) {
+		return spec(isSpec(object) ? delegate(object) : object, withSettings().lenient());
+	}
+
 	/**
 	 * Returns the recorded invocation details of a DTO proxy.
 	 *
