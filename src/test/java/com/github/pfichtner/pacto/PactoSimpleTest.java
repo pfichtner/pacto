@@ -55,7 +55,9 @@ class PactoSimpleTest {
 	@Test
 	void testStrictIsDefault() {
 		TestTarget spec = spec(new TestTarget());
-		assertThatDslPart(dslFrom(spec)).isEqualToDslPart(dslFrom(spec(new TestTarget(), withSettings())));
+		assertThatDslPart(dslFrom(spec)) //
+				.isEqualToDslPart(dslFrom(spec(new TestTarget(), withSettings()))) //
+				.isEqualToDslPart(dslFrom(spec(new TestTarget(), withSettings().lenient(false))));
 	}
 
 	@Test
