@@ -25,8 +25,7 @@
         <url>https://github.com/pfichtner/pacto</url>
         <connection>scm:git:https://github.com/pfichtner/pacto.git</connection>
         <developerConnection>scm:git:https://github.com/pfichtner/pacto.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <developers>
         <developer>
@@ -102,15 +101,6 @@
                     </execution>
                 </executions>
             </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>3.1.1</version>
-				<configuration>
-					<goals>deploy</goals>
-			        <arguments>-P release-pacto</arguments>
-				</configuration>
-			</plugin>
         </plugins>
     </build>
 
