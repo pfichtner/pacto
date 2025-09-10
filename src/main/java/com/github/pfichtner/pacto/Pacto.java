@@ -57,6 +57,10 @@ public class Pacto {
 		return methods[0];
 	}
 
+	public static PactoSettings withSettings() {
+		return new PactoSettingsImpl();
+	}
+
 	/**
 	 * Wraps a DTO with a proxy that records method invocations and matcher
 	 * arguments.
@@ -67,12 +71,26 @@ public class Pacto {
 	 * @throws RuntimeException if proxy creation fails
 	 */
 	public static <T> T spec(T intercept) {
+		return spec(intercept, withSettings());
+
+	}
+
+	/**
+	 * Wraps a DTO with a proxy that records method invocations and matcher
+	 * arguments.
+	 *
+	 * @param intercept the original DTO to wrap
+	 * @param <T>       the type of the DTO
+	 * @return a proxy instance of the DTO that records matcher calls
+	 * @throws RuntimeException if proxy creation fails
+	 */
+	public static <T> T spec(T intercept, PactoSettings settings) {
 		if (isSpec(intercept)) {
 			throw new IllegalArgumentException(format("%s already wrapped as spec", intercept));
 		}
 		@SuppressWarnings("unchecked")
 		Class<T> type = (Class<T>) intercept.getClass();
-		Recorder recorder = new Recorder();
+		Recorder recorder = new Recorder(settings);
 		try {
 			return copyFields(intercept, constructor(type, recorder.getClass()).newInstance(intercept, recorder));
 		} catch (Exception e) {
@@ -127,12 +145,33 @@ public class Pacto {
 	 *                                  {@link #spec(Object)}
 	 */
 	public static InvocationDetails invocations(Object object) {
+		return new DefaultInvocationDetails(recorder(object).invocations());
+	}
+
+	/**
+	 * Returns the pacto settings of a DTO proxy.
+	 *
+	 * @param object the proxy instance returned by {@link #spec(Object)}
+	 * @return settings that where passed when creating the pacto spec
+	 * @throws IllegalArgumentException if the object was not intercepted by
+	 *                                  {@link #spec(Object)}
+	 */
+	public static PactoSettingsImpl settings(Object object) {
+		PactoSettings settings = recorder(object).settings();
+		if (!PactoSettingsImpl.class.isInstance(settings)) {
+			throw new IllegalArgumentException("Unexpected implementation of '" + settings.getClass().getCanonicalName()
+					+ "'\n" + "At the moment, you cannot provide your own implementations that class.");
+		}
+		return PactoSettingsImpl.class.cast(settings);
+	}
+
+	public static Recorder recorder(Object object) {
 		if (!(object instanceof HasRecorder)) {
 			throw new IllegalArgumentException(
 					format("%s of type (%s) not intercepted", object, object.getClass().getName()));
 		}
 		Recorder recorder = ((HasRecorder) object).__pacto_recorder();
-		return new DefaultInvocationDetails(recorder.invocations());
+		return recorder;
 	}
 
 	/**

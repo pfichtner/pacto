@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto;
 
 import static com.github.pfichtner.pacto.Pacto.invocations;
+import static com.github.pfichtner.pacto.Pacto.settings;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -35,6 +36,91 @@ import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
 public final class PactoDslBuilder {
+
+	private interface AttributeHandler {
+		PactDslJsonBody append(PactDslJsonBody body, String attribute, Object arg, Class<?> type);
+	}
+
+	/**
+	 * Matches on types and values, delegates to {@link TypeMatchingHandler} for
+	 * types.
+	 */
+	private static class ValueMatchingHandler implements AttributeHandler {
+
+		private final TypeMatchingHandler lenient = new TypeMatchingHandler();
+
+		@Override
+		public PactDslJsonBody append(PactDslJsonBody body, String attribute, Object arg, Class<?> type) {
+			if (CharSequence.class.isAssignableFrom(type)) {
+				return body.stringValue(attribute, arg.toString());
+			} else if (int.class.isAssignableFrom(type) || Integer.class.isAssignableFrom(type)) {
+				return lenient(body, attribute, arg, type).numberValue(attribute, (int) arg);
+			} else if (long.class.isAssignableFrom(type) || Long.class.isAssignableFrom(type)) {
+				return lenient(body, attribute, arg, type).numberValue(attribute, (long) arg);
+			} else if (double.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
+				return lenient(body, attribute, arg, type).numberValue(attribute, (double) arg);
+			} else if (float.class.isAssignableFrom(type) || Float.class.isAssignableFrom(type)) {
+				return lenient(body, attribute, arg, type).numberValue(attribute, (float) arg);
+			} else if (boolean.class.isAssignableFrom(type) || Boolean.class.isAssignableFrom(type)) {
+				return lenient(body, attribute, arg, type).booleanValue(attribute, (boolean) arg);
+			} else if (Number.class.isAssignableFrom(type)) {
+				return lenient(body, attribute, arg, type).numberValue(attribute, (Number) arg);
+			} else if (Date.class.isAssignableFrom(type) || LocalDate.class.isAssignableFrom(type)) {
+				return body.date(attribute);
+			} else if (LocalDateTime.class.isAssignableFrom(type)) {
+				return body.time(attribute);
+			} else if (URL.class.isAssignableFrom(type)) {
+				return body.matchUrl(attribute, (String) arg);
+			} else if (UUID.class.isAssignableFrom(type)) {
+				return body.uuid(attribute);
+			} else if (type.isArray()) {
+				return body.equalTo(attribute, arg);
+			}
+			return null;
+		}
+
+		private PactDslJsonBody lenient(PactDslJsonBody body, String attribute, Object arg, Class<?> type) {
+			return lenient.append(body, attribute, arg, type);
+		}
+
+	}
+
+	/**
+	 * Only matches on types, not the values.
+	 */
+	private static class TypeMatchingHandler implements AttributeHandler {
+
+		@Override
+		public PactDslJsonBody append(PactDslJsonBody body, String attribute, Object arg, Class<?> type) {
+			if (CharSequence.class.isAssignableFrom(type)) {
+				return body.stringType(attribute, arg.toString());
+			} else if (int.class.isAssignableFrom(type) || Integer.class.isAssignableFrom(type)) {
+				return body.integerType(attribute);
+			} else if (long.class.isAssignableFrom(type) || Long.class.isAssignableFrom(type)) {
+				return body.integerType(attribute);
+			} else if (double.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
+				return body.decimalType(attribute);
+			} else if (float.class.isAssignableFrom(type) || Float.class.isAssignableFrom(type)) {
+				return body.decimalType(attribute);
+			} else if (boolean.class.isAssignableFrom(type) || Boolean.class.isAssignableFrom(type)) {
+				return body.booleanType(attribute);
+			} else if (Number.class.isAssignableFrom(type)) {
+				return body.numberType(attribute);
+			} else if (Date.class.isAssignableFrom(type) || LocalDate.class.isAssignableFrom(type)) {
+				return body.date(attribute);
+			} else if (LocalDateTime.class.isAssignableFrom(type)) {
+				return body.time(attribute);
+			} else if (URL.class.isAssignableFrom(type)) {
+				return body.matchUrl(attribute, (String) arg);
+			} else if (UUID.class.isAssignableFrom(type)) {
+				return body.uuid(attribute);
+			} else if (type.isArray()) {
+				return body.equalTo(attribute, arg);
+			}
+			return null;
+		}
+
+	}
 
 	private static <T extends PactoMatcher<?>> Extractor<T> x(Class<T> clazz, Extractor.Applier<T> applier) {
 		return new Extractor<T>(clazz, applier);
@@ -104,13 +190,14 @@ public final class PactoDslBuilder {
 	}
 
 	private static DslPart appendInvocations(PactDslJsonBody body, Object object) {
-		return appendInvocations(body, invocations(object).invocations());
+		return appendInvocations(body, invocations(object).invocations(), settings(object));
 	}
 
-	protected static DslPart appendInvocations(PactDslJsonBody body, List<Invocation> invocations) {
+	protected static DslPart appendInvocations(PactDslJsonBody body, List<Invocation> invocations,
+			PactoSettingsImpl settings) {
 		List<Invocation> handleLater = new ArrayList<>();
 		DslPart bodyWithInvocations = invocations.stream() //
-				.reduce(body, (b, i) -> append(b, i, handleLater), (b1, __) -> b1);
+				.reduce(body, (b, i) -> append(b, i, handleLater, settings), (b1, __) -> b1);
 		return handleLater.stream() //
 				.reduce(bodyWithInvocations, PactoDslBuilder::appendInvocation, (b1, __) -> b1);
 	}
@@ -120,9 +207,9 @@ public final class PactoDslBuilder {
 	}
 
 	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation,
-			List<Invocation> pushbackInvocations) {
+			List<Invocation> pushbackInvocations, PactoSettingsImpl settings) {
 		if (invocation.matcher() == null) {
-			PactDslJsonBody bodyWithValueAppended = appendValue(body, invocation);
+			PactDslJsonBody bodyWithValueAppended = appendValue(body, invocation, settings);
 			if (bodyWithValueAppended == null) {
 				pushbackInvocations.add(invocation);
 				return body;
@@ -138,40 +225,24 @@ public final class PactoDslBuilder {
 						String.format("Cannot handle %s (%s)", invocation.attribute(), invocation)));
 	}
 
-	private static PactDslJsonBody appendValue(PactDslJsonBody body, Invocation invocation) {
-		PactDslJsonBody typeFor = typeFor(body, invocation.attribute(), invocation.arg(), invocation.type());
+	private static PactDslJsonBody appendValue(PactDslJsonBody body, Invocation invocation,
+			PactoSettingsImpl settings) {
+		PactDslJsonBody typeFor = typeFor(body, invocation.attribute(), invocation.arg(), invocation.type(), settings);
 		return typeFor == null //
-				? typeFor(body, invocation.attribute(), invocation.arg(), invocation.arg().getClass()) //
+				? typeFor(body, invocation.attribute(), invocation.arg(), invocation.arg().getClass(), settings) //
 				: typeFor;
 	}
 
-	private static PactDslJsonBody typeFor(PactDslJsonBody body, String attribute, Object arg, Class<?> type) {
-		if (CharSequence.class.isAssignableFrom(type)) {
-			return body.stringValue(attribute, arg.toString());
-		} else if (int.class.isAssignableFrom(type) || Integer.class.isAssignableFrom(type)) {
-			return body.integerType(attribute).numberValue(attribute, (int) arg);
-		} else if (long.class.isAssignableFrom(type) || Long.class.isAssignableFrom(type)) {
-			return body.integerType(attribute).numberValue(attribute, (long) arg);
-		} else if (double.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
-			return body.decimalType(attribute).numberValue(attribute, (double) arg);
-		} else if (float.class.isAssignableFrom(type) || Float.class.isAssignableFrom(type)) {
-			return body.decimalType(attribute).numberValue(attribute, (float) arg);
-		} else if (boolean.class.isAssignableFrom(type) || Boolean.class.isAssignableFrom(type)) {
-			return body.booleanType(attribute).booleanValue(attribute, (boolean) arg);
-		} else if (Number.class.isAssignableFrom(type)) {
-			return body.numberType(attribute).numberValue(attribute, (Number) arg);
-		} else if (Date.class.isAssignableFrom(type) || LocalDate.class.isAssignableFrom(type)) {
-			return body.date(attribute);
-		} else if (LocalDateTime.class.isAssignableFrom(type)) {
-			return body.time(attribute);
-		} else if (URL.class.isAssignableFrom(type)) {
-			return body.matchUrl(attribute, (String) arg);
-		} else if (UUID.class.isAssignableFrom(type)) {
-			return body.uuid(attribute);
-		} else if (type.isArray()) {
-			return body.equalTo(attribute, arg);
-		}
-		return null;
+	private static PactDslJsonBody typeFor(PactDslJsonBody body, String attribute, Object arg, Class<?> type,
+			PactoSettingsImpl settings) {
+		return handler(settings).append(body, attribute, arg, type);
+	}
+
+	private static AttributeHandler handler(PactoSettingsImpl settings) {
+		return settings.isStrict() //
+				? new ValueMatchingHandler() //
+				: new TypeMatchingHandler() //
+		;
 	}
 
 }
