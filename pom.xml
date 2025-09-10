@@ -1,12 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>io.github.pfichtner</groupId>
     <artifactId>pacto</artifactId>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.5</version>
     <name>Pacto</name>
     <description>Java library that allows you to generate Pact contracts directly from your Data Transfer Objects (DTOs)</description>
     <url>https://github.com/pfichtner/pacto</url>
@@ -27,7 +25,8 @@
         <url>https://github.com/pfichtner/pacto</url>
         <connection>scm:git:git://github.com/pfichtner/pacto.git</connection>
         <developerConnection>scm:git:ssh://github.com:pfichtner/pacto.git</developerConnection>
-    </scm>
+      <tag>v0.0.5</tag>
+  </scm>
 
     <developers>
         <developer>
