@@ -111,9 +111,9 @@ RequestResponsePact pact = ConsumerPactBuilder
                 .lastname(stringMatcher("L.*", "Lastname1"))
                 .age(integerType(42))
                 .address(
-                    spec(new AddressDTO())
-                        .zip(integerType(12345))
-                        .city(stringType("City"))
+                    like(new AddressDTO())
+                        .zip(12345)
+                        .city("City")
                 )
         )
     )
