@@ -82,6 +82,7 @@ RequestResponsePact pact = ConsumerPactBuilder
     .willRespondWith()
     .status(200)
     .body(new PactDslJsonBody()
+        .id("id", 123)
         .stringType("givenname", "Givenname1")
         .stringType("lastname", "Lastname1")
         .integerType("age", 42)
@@ -122,6 +123,7 @@ RequestResponsePact pact = ConsumerPactBuilder
     .body(
         dslFrom(
             spec(new PersonDTO())
+                .id("id", 123)
                 .givenname(stringType("Givenname1"))
                 .lastname(stringType("Lastname1"))
                 .age(integerType(42))
