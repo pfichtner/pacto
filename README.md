@@ -123,7 +123,7 @@ RequestResponsePact pact = ConsumerPactBuilder
     .body(
         dslFrom(
             spec(new PersonDTO())
-                .id("id", 123)
+                .id(id(123))
                 .givenname(stringType("Givenname1"))
                 .lastname(stringType("Lastname1"))
                 .age(integerType(42))
