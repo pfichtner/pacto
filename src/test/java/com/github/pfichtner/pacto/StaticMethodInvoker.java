@@ -18,8 +18,8 @@ class StaticMethodInvoker {
 	private final Object target;
 	private final ArgumentProvider argumentProvider;
 
-	public StaticMethodInvoker(Class<?> matcherClass, Object target, ArgumentProvider argumentProvider) {
-		this.matcherClass = matcherClass;
+	public StaticMethodInvoker(Class<?> matcherFactory, Object target, ArgumentProvider argumentProvider) {
+		this.matcherClass = matcherFactory;
 		this.target = target;
 		this.argumentProvider = argumentProvider;
 	}

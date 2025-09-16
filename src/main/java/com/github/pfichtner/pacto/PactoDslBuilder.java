@@ -170,16 +170,18 @@ public final class PactoDslBuilder {
 			x(TimeArg.class, (i, b, m) -> b.time(i.attribute(), m.value(), m.example())), //
 			x(DateArg.class, (i, b, m) -> b.date(i.attribute(), m.value(), m.example())), //
 			x(DatetimeArg.class, (i, b, m) -> b.datetime(i.attribute(), m.value(), m.example())), //
-			x(EachLikeArg.class, (i, b, m) -> {
-				DslPart each = dslFrom(m.value());
-				if (m.max() != null) {
-					return b.maxArrayLike(i.attribute(), m.max(), each);
-				} else if (m.min() != null) {
-					return b.minArrayLike(i.attribute(), m.min(), each);
-				} else {
-					return b.eachLike(i.attribute(), each);
-				}
-			}));
+			x(EachLikeArg.class, (i, b, m) -> each(i, b, m)));
+
+	private static PactDslJsonBody each(Invocation invocation, PactDslJsonBody body, EachLikeArg eachLike) {
+		DslPart dslPart = dslFrom(eachLike.value());
+		if (eachLike.max() != null) {
+			return body.maxArrayLike(invocation.attribute(), eachLike.max(), dslPart);
+		} else if (eachLike.min() != null) {
+			return body.minArrayLike(invocation.attribute(), eachLike.min(), dslPart);
+		} else {
+			return body.eachLike(invocation.attribute(), dslPart);
+		}
+	}
 
 	private PactoDslBuilder() {
 		super();
