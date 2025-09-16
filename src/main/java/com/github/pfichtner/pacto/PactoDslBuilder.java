@@ -174,7 +174,9 @@ public final class PactoDslBuilder {
 
 	private static PactDslJsonBody each(Invocation invocation, PactDslJsonBody body, EachLikeArg eachLike) {
 		DslPart dslPart = dslFrom(eachLike.value());
-		if (eachLike.max() != null) {
+		if (eachLike.min() != null && eachLike.max() != null) {
+			return body.minMaxArrayLike(invocation.attribute(), eachLike.min(), eachLike.max(), dslPart);
+		} else if (eachLike.max() != null) {
 			return body.maxArrayLike(invocation.attribute(), eachLike.max(), dslPart);
 		} else if (eachLike.min() != null) {
 			return body.minArrayLike(invocation.attribute(), eachLike.min(), dslPart);

@@ -29,13 +29,15 @@ public class EachLikeArg extends PactoMatcher<Object> {
 
 	@Override
 	public String toString() {
-		if (max != null) {
+		if (min != null && max != null) {
+			return String.format("minMaxArrayLike(%s, %d, %d)", value(), min, max);
+		} else if (max != null) {
 			return String.format("maxArrayLike(%s, %d)", value(), max);
-		}
-		if (min != null) {
+		} else if (min != null) {
 			return String.format("minArrayLike(%s, %d)", value(), min);
+		} else {
+			return String.format("eachLike(%s)", value());
 		}
-		return String.format("eachLike(%s)", value());
 	}
 
 }

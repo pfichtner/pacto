@@ -488,6 +488,20 @@ public final class PactoMatchers {
 		return eachLike(value, new EachLikeArg(value).max(max));
 	}
 
+	/**
+	 * Matches an array with at least {@code min} and at most {@code max} elements
+	 * like the given value.
+	 *
+	 * @param <T>   element type
+	 * @param value example value for each element
+	 * @param min   minimum number of elements in the array
+	 * @param max   maximum number of elements in the array
+	 * @return an array containing at most {@code max} elements like {@code value}
+	 */
+	public static <T> T[] minMaxArrayLike(T value, int min, int max) {
+		return eachLike(value, new EachLikeArg(value).min(min).max(max));
+	}
+
 	@SuppressWarnings("unchecked")
 	private static <T> T[] eachLike(T value, EachLikeArg matcher) {
 		reportMatcher(matcher);
