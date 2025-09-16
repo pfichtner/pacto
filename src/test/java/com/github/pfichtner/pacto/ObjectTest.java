@@ -34,7 +34,7 @@ class ObjectTest {
 		new StaticMethodInvoker(PactoMatchers.class, spec, argumentProvider()).invoke();
 		DslPart dslFrom = dslFrom(spec);
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
 		var root = new JsonObject();
 		root.add("body", parseString(dslFrom.toString()).getAsJsonObject());
 		root.add("matchingRules", gson.toJsonTree(new TreeMap<>(dslFrom.getMatchers().getMatchingRules())));

@@ -1,7 +1,6 @@
 package com.github.pfichtner.pacto;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.floorMod;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
@@ -9,10 +8,8 @@ import static java.util.stream.IntStream.range;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import java.util.TimeZone;
 import java.util.UUID;
 
 public class DeterministicDataFactory {
@@ -92,11 +89,8 @@ public class DeterministicDataFactory {
 	public Date date() {
 		long minMillis = -8_640_000_000_000_000L;
 		long maxMillis = +8_640_000_000_000_000L;
-		long millis = minMillis + floorMod(random.nextLong(), maxMillis - minMillis + 1);
-
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-		cal.setTimeInMillis(millis);
-		return cal.getTime();
+		long millis = minMillis + Math.floorMod(random.nextLong(), maxMillis - minMillis + 1);
+		return new Date(millis);
 	}
 
 	public LocalDate localDate() {
