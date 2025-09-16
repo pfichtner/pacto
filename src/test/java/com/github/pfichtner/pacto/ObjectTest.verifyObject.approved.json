@@ -3,20 +3,20 @@
     "arrayArg": [
       {}
     ],
-    "dateArg": "14:30:00",
-    "doubleArg": 3.14,
-    "doubleWrapperArg": 3.14,
-    "floatArg": 2.7100000381469727,
-    "floatWrapperArg": 2.71,
-    "intArg": 42,
-    "integerWrapperArg": 42,
-    "localDateArg": "2025-09-07 00:00:00",
-    "localDateTimeArg": "14:30:00",
-    "longArg": 123,
-    "longWrapperArg": 123,
-    "numberArg": 123,
-    "objectArg": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
-    "stringArg": "example",
+    "dateArg": "12:51:56",
+    "doubleArg": 0.34667498058347623,
+    "doubleWrapperArg": 0.34667498058347623,
+    "floatArg": 0.505189836025238,
+    "floatWrapperArg": 0.50518984,
+    "intArg": 1881612699,
+    "integerWrapperArg": 1881612699,
+    "localDateArg": "42590977-03-08",
+    "localDateTimeArg": "08:46:16",
+    "longArg": -1830391751231062889,
+    "longWrapperArg": -1830391751231062889,
+    "numberArg": -1830391751231062889,
+    "objectArg": "2f6086d6-bf2c-38b4-a1e9-2b740fc93f95",
+    "stringArg": "o9zWFfoviShcKsgfZT6rCJMkn5MPQH2y",
     "uuidArg": "e2490de5-5bd3-43d5-b7c4-526e33f71304"
   },
   "matchingRules": {
@@ -24,14 +24,14 @@
       "rules": [
         {},
         {
-          "max": 42
+          "max": -1819415847
         },
         {
-          "min": 42
+          "min": 205323323
         },
         {
-          "min": 42,
-          "max": 42
+          "min": 765357112,
+          "max": 765357112
         }
       ],
       "ruleLogic": "AND",
@@ -138,12 +138,6 @@
         },
         {
           "format": "yyyy-MM-dd"
-        },
-        {
-          "format": "hh:mm"
-        },
-        {
-          "format": "yyyy-MM-dd HH:mm:ss"
         }
       ],
       "ruleLogic": "AND",
@@ -236,12 +230,6 @@
           "format": "yyyy-MM-dd"
         },
         {
-          "format": "yyyy-MM-dd"
-        },
-        {
-          "format": "yyyy-MM-dd"
-        },
-        {
           "numberType": "DECIMAL"
         },
         {
@@ -265,7 +253,7 @@
           "numberType": "INTEGER"
         },
         {
-          "value": "example"
+          "value": "zwQB5Kp2mLDs26ahJnyJkJ5OfC7KY5Aa"
         },
         {
           "numberType": "INTEGER"

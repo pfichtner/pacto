@@ -6,8 +6,8 @@ import static com.google.gson.JsonParser.parseString;
 import static org.approvaltests.JsonApprovals.verifyAsJson;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -43,39 +43,38 @@ class ObjectTest {
 
 	private static ArgumentProvider argumentProvider() {
 		return (m, t) -> {
+			DeterministicDataFactory random = new DeterministicDataFactory(m + t);
 			if (CharSequence.class.isAssignableFrom(t)) {
 				if ("hex".equals(m)) {
-					return "00FF";
+					return random.hexString(4);
 				} else if ("uuid".equals(m)) {
 					return ((UUID) argumentProvider().getArgument(m, UUID.class)).toString();
 				} else if ("ipAddress".equals(m)) {
-					return "127.0.0.1";
+					return random.ipv4Address();
 				} else if ("date".equals(m)) {
 					return "yyyy-MM";
 				} else if ("time".equals(m) || "datetime".equals(m)) {
 					return "hh:mm";
 				}
-				return "example";
+				return random.string(32);
 			} else if (t == int.class || t == Integer.class) {
-				return 42;
+				return random.intValue();
 			} else if (t == long.class || t == Long.class) {
-				return 123L;
+				return random.longValue();
 			} else if (t == double.class || t == Double.class) {
-				return 3.14;
+				return random.doubleValue();
 			} else if (t == float.class || t == Float.class) {
-				return 2.71f;
+				return random.floatValue();
 			} else if (t == boolean.class || t == Boolean.class) {
-				return true;
+				return random.booleanValue();
 			} else if (t == UUID.class) {
-				return UUID.fromString("e2490de5-5bd3-43d5-b7c4-526e33f71304");
+				return random.uuid();
 			} else if (t == Date.class) {
-				LocalDateTime localDateTime = (LocalDateTime) argumentProvider().getArgument(m, LocalDateTime.class);
-				return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-			} else if (t == java.time.LocalDate.class) {
-				LocalDateTime localDateTime = (LocalDateTime) argumentProvider().getArgument(m, LocalDateTime.class);
-				return localDateTime.toLocalDate();
-			} else if (t == java.time.LocalDateTime.class) {
-				return LocalDateTime.of(2025, 9, 7, 14, 30, 0);
+				return random.date();
+			} else if (t == LocalDate.class) {
+				return random.localDate();
+			} else if (t == LocalDateTime.class) {
+				return random.localDateTime();
 			} else if (t.isArray()) {
 				return Array.newInstance(t.getComponentType(), 0);
 			} else if (List.class.isAssignableFrom(t)) {
@@ -87,4 +86,5 @@ class ObjectTest {
 			}
 		};
 	}
+
 }
