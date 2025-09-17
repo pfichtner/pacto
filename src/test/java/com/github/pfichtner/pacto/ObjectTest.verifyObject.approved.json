@@ -14,7 +14,6 @@
     "localDateTimeArg": "15:44:00",
     "longArg": -1830391751231062889,
     "longWrapperArg": -1830391751231062889,
-    "numberArg": -1830391751231062889,
     "objectArg": "2f6086d6-bf2c-38b4-a1e9-2b740fc93f95",
     "stringArg": "o9zWFfoviShcKsgfZT6rCJMkn5MPQH2y",
     "uuidArg": "e2490de5-5bd3-43d5-b7c4-526e33f71304"
@@ -285,6 +284,12 @@
         {},
         {},
         {},
+        {
+          "numberType": "NUMBER"
+        },
+        {
+          "regex": "aBWle5vMBjBe0b6WYM3FhJRPnFMszD5k"
+        },
         {},
         {},
         {

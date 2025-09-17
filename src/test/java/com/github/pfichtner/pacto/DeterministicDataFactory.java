@@ -4,6 +4,7 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -46,6 +47,10 @@ public class DeterministicDataFactory {
 
 	public boolean booleanValue() {
 		return random.nextBoolean();
+	}
+
+	public Number number() {
+		return BigDecimal.valueOf(doubleValue());
 	}
 
 	public String string() {

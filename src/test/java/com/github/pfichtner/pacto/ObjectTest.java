@@ -67,6 +67,8 @@ class ObjectTest {
 				return random.floatValue();
 			} else if (t == boolean.class || t == Boolean.class) {
 				return random.booleanValue();
+			} else if (t == Number.class) {
+				return random.number();
 			} else if (t == UUID.class) {
 				return random.uuid();
 			} else if (t == Date.class) {
