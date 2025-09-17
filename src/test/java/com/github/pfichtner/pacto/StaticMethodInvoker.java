@@ -29,15 +29,15 @@ class StaticMethodInvoker {
 			if (isStatic(method.getModifiers()) && !isPrivate(method.getModifiers())) {
 				Object[] args = Arrays.stream(method.getParameterTypes())
 						.map(t -> argumentProvider.getArgument(method.getName(), t)).toArray();
-
+				Object result;
 				try {
-					Object result = method.invoke(null, args);
-
-					if (result != null) {
-						callTargetMethods(result);
-					}
-				} catch (Exception e) {
-					System.err.println("Error invoking " + method + ": " + e.getMessage());
+					result = method.invoke(null, args);
+				} catch (IllegalArgumentException | InvocationTargetException e) {
+					throw new RuntimeException(
+							"Error invoking static " + method + " with args " + Arrays.toString(args), e);
+				}
+				if (result != null) {
+					callTargetMethods(result);
 				}
 			}
 		}
@@ -50,13 +50,17 @@ class StaticMethodInvoker {
 				.toArray(Method[]::new);
 	}
 
-	private void callTargetMethods(Object value)
-			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	private void callTargetMethods(Object value) {
 		for (Method method : sort(target.getClass().getDeclaredMethods())) {
 			Class<?>[] paramTypes = method.getParameterTypes();
 			if (paramTypes.length == 1 && isAssignable(paramTypes[0], value.getClass())) {
 				method.setAccessible(true);
-				method.invoke(target, value);
+				try {
+					method.invoke(target, value);
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					throw new RuntimeException("Error invoking " + method + " on " + target + " with value " + value,
+							e);
+				}
 			}
 		}
 	}
