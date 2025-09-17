@@ -130,7 +130,7 @@ public class DeterministicDataFactory {
 	}
 
 	private int fromTo(int min, int max) {
-		return random.nextInt(max) + min;
+		return random.nextInt(max - min + 1) + min;
 	}
 
 }
