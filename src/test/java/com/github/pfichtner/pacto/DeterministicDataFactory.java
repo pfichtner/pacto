@@ -1,13 +1,12 @@
 package com.github.pfichtner.pacto;
 
-import static java.lang.Math.abs;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Random;
@@ -17,8 +16,8 @@ public class DeterministicDataFactory {
 
 	private final Random random;
 
-	public DeterministicDataFactory(String string) {
-		this(deterministicHashCode(string));
+	public DeterministicDataFactory(String seedFromStringHash) {
+		this(deterministicHashCode(seedFromStringHash));
 	}
 
 	public DeterministicDataFactory(int seed) {
@@ -26,7 +25,7 @@ public class DeterministicDataFactory {
 	}
 
 	private static int deterministicHashCode(String string) {
-		return range(0, string.length()).map(i -> string.charAt(i)).reduce(0, (h, c) -> 31 * h + c);
+		return range(0, string.length()).map(string::charAt).reduce(0, (h, c) -> 31 * h + c);
 	}
 
 	public float floatValue() {
@@ -88,19 +87,50 @@ public class DeterministicDataFactory {
 	}
 
 	public Date date() {
-		// TODO switch to random
 		LocalDateTime localDateTime = localDateTime();
 		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	public LocalDate localDate() {
-		// TODO switch to random
 		return localDateTime().toLocalDate();
 	}
 
 	public LocalDateTime localDateTime() {
-		// TODO switch to random
-		return LocalDateTime.of(2025, 9, 7, 14, 30, 0);
+		int year = year();
+		int month = month();
+		return LocalDateTime.of(year, month, dayOfMonth(year, month), hour(), minutes(), seconds());
+	}
+
+	public int year() {
+		return fromTo(1900, 9999);
+	}
+
+	public int month() {
+		return fromTo(1, 12);
+	}
+
+	public int dayOfMonth(int year, int month) {
+		return fromTo(1, YearMonth.of(year, month).lengthOfMonth());
+	}
+
+	public int dayOfMonth() {
+		return fromTo(1, 31);
+	}
+
+	public int hour() {
+		return fromTo(0, 23);
+	}
+
+	public int minutes() {
+		return fromTo(0, 59);
+	}
+
+	public int seconds() {
+		return fromTo(0, 59);
+	}
+
+	private int fromTo(int min, int max) {
+		return random.nextInt(max) + min;
 	}
 
 }

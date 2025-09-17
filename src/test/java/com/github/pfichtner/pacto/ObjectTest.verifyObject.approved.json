@@ -3,15 +3,15 @@
     "arrayArg": [
       {}
     ],
-    "dateArg": "14:30:00",
+    "dateArg": "14:03:23",
     "doubleArg": 0.34667498058347623,
     "doubleWrapperArg": 0.34667498058347623,
     "floatArg": 0.505189836025238,
     "floatWrapperArg": 0.50518984,
     "intArg": 1881612699,
     "integerWrapperArg": 1881612699,
-    "localDateArg": "2025-09-07 00:00:00",
-    "localDateTimeArg": "14:30:00",
+    "localDateArg": "3923-02-20 00:00:00",
+    "localDateTimeArg": "06:21:48",
     "longArg": -1830391751231062889,
     "longWrapperArg": -1830391751231062889,
     "numberArg": -1830391751231062889,
