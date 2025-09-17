@@ -16,6 +16,7 @@ Generate [Pact](https://docs.pact.io/) contracts directly from your DTOs — kee
 - Generate [Pact](https://docs.pact.io/) contracts directly from Java DTOs.
 - Supports nested DTOs.
 - Flexible matching with `stringType`, `integerType`, `regex`, and other matchers.
+- [Configurable matching mode](#strict-vs-lenient-specs) – define specs as *strict* (exact values must match) or *lenient* (only types must match).
 - Simplifies consumer-driven contract testing.
 - Easy integration with existing DTO-based projects.
 
@@ -147,6 +148,31 @@ No DTO duplication → single source of truth.
 - Reduced risk of contract drift.
 
 With pacto, you avoid duplication, reduce boilerplate, and ensure your contracts stay in sync with your DTOs.
+
+## Strict vs. Lenient Specs
+
+By default, pacto generates **strict specs**:
+- Fields must match both **type and exact value**.
+- Example: if you set `setAge(42)` and the setter accepts an `int`, the generated contract requires the provider to return exactly `42`.
+
+With **lenient specs**:
+- Fields must match only the **declared parameter type of the DTO setter** (or the declared field type if no setter is found).
+- Example: if you set `setAge(42)` and the setter accepts a `long`, the generated contract accepts *any* `long` value.
+
+### Important: Matchers vs. Concrete Values
+
+The matching mode only affects **concrete values**.  
+If you use an explicit matcher, it always behaves as a matcher, independent of the mode:
+
+| Mode       | Example call                   | Contract behavior                                
+|------------|--------------------------------|-------------------------------------------------|
+| **strict** | `setAge(42)`                   | Must match exactly `42`                         |
+| **strict** | `setAge(integerType(42))`      | Must match any integer (value ignored)          |
+| **lenient**| `setAge(42)`                   | Must match any value of the setter’s type (e.g. any `int` or any `long`) |
+| **lenient**| `setAge(integerType(42))`      | Must match any integer (value ignored)          |
+
+👉 In short: **modes matter only when you pass concrete values.**  
+Explicit matchers always define the rules directly.
 
 ## How to use pacto?
 
