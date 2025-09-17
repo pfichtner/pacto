@@ -8,6 +8,7 @@ import static java.util.stream.IntStream.range;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
@@ -87,26 +88,19 @@ public class DeterministicDataFactory {
 	}
 
 	public Date date() {
-		long minMillis = -8_640_000_000_000_000L;
-		long maxMillis = +8_640_000_000_000_000L;
-		long millis = minMillis + Math.floorMod(random.nextLong(), maxMillis - minMillis + 1);
-		return new Date(millis);
+		// TODO switch to random
+		LocalDateTime localDateTime = localDateTime();
+		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	public LocalDate localDate() {
-		long minDay = LocalDate.of(-999_999_999, 01, 01).toEpochDay();
-		long maxDay = LocalDate.of(+999_999_999, 12, 31).toEpochDay();
-		long randomDay = minDay + abs(random.nextLong()) % (maxDay - minDay + 1);
-		return LocalDate.ofEpochDay(randomDay);
+		// TODO switch to random
+		return localDateTime().toLocalDate();
 	}
 
 	public LocalDateTime localDateTime() {
-		LocalDate date = localDate();
-		int hour = random.nextInt(24);
-		int minute = random.nextInt(60);
-		int second = random.nextInt(60);
-		int nano = random.nextInt(1_000_000_000);
-		return LocalDateTime.of(date, LocalTime.of(hour, minute, second, nano));
+		// TODO switch to random
+		return LocalDateTime.of(2025, 9, 7, 14, 30, 0);
 	}
 
 }
