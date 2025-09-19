@@ -4,6 +4,10 @@ import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_DELEGATE;
 import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_RECORDER;
 import static com.github.pfichtner.pacto.util.Reflections.copyFields;
 import static java.lang.String.format;
+import static net.bytebuddy.description.modifier.FieldManifestation.FINAL;
+import static net.bytebuddy.description.modifier.SyntheticState.SYNTHETIC;
+import static net.bytebuddy.description.modifier.Visibility.PRIVATE;
+import static net.bytebuddy.description.modifier.Visibility.PUBLIC;
 import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
@@ -16,10 +20,7 @@ import java.util.Arrays;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.asm.Advice;
-import net.bytebuddy.description.modifier.FieldManifestation;
 import net.bytebuddy.description.modifier.FieldPersistence;
-import net.bytebuddy.description.modifier.SyntheticState;
-import net.bytebuddy.description.modifier.Visibility;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.FieldAccessor;
 import net.bytebuddy.implementation.MethodCall;
@@ -108,18 +109,16 @@ public class Pacto {
 				.with(new NamingStrategy.SuffixingRandom("PactoProxy")) //
 				.subclass(type) //
 				.implement(HasDelegate.class, HasRecorder.class) //
-				.defineField(FIELDNAME_DELEGATE, type, Visibility.PRIVATE, FieldManifestation.FINAL,
-						FieldPersistence.TRANSIENT) //
-				.defineField(FIELDNAME_RECORDER, Recorder.class, Visibility.PRIVATE, FieldManifestation.FINAL,
-						FieldPersistence.TRANSIENT) //
-				.defineConstructor(Visibility.PUBLIC).withParameters(type, Recorder.class).intercept( //
+				.defineField(FIELDNAME_DELEGATE, type, PRIVATE, FINAL, FieldPersistence.TRANSIENT) //
+				.defineField(FIELDNAME_RECORDER, Recorder.class, PRIVATE, FINAL, FieldPersistence.TRANSIENT) //
+				.defineConstructor(PUBLIC).withParameters(type, Recorder.class).intercept( //
 						MethodCall.invoke(type.getDeclaredConstructor()) //
 								.andThen(FieldAccessor.ofField(FIELDNAME_DELEGATE).setsArgumentAt(0)) //
 								.andThen(FieldAccessor.ofField(FIELDNAME_RECORDER).setsArgumentAt(1)) //
 				) //
-				.defineMethod(getDelegateMethodname, type, Visibility.PUBLIC, SyntheticState.SYNTHETIC) //
+				.defineMethod(getDelegateMethodname, type, PUBLIC, SYNTHETIC) //
 				.intercept(FieldAccessor.ofField(FIELDNAME_DELEGATE)) //
-				.defineMethod(getRecorderMethodname, Recorder.class, Visibility.PUBLIC, SyntheticState.SYNTHETIC) //
+				.defineMethod(getRecorderMethodname, Recorder.class, PUBLIC, SYNTHETIC) //
 				.intercept(FieldAccessor.ofField(FIELDNAME_RECORDER)) //
 				.method(not(isStatic()) //
 						.and(not(isFinal())) //
@@ -162,11 +161,12 @@ public class Pacto {
 	 */
 	public static PactoSettingsImpl settings(Object object) {
 		PactoSettings settings = recorder(object).settings();
-		if (!PactoSettingsImpl.class.isInstance(settings)) {
+		Class<PactoSettingsImpl> expectedClass = PactoSettingsImpl.class;
+		if (!expectedClass.isInstance(settings)) {
 			throw new IllegalArgumentException("Unexpected implementation of '" + settings.getClass().getCanonicalName()
 					+ "'\n" + "At the moment, you cannot provide your own implementations that class.");
 		}
-		return PactoSettingsImpl.class.cast(settings);
+		return expectedClass.cast(settings);
 	}
 
 	public static Recorder recorder(Object object) {
@@ -174,8 +174,7 @@ public class Pacto {
 			throw new IllegalArgumentException(
 					format("%s of type (%s) not intercepted", object, object.getClass().getName()));
 		}
-		Recorder recorder = ((HasRecorder) object).__pacto_recorder();
-		return recorder;
+		return ((HasRecorder) object).__pacto_recorder();
 	}
 
 	/**

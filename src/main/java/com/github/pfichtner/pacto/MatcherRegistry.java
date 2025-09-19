@@ -14,9 +14,11 @@ public class MatcherRegistry {
 	}
 
 	public static List<PactoMatcher<?>> pullMatchers() {
-		var matchers = List.copyOf(registry());
-		reset();
-		return matchers;
+		try {
+			return List.copyOf(registry());
+		} finally {
+			reset();
+		}
 	}
 
 	public static void reset() {

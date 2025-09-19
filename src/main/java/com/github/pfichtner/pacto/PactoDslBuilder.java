@@ -210,12 +210,12 @@ public final class PactoDslBuilder {
 		return appendInvocations(body.object(invocation.attribute()), invocation.arg()).closeObject();
 	}
 
-	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation,
-			List<Invocation> pushbackInvocations, PactoSettingsImpl settings) {
+	private static PactDslJsonBody append(PactDslJsonBody body, Invocation invocation, List<Invocation> handleLater,
+			PactoSettingsImpl settings) {
 		if (invocation.matcher() == null) {
 			PactDslJsonBody bodyWithValueAppended = appendValue(body, invocation, settings);
 			if (bodyWithValueAppended == null) {
-				pushbackInvocations.add(invocation);
+				handleLater.add(invocation);
 				return body;
 			}
 			return bodyWithValueAppended;
