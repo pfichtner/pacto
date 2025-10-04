@@ -153,11 +153,11 @@ With pacto, you avoid duplication, reduce boilerplate, and ensure your contracts
 
 By default, pacto generates **strict specs**:
 - Fields must match both **type and exact value**.
-- Example: if you set `setAge(42)` and the setter accepts an `int`, the generated contract requires the provider to return exactly `42`.
+- Example: if you set `setAge(42)` the generated contract requires the provider to return exactly `42`.
 
 With **lenient specs**:
-- Fields must match only the **declared parameter type of the DTO setter** (or the declared field type if no setter is found).
-- Example: if you set `setAge(42)` and the setter accepts a `long`, the generated contract accepts *any* `long` value.
+- Fields must match only the **declared parameter type of the DTO setter**.
+- Example: if you set `setAge(42)` and the setter accepts a `int`, the generated contract accepts *any* `int` value.
 
 ### Important: Matchers vs. Concrete Values
 
@@ -166,10 +166,10 @@ If you use an explicit matcher, it always behaves as a matcher, independent of t
 
 | Mode       | Example call                   | Contract behavior                                
 |------------|--------------------------------|-------------------------------------------------|
-| **strict** | `setAge(42)`                   | Must match exactly `42`                         |
 | **strict** | `setAge(integerType(42))`      | Must match any integer (value ignored)          |
-| **lenient**| `setAge(42)`                   | Must match any value of the setter’s type (e.g. any `int` or any `long`) |
 | **lenient**| `setAge(integerType(42))`      | Must match any integer (value ignored)          |
+| **strict** | `setAge(42)`                   | Must match exactly `42`                         |
+| **lenient**| `setAge(42)`                   | Must match any value of the setter’s type (e.g. any `int`) |
 
 👉 In short: **modes matter only when you pass concrete values.**  
 Explicit matchers always define the rules directly.
