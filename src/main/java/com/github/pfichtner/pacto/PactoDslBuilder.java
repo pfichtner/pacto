@@ -6,6 +6,7 @@ import static com.github.pfichtner.pacto.Pacto.settings;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,32 +91,34 @@ public final class PactoDslBuilder {
 	 */
 	private static class TypeMatchingHandler implements AttributeHandler {
 
+		private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+		private static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+
 		@Override
 		public PactDslJsonBody append(PactDslJsonBody body, String attribute, Object arg, Class<?> type) {
 			if (CharSequence.class.isAssignableFrom(type)) {
 				return body.stringType(attribute, arg.toString());
 			} else if (int.class.isAssignableFrom(type) || Integer.class.isAssignableFrom(type)) {
-				return body.integerType(attribute);
+				return body.integerType(attribute, (int) arg);
 			} else if (long.class.isAssignableFrom(type) || Long.class.isAssignableFrom(type)) {
-				return body.integerType(attribute);
+				return body.integerType(attribute, (long) arg);
 			} else if (double.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
-				return body.decimalType(attribute);
+				return body.decimalType(attribute, (double) arg);
 			} else if (float.class.isAssignableFrom(type) || Float.class.isAssignableFrom(type)) {
-				return body.decimalType(attribute);
+				return body.decimalType(attribute, (double) (float) arg);
 			} else if (boolean.class.isAssignableFrom(type) || Boolean.class.isAssignableFrom(type)) {
-				return body.booleanType(attribute);
+				return body.booleanType(attribute, (boolean) arg);
 			} else if (Number.class.isAssignableFrom(type)) {
-				return body.numberType(attribute);
-			} else if (Date.class.isAssignableFrom(type) || LocalDate.class.isAssignableFrom(type)) {
-				return body.date(attribute);
+				return body.numberType(attribute, (Number) arg);
+			} else if (Date.class.isAssignableFrom(type)) {
+				return body.date(attribute, DEFAULT_DATE_FORMAT, (Date) arg);
+			} else if (LocalDate.class.isAssignableFrom(type)) {
+				return body.localDate(attribute, DEFAULT_DATE_FORMAT, (LocalDate) arg);
 			} else if (LocalDateTime.class.isAssignableFrom(type)) {
-				return body.time(attribute);
-			} else if (URL.class.isAssignableFrom(type)) {
-				return body.matchUrl(attribute, (String) arg);
+				return body.time(attribute, DEFAULT_DATETIME_FORMAT,
+						Date.from(((LocalDateTime) arg).atZone(ZoneId.systemDefault()).toInstant()));
 			} else if (UUID.class.isAssignableFrom(type)) {
-				return body.uuid(attribute);
-			} else if (type.isArray()) {
-				return body.equalTo(attribute, arg);
+				return body.uuid(attribute, (UUID) arg);
 			}
 			return null;
 		}
@@ -231,15 +234,11 @@ public final class PactoDslBuilder {
 
 	private static PactDslJsonBody appendValue(PactDslJsonBody body, Invocation invocation,
 			PactoSettingsImpl settings) {
-		PactDslJsonBody typeFor = typeFor(body, invocation.attribute(), invocation.arg(), invocation.type(), settings);
+		AttributeHandler handler = handler(settings);
+		PactDslJsonBody typeFor = handler.append(body, invocation.attribute(), invocation.arg(), invocation.type());
 		return typeFor == null //
-				? typeFor(body, invocation.attribute(), invocation.arg(), invocation.arg().getClass(), settings) //
+				? handler.append(body, invocation.attribute(), invocation.arg(), invocation.arg().getClass()) //
 				: typeFor;
-	}
-
-	private static PactDslJsonBody typeFor(PactDslJsonBody body, String attribute, Object arg, Class<?> type,
-			PactoSettingsImpl settings) {
-		return handler(settings).append(body, attribute, arg, type);
 	}
 
 	private static AttributeHandler handler(PactoSettingsImpl settings) {

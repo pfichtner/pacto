@@ -1,0 +1,16 @@
+{
+  "body": {
+    "testAttribute": 42.0
+  },
+  "matchingRules": {
+    ".testAttribute": {
+      "rules": [
+        {
+          "numberType": "DECIMAL"
+        }
+      ],
+      "ruleLogic": "AND",
+      "cascaded": false
+    }
+  }
+}

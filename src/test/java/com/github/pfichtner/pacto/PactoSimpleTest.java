@@ -35,22 +35,22 @@ class PactoSimpleTest {
 
 	@Test
 	void testLenientCanHoldStrict() {
-		TestTarget outer = lenientOuterStrictInner();
+		TestTarget lenientOuter = lenientOuterStrictInner();
 		DslPart expected = new PactDslJsonBody().object("objectArg").stringValue("objectArg", "123").closeObject();
-		assertThatDslPart(dslFrom(outer)).isEqualToDslPart(expected);
+		assertThatDslPart(dslFrom(lenientOuter)).isEqualToDslPart(expected);
 	}
 
 	@Test
 	void testStrictCanHoldLenient() {
-		TestTarget outer = strictOuterLenientInner();
+		TestTarget strictOuter = strictOuterLenientInner();
 		DslPart expected = new PactDslJsonBody().object("objectArg",
 				new PactDslJsonBody().stringType("objectArg", "123"));
-		assertThatDslPart(dslFrom(outer)).isEqualToDslPart(expected);
+		assertThatDslPart(dslFrom(strictOuter)).isEqualToDslPart(expected);
 	}
 
 	@Test
 	void testLikeIsEqualToStrictCanHoldLenient() {
-		TestTarget outer = spec(new TestTarget(), withSettings().lenient(false));
+		TestTarget outer = spec(new TestTarget(), strict());
 		TestTarget inner = like(new TestTarget());
 		inner.objectArg("123");
 		outer.objectArg(inner);
@@ -67,23 +67,22 @@ class PactoSimpleTest {
 
 	@Test
 	void testStrictIsDefault() {
-		TestTarget spec = spec(new TestTarget());
-		assertThatDslPart(dslFrom(spec)) //
+		assertThatDslPart(dslFrom(spec(new TestTarget()))) //
 				.isEqualToDslPart(dslFrom(spec(new TestTarget(), withSettings()))) //
-				.isEqualToDslPart(dslFrom(spec(new TestTarget(), withSettings().lenient(false))));
+				.isEqualToDslPart(dslFrom(spec(new TestTarget(), strict())));
 	}
 
 	private TestTarget lenientOuterStrictInner() {
-		TestTarget outer = spec(new TestTarget(), withSettings().lenient(true));
-		TestTarget inner = spec(new TestTarget(), withSettings().lenient(false));
+		TestTarget outer = spec(new TestTarget(), lenient());
+		TestTarget inner = spec(new TestTarget(), strict());
 		inner.objectArg("123");
 		outer.objectArg(inner);
 		return outer;
 	}
 
 	private TestTarget strictOuterLenientInner() {
-		TestTarget outer = spec(new TestTarget(), withSettings().lenient(false));
-		TestTarget inner = spec(new TestTarget(), withSettings().lenient(true));
+		TestTarget outer = spec(new TestTarget(), strict());
+		TestTarget inner = spec(new TestTarget(), lenient());
 		inner.objectArg("123");
 		outer.objectArg(inner);
 		return outer;
@@ -97,6 +96,18 @@ class PactoSimpleTest {
 
 		DslPart expected = new PactDslJsonBody().equalTo("objectArg", value);
 		assertThatDslPart(dslFrom(spec)).isEqualToDslPart(expected);
+	}
+
+	private static PactoSettings lenient() {
+		return lenient(true);
+	}
+
+	private static PactoSettings strict() {
+		return lenient(false);
+	}
+
+	private static PactoSettings lenient(boolean lenient) {
+		return withSettings().lenient(lenient);
 	}
 
 }

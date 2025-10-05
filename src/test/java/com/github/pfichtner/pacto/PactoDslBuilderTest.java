@@ -1,10 +1,15 @@
 package com.github.pfichtner.pacto;
 
+import static com.github.pfichtner.pacto.ApprovalsHelper.toJson;
 import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.InvocationStub.invocation;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.appendInvocations;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
+import static org.approvaltests.Approvals.settings;
+import static org.approvaltests.Approvals.verify;
+import static org.approvaltests.JsonApprovals.verifyAsJson;
+import static org.approvaltests.namer.NamerFactory.withParameters;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -12,6 +17,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.approvaltests.namer.NamedEnvironment;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -33,6 +39,16 @@ class PactoDslBuilderTest {
 	@MethodSource("values")
 	void test(Class<?> type, Object value, String expected) {
 		assertThat(callSut(invocation(value))).hasToString("{\"testAttribute\":" + expected + "}");
+	}
+
+	@ParameterizedTest
+	@MethodSource("values")
+	void test2(Class<?> type, Object value, String expected) {
+		settings().allowMultipleVerifyCallsForThisClass();
+		settings().allowMultipleVerifyCallsForThisMethod();
+		try (NamedEnvironment env = withParameters(type, value)) {
+			verifyAsJson(toJson(callSut(invocation(value))));
+		}
 	}
 
 	@Test

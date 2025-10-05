@@ -1,8 +1,8 @@
 package com.github.pfichtner.pacto;
 
+import static com.github.pfichtner.pacto.ApprovalsHelper.toJson;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
-import static com.google.gson.JsonParser.parseString;
 import static org.approvaltests.JsonApprovals.verifyAsJson;
 
 import java.lang.reflect.Array;
@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -20,11 +19,6 @@ import com.github.pfichtner.pacto.StaticMethodInvoker.ArgumentProvider;
 import com.github.pfichtner.pacto.matchers.PactoMatchers;
 import com.github.pfichtner.pacto.matchers.TestTarget;
 import com.github.pfichtner.pacto.testdata.Foo;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-
-import au.com.dius.pact.consumer.dsl.DslPart;
 
 class ObjectTest {
 
@@ -32,13 +26,7 @@ class ObjectTest {
 	void verifyObject() throws Exception {
 		TestTarget spec = spec(new TestTarget());
 		new StaticMethodInvoker(PactoMatchers.class, spec, argumentProvider()).invoke();
-		DslPart dslFrom = dslFrom(spec);
-
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		var root = new JsonObject();
-		root.add("body", parseString(dslFrom.toString()).getAsJsonObject());
-		root.add("matchingRules", gson.toJsonTree(new TreeMap<>(dslFrom.getMatchers().getMatchingRules())));
-		verifyAsJson(root);
+		verifyAsJson(toJson(dslFrom(spec)));
 	}
 
 	private static ArgumentProvider argumentProvider() {

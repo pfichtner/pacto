@@ -1,0 +1,16 @@
+{
+  "body": {
+    "testAttribute": 42
+  },
+  "matchingRules": {
+    ".testAttribute": {
+      "rules": [
+        {
+          "numberType": "INTEGER"
+        }
+      ],
+      "ruleLogic": "AND",
+      "cascaded": false
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "body": {
+    "testAttribute": true
+  },
+  "matchingRules": {
+    ".testAttribute": {
+      "rules": [
+        {}
+      ],
+      "ruleLogic": "AND",
+      "cascaded": false
+    }
+  }
+}
