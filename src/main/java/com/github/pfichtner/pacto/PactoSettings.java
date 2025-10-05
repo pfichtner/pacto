@@ -20,7 +20,7 @@ package com.github.pfichtner.pacto;
  * {@code long} value.</li>
  * </ul>
  *
- * <h1>Important: Matchers vs. Concrete Values</h1>
+ * Important: Matchers vs. Concrete Values
  * <p>
  * The mode is only relevant when you pass <em>concrete values</em>. If you use
  * a matcher, it always behaves according to the matcher itself, independent of
