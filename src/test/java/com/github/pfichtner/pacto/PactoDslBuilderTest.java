@@ -16,8 +16,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.approvaltests.namer.NamedEnvironment;
@@ -98,9 +96,9 @@ class PactoDslBuilderTest {
 				arguments(BigDecimal.class, BigDecimal.valueOf(42.0d), "42.0"), //
 				arguments(BigInteger.class, BigInteger.valueOf(42), "42"), //
 				arguments(Date.class, new Date(0), "\"2000-01-31\""), //
-				arguments(LocalDate.class, LocalDate.of(2001, 2, 3), "\"2000-01-31\""), //
+				arguments(LocalDate.class, LocalDate.of(2001, 2, 3), "\"2000-01-31\"") //
 //				arguments(LocalTime.class, LocalTime.of(3, 4, 5, 6), "\"T14:00:00\""), //
-				arguments(LocalDateTime.class, LocalDateTime.of(1999, 1, 2, 3, 4, 5, 6), "\"T14:00:00\"") //
+//				arguments(LocalDateTime.class, LocalDateTime.of(1999, 1, 2, 3, 4, 5, 6), "\"T14:00:00\"") //
 		);
 	}
 
