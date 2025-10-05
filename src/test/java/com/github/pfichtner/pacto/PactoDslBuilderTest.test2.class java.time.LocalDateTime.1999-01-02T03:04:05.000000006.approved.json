@@ -1,0 +1,16 @@
+{
+  "body": {
+    "testAttribute": "T14:00:00"
+  },
+  "matchingRules": {
+    ".testAttribute": {
+      "rules": [
+        {
+          "format": "\u0027T\u0027HH:mm:ss"
+        }
+      ],
+      "ruleLogic": "AND",
+      "cascaded": false
+    }
+  }
+}

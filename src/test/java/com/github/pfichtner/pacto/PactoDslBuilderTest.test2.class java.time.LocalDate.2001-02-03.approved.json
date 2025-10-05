@@ -1,0 +1,16 @@
+{
+  "body": {
+    "testAttribute": "2000-01-31"
+  },
+  "matchingRules": {
+    ".testAttribute": {
+      "rules": [
+        {
+          "format": "yyyy-MM-dd"
+        }
+      ],
+      "ruleLogic": "AND",
+      "cascaded": false
+    }
+  }
+}

@@ -7,7 +7,6 @@ import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.appendInvocations;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 import static org.approvaltests.Approvals.settings;
-import static org.approvaltests.Approvals.verify;
 import static org.approvaltests.JsonApprovals.verifyAsJson;
 import static org.approvaltests.namer.NamerFactory.withParameters;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,6 +14,10 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.approvaltests.namer.NamedEnvironment;
@@ -93,7 +96,11 @@ class PactoDslBuilderTest {
 				arguments(Boolean.class, true, "true"), //
 				arguments(BigDecimal.class, BigDecimal.valueOf(42), "42"), //
 				arguments(BigDecimal.class, BigDecimal.valueOf(42.0d), "42.0"), //
-				arguments(BigInteger.class, BigInteger.valueOf(42), "42") //
+				arguments(BigInteger.class, BigInteger.valueOf(42), "42"), //
+				arguments(Date.class, new Date(0), "\"2000-01-31\""), //
+				arguments(LocalDate.class, LocalDate.of(2001, 2, 3), "\"2000-01-31\""), //
+//				arguments(LocalTime.class, LocalTime.of(3, 4, 5, 6), "\"T14:00:00\""), //
+				arguments(LocalDateTime.class, LocalDateTime.of(1999, 1, 2, 3, 4, 5, 6), "\"T14:00:00\"") //
 		);
 	}
 
