@@ -26,12 +26,4 @@ public class DelegateInterceptor {
 		return result;
 	}
 
-	public Object getDelegate() {
-		return delegate;
-	}
-
-	public Recorder getRecorder() {
-		return recorder;
-	}
-
 }
