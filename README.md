@@ -218,6 +218,22 @@ pacto supports a rich set of matchers to make your contracts robust and expressi
 
 ---
 
+## 🚫 Limitations
+
+Due to JVM and Byte Buddy restrictions, there are some constraints:
+- Constructors cannot be intercepted
+ - Pacto creates subclass proxies to record method calls.
+ - Original constructor logic runs normally and cannot be intercepted or recorded.
+ - Example: new MyDto("Jon", "Doe") cannot have its constructor call recorded.
+
+- Records and final classes cannot be proxied (currently)
+ - Java records are final and have canonical constructors that cannot be overridden.
+ - Pacto does not currently support proxies for records or final classes. Theoretically, they could be proxied via JVM instrumentation or a Java agent, but this is not implemented.
+
+Implications for users:
+- DTOs to proxy must be non-final, non-record classes.  
+- Only method calls can be recorded; constructor execution cannot.
+
 ## Disadvantages / Drawbacks
 
 While **pacto** simplifies contract generation, there are a few considerations:  

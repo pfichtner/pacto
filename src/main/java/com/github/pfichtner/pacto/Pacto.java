@@ -4,6 +4,7 @@ import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_DELEGATE;
 import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_RECORDER;
 import static com.github.pfichtner.pacto.util.Reflections.copyFields;
 import static java.lang.String.format;
+import static java.util.Arrays.stream;
 import static net.bytebuddy.description.modifier.FieldManifestation.FINAL;
 import static net.bytebuddy.description.modifier.SyntheticState.SYNTHETIC;
 import static net.bytebuddy.description.modifier.Visibility.PRIVATE;
@@ -105,6 +106,7 @@ public class Pacto {
 	}
 
 	private static <T> Class<? extends T> proxyClass(Class<T> type) throws NoSuchMethodException, SecurityException {
+		Constructor<?> superConstructor = getConstructor(type);
 		return new ByteBuddy() //
 				.with(new NamingStrategy.SuffixingRandom("PactoProxy")) //
 				.subclass(type) //
@@ -112,7 +114,8 @@ public class Pacto {
 				.defineField(FIELDNAME_DELEGATE, type, PRIVATE, FINAL, FieldPersistence.TRANSIENT) //
 				.defineField(FIELDNAME_RECORDER, Recorder.class, PRIVATE, FINAL, FieldPersistence.TRANSIENT) //
 				.defineConstructor(PUBLIC).withParameters(type, Recorder.class).intercept( //
-						MethodCall.invoke(type.getDeclaredConstructor()) //
+						MethodCall.invoke(superConstructor) //
+								.with((Object[]) new Object[superConstructor.getParameterCount()]) //
 								.andThen(FieldAccessor.ofField(FIELDNAME_DELEGATE).setsArgumentAt(0)) //
 								.andThen(FieldAccessor.ofField(FIELDNAME_RECORDER).setsArgumentAt(1)) //
 				) //
@@ -133,6 +136,16 @@ public class Pacto {
 				.load(type.getClassLoader(), ClassLoadingStrategy.Default.INJECTION) //
 				.getLoaded() //
 		;
+	}
+
+	private static <T> Constructor<?> getConstructor(Class<T> type) {
+		return stream(type.getConstructors()).findFirst().or(() -> {
+			return stream(type.getDeclaredConstructors()).findFirst().map(c -> {
+				c.setAccessible(true);
+				return c;
+			});
+		}).orElseThrow(() -> new IllegalArgumentException(
+				String.format("Class %s must declare at least one accessible constructor", type.getName())));
 	}
 
 	public static <T> T like(T object) {
