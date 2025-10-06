@@ -1,6 +1,6 @@
 package com.github.pfichtner.pacto.matchers;
 
-import static com.github.pfichtner.pacto.MatcherRegistry.pullMatchers;
+import static com.github.pfichtner.pacto.MatcherRegistry.popMatchers;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
@@ -89,10 +89,10 @@ class PactoMatchersTest {
 	@PostCleanMatcherStack
 	void canCompileUrl() {
 		target.stringArg(matchUrl("http://localhost:8080"));
-		assertThat(pullMatchers()).singleElement().isInstanceOfSatisfying(MatchUrlArg.class,
+		assertThat(popMatchers()).singleElement().isInstanceOfSatisfying(MatchUrlArg.class,
 				m -> assertThat(m).hasToString("matchUrl(http://localhost:8080)"));
 		target.stringArg(matchUrl("http://localhost:8080", "foo", "bar"));
-		assertThat(pullMatchers()).singleElement().isInstanceOfSatisfying(MatchUrlArg.class,
+		assertThat(popMatchers()).singleElement().isInstanceOfSatisfying(MatchUrlArg.class,
 				m -> assertThat(m).hasToString("matchUrl(http://localhost:8080/foo/bar)"));
 	}
 
@@ -104,7 +104,7 @@ class PactoMatchersTest {
 		target.dateArg(time(format, new Date()));
 		target.localDateTimeArg(time(LocalDateTime.now()));
 		target.localDateTimeArg(time(format, LocalDateTime.now()));
-		assertThat(pullMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(TimeArg.class,
+		assertThat(popMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(TimeArg.class,
 				m2 -> assertThat(m2.value()).isEqualTo(format)));
 	}
 
@@ -116,7 +116,7 @@ class PactoMatchersTest {
 		target.dateArg(date(format, new Date()));
 		target.localDateArg(date(LocalDate.now()));
 		target.localDateArg(date(format, LocalDate.now()));
-		assertThat(pullMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(DateArg.class,
+		assertThat(popMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(DateArg.class,
 				m2 -> assertThat(m2.value()).isEqualTo(format)));
 	}
 
@@ -128,7 +128,7 @@ class PactoMatchersTest {
 		target.dateArg(datetime(format, new Date()));
 		target.localDateArg(datetime(LocalDate.now()));
 		target.localDateArg(datetime(format, LocalDate.now()));
-		assertThat(pullMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(DatetimeArg.class,
+		assertThat(popMatchers()).allSatisfy(m1 -> assertThat(m1).isInstanceOfSatisfying(DatetimeArg.class,
 				m2 -> assertThat(m2.value()).isEqualTo(format)));
 	}
 

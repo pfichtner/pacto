@@ -1,5 +1,7 @@
 package com.github.pfichtner.pacto;
 
+import static java.lang.Character.toLowerCase;
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -15,11 +17,11 @@ public class DefaultInvocation implements Invocation {
 
 	private final Object delegate;
 	private final Method method;
+	private final PactoMatcher<?> matcher;
 	private final Object arg;
 	private final Object result;
-	private final PactoMatcher<?> matcher;
 
-	public DefaultInvocation(Object delegate, Method method, Object arg, Object result, PactoMatcher<?> matcher) {
+	public DefaultInvocation(Object delegate, Method method, PactoMatcher<?> matcher, Object arg, Object result) {
 		this.delegate = delegate;
 		this.method = method;
 		this.arg = arg;
@@ -76,7 +78,7 @@ public class DefaultInvocation implements Invocation {
 				&& writeMethod.getParameterCount() == 1 //
 				&& writeMethod.getReturnType().isAssignableFrom(writeMethod.getDeclaringClass())) {
 			String property = writeMethod.getName().substring(3);
-			return Optional.of(Character.toLowerCase(property.charAt(0)) + property.substring(1));
+			return Optional.of(toLowerCase(property.charAt(0)) + property.substring(1));
 		}
 		return Optional.empty();
 	}
@@ -101,8 +103,8 @@ public class DefaultInvocation implements Invocation {
 
 	@Override
 	public String toString() {
-		return "DefaultInvocation [delegate=" + delegate + ", method=" + method + ", arg=" + arg + ", result=" + result
-				+ ", matcher=" + matcher + "]";
+		return "DefaultInvocation [delegate=" + delegate + ", method=" + method + ", matcher=" + matcher + ", arg="
+				+ arg + ", result=" + result + "]";
 	}
 
 }

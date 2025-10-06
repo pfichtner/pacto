@@ -1,5 +1,7 @@
 package com.github.pfichtner.pacto;
 
+import static java.util.stream.IntStream.range;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +18,14 @@ public class Recorder {
 	}
 
 	public void recordInterception(Object delegate, Method method, Object[] args, Object result) {
-		List<PactoMatcher<?>> matchers = MatcherRegistry.pullMatchers();
-		for (int i = 0; i < args.length; i++) {
-			PactoMatcher<?> matcher = i < matchers.size() ? matchers.get(i) : null;
-			invocations.add(new DefaultInvocation(delegate, method, args[i], result, matcher));
-		}
+		List<PactoMatcher<?>> matchers = MatcherRegistry.popMatchers();
+		range(0, args.length)
+				.mapToObj(i -> new DefaultInvocation(delegate, method, matcher(matchers, i), args[i], result))
+				.forEach(invocations::add);
+	}
+
+	private static PactoMatcher<?> matcher(List<PactoMatcher<?>> matchers, int index) {
+		return index < matchers.size() ? matchers.get(index) : null;
 	}
 
 	public PactoSettings settings() {

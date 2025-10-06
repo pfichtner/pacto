@@ -13,12 +13,16 @@ public class MatcherRegistry {
 		registry().add(matcher);
 	}
 
-	public static List<PactoMatcher<?>> pullMatchers() {
+	public static List<PactoMatcher<?>> popMatchers() {
 		try {
-			return List.copyOf(registry());
+			return pullMatchers();
 		} finally {
 			reset();
 		}
+	}
+
+	public static List<PactoMatcher<?>> pullMatchers() {
+		return List.copyOf(registry());
 	}
 
 	public static void reset() {
