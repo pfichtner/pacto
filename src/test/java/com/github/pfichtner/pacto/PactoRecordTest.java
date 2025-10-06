@@ -9,6 +9,8 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import com.github.pfichtner.pacto.matchers.PostCleanMatcherStack;
+
 class PactoRecordTest {
 
 	static record MyRecord(String givenName, String lastName) {
@@ -23,6 +25,7 @@ class PactoRecordTest {
 	}
 
 	@Test
+	@PostCleanMatcherStack
 	@Disabled
 	// Would need class transformation (remove final modifier) like
 	// InlineMockMaker/InlineByteBuddyMockMaker
@@ -32,12 +35,14 @@ class PactoRecordTest {
 	}
 
 	@Test
+	@PostCleanMatcherStack
 	void canCreateClassWithNoNoArgConstructor() {
 		// we can't intercept the constructor but we can create at least the (sub)class
 		assertThatNoException().isThrownBy(() -> spec(new MyDtoWithConstrucor(stringType("Jon"), stringType("Doe"))));
 	}
 
 	@Test
+	@PostCleanMatcherStack
 	@Disabled
 	// we cannot intercept a constructor at the moment it is invoked for an
 	// already-compiled class, unless that class itself has been instrumented before
