@@ -1,5 +1,7 @@
 package com.github.pfichtner.pacto.util;
 
+import static java.lang.reflect.Modifier.isFinal;
+
 import java.lang.reflect.Field;
 
 public final class Reflections {
@@ -12,8 +14,10 @@ public final class Reflections {
 		Class<?> clazz = source.getClass();
 		while (clazz != null) {
 			for (Field field : clazz.getDeclaredFields()) {
-				field.setAccessible(true);
-				field.set(target, field.get(source));
+				if (!isFinal(field.getModifiers())) {
+					field.setAccessible(true);
+					field.set(target, field.get(source));
+				}
 			}
 			clazz = clazz.getSuperclass();
 		}
