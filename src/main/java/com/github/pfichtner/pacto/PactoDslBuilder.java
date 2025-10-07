@@ -177,10 +177,11 @@ public final class PactoDslBuilder {
 
 	private static PactDslJsonBody stringMatcher(Invocation invocation, PactDslJsonBody body,
 			StringMatcherArg matcher) {
-		String value = matcher.value();
-		return value == null //
-				? body.stringMatcher(invocation.attribute(), matcher.regex()) //
-				: body.stringMatcher(invocation.attribute(), matcher.regex(), value);
+		String example = matcher.example();
+		String regex = matcher.value().pattern();
+		return example == null //
+				? body.stringMatcher(invocation.attribute(), regex) //
+				: body.stringMatcher(invocation.attribute(), regex, example);
 	}
 
 	private static PactDslJsonBody each(Invocation invocation, PactDslJsonBody body, EachLikeArg eachLike) {

@@ -2,27 +2,33 @@ package com.github.pfichtner.pacto.matchers;
 
 import static java.lang.String.format;
 
-public class StringMatcherArg extends PactoMatcher<String> {
+import java.util.regex.Pattern;
 
-	private final String regex;
+public class StringMatcherArg extends PactoMatcher<Pattern> {
+
+	private String example;
 
 	public StringMatcherArg(String regex) {
+		this(Pattern.compile(regex));
+	}
+
+	public StringMatcherArg(Pattern regex) {
 		this(regex, null);
+		withToStringFormat("stringMatcher(%s)");
 	}
 
-	public StringMatcherArg(String regex, String value) {
-		super(value);
-		this.regex = regex;
+	public StringMatcherArg(String regex, String example) {
+		this(Pattern.compile(regex), example);
 	}
 
-	public String regex() {
-		return regex;
+	public StringMatcherArg(Pattern regex, String example) {
+		super(regex);
+		this.example = example;
+		withToStringFormat(format("stringMatcher(%%s,%s)", example));
 	}
 
-	@Override
-	public String toString() {
-		String value = value();
-		return value == null ? format("stringMatcher(%s)", regex) : format("stringMatcher(%s,%s)", regex, value);
+	public String example() {
+		return example;
 	}
 
 }
