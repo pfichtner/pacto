@@ -10,5 +10,6 @@
       "ruleLogic": "AND",
       "cascaded": false
     }
-  }
+  },
+  "generators": "Generators(categories\u003d{})"
 }

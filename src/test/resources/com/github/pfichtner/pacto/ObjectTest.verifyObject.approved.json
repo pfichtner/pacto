@@ -290,6 +290,9 @@
         {
           "regex": "aBWle5vMBjBe0b6WYM3FhJRPnFMszD5k"
         },
+        {
+          "regex": "aBWle5vMBjBe0b6WYM3FhJRPnFMszD5k"
+        },
         {},
         {},
         {
@@ -332,5 +335,6 @@
       "ruleLogic": "AND",
       "cascaded": false
     }
-  }
+  },
+  "generators": "Generators(categories\u003d{BODY\u003d{.objectArg\u003dDateGenerator(format\u003dyyyy-MM-dd, expression\u003dnull), .uuidArg\u003dUuidGenerator(format\u003dnull)}})"
 }
