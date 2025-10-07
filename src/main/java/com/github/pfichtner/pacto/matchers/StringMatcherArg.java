@@ -7,8 +7,7 @@ public class StringMatcherArg extends PactoMatcher<String> {
 	private final String regex;
 
 	public StringMatcherArg(String regex) {
-		super(null);
-		this.regex = regex;
+		this(regex, null);
 	}
 
 	public StringMatcherArg(String regex, String value) {

@@ -176,11 +176,11 @@ public final class PactoDslBuilder {
 			x(EachLikeArg.class, (i, b, m) -> each(i, b, m)));
 
 	private static PactDslJsonBody stringMatcher(Invocation invocation, PactDslJsonBody body,
-			StringMatcherArg stringMatcher) {
-		String value = stringMatcher.value();
+			StringMatcherArg matcher) {
+		String value = matcher.value();
 		return value == null //
-				? body.stringMatcher(invocation.attribute(), stringMatcher.regex()) //
-				: body.stringMatcher(invocation.attribute(), stringMatcher.regex(), value);
+				? body.stringMatcher(invocation.attribute(), matcher.regex()) //
+				: body.stringMatcher(invocation.attribute(), matcher.regex(), value);
 	}
 
 	private static PactDslJsonBody each(Invocation invocation, PactDslJsonBody body, EachLikeArg eachLike) {
