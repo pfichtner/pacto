@@ -21,7 +21,8 @@ public class StringMatcherArg extends PactoMatcher<String> {
 
 	@Override
 	public String toString() {
-		return format("stringMatcher(%s,%s)", regex, value());
+		String value = value();
+		return value == null ? format("stringMatcher(%s)", regex) : format("stringMatcher(%s,%s)", regex, value);
 	}
 
 }

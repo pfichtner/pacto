@@ -1,0 +1,17 @@
+{
+  "body": {
+    "stringArg": "$$stringArg$$"
+  },
+  "matchingRules": {
+    ".stringArg": {
+      "rules": [
+        {
+          "regex": "EUR|USD"
+        }
+      ],
+      "ruleLogic": "AND",
+      "cascaded": false
+    }
+  },
+  "generators": "Generators(categories\u003d{BODY\u003d{.stringArg\u003dRegexGenerator(regex\u003dEUR|USD)}})"
+}
