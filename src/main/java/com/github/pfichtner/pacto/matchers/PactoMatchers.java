@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.github.pfichtner.pacto.MatcherRegistry;
+import com.mifmif.common.regex.Generex;
 
 /**
  * Provides static methods for defining Pact matchers from DTOs.
@@ -96,6 +97,17 @@ public final class PactoMatchers {
 	public static String stringType(String in) {
 		reportMatcher(new StringTypeArg(in));
 		return in;
+	}
+
+	/**
+	 * Matches strings according to a regular expression.
+	 *
+	 * @param regex regex pattern
+	 * @return random value generated on base of the regex
+	 */
+	public static String stringMatcher(String regex) {
+		reportMatcher(new StringMatcherArg(regex));
+		return new Generex(regex).random();
 	}
 
 	/**

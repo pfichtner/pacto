@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
 

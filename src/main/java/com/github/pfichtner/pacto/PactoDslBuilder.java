@@ -159,7 +159,7 @@ public final class PactoDslBuilder {
 			x(EqualsToArg.class, (i, b, m) -> b.equalTo(i.attribute(), m.value())), //
 			x(BooleanTypeArg.class, (i, b, m) -> b.booleanType(i.attribute(), m.value())), //
 			x(BooleanValueArg.class, (i, b, m) -> b.booleanValue(i.attribute(), m.value())), //
-			x(StringMatcherArg.class, (i, b, m) -> b.stringMatcher(i.attribute(), m.regex(), m.value())), //
+			x(StringMatcherArg.class, (i, b, m) -> stringMatcher(i, b, m)), //
 			x(StringTypeArg.class, (i, b, m) -> b.stringType(i.attribute(), m.value())), //
 			x(IncludeStrArg.class, (i, b, m) -> b.includesStr(i.attribute(), m.value())), //
 			x(HexValueArg.class, (i, b, m) -> b.hexValue(i.attribute(), m.value())), //
@@ -174,6 +174,14 @@ public final class PactoDslBuilder {
 			x(DateArg.class, (i, b, m) -> b.date(i.attribute(), m.value(), m.example())), //
 			x(DatetimeArg.class, (i, b, m) -> b.datetime(i.attribute(), m.value(), m.example())), //
 			x(EachLikeArg.class, (i, b, m) -> each(i, b, m)));
+
+	private static PactDslJsonBody stringMatcher(Invocation invocation, PactDslJsonBody body,
+			StringMatcherArg stringMatcher) {
+		String value = stringMatcher.value();
+		return value == null //
+				? body.stringMatcher(invocation.attribute(), stringMatcher.regex()) //
+				: body.stringMatcher(invocation.attribute(), stringMatcher.regex(), value);
+	}
 
 	private static PactDslJsonBody each(Invocation invocation, PactDslJsonBody body, EachLikeArg eachLike) {
 		DslPart dslPart = dslFrom(eachLike.value());
