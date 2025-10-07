@@ -13,5 +13,5 @@
       "cascaded": false
     }
   },
-  "generators": "Generators(categories\u003d{})"
+  "generators": "Generators(categories\u003d{BODY\u003d{.stringArg\u003dRegexGenerator(regex\u003dEUR|USD)}})"
 }

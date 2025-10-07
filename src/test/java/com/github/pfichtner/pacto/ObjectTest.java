@@ -74,6 +74,10 @@ class ObjectTest {
 				return List.of();
 			} else if (Set.class.isAssignableFrom(t)) {
 				return Set.of();
+			} else if (t.isEnum()) {
+				@SuppressWarnings("unchecked")
+				Class<Enum<?>> enumClass = (Class<Enum<?>>) t;
+				return random.enumValue(enumClass);
 			} else {
 				return spec(new Foo());
 			}

@@ -8,15 +8,10 @@ public class StringMatcherArg extends PactoMatcher<Pattern> {
 
 	private String example;
 
-	public StringMatcherArg(Pattern regex) {
-		this(regex, null);
-		withToStringFormat("stringMatcher(%s)");
-	}
-
 	public StringMatcherArg(Pattern regex, String example) {
 		super(regex);
 		this.example = example;
-		withToStringFormat(format("stringMatcher(%%s,%s)", example));
+		withToStringFormat(this.example == null ? "stringMatcher(%s)" : format("stringMatcher(%%s,%s)", example));
 	}
 
 	public String example() {

@@ -134,6 +134,11 @@ public class DeterministicDataFactory {
 		return fromTo(0, 59);
 	}
 
+	public <T extends Enum<?>> T enumValue(Class<T> enumClass) {
+		T[] enumConstants = enumClass.getEnumConstants();
+		return enumConstants[fromTo(0, enumConstants.length)];
+	}
+
 	private int fromTo(int min, int max) {
 		return random.nextInt(max - min + 1) + min;
 	}

@@ -100,25 +100,61 @@ public final class PactoMatchers {
 		return in;
 	}
 
+	public static enum StringMatcherMode {
+		/**
+		 * an example will get chosen and written to the contract's body
+		 */
+		FIXED_EXAMPLE_VALUE {
+			@Override
+			String stringMatcher(Pattern regex, String example) {
+				return PactoMatchers.stringMatcher(regex, example);
+			}
+		},
+		/**
+		 * no example will be chosen, so each time the body gets generated the example
+		 * might be different to the example created and returned.
+		 */
+		RANDOM_VALUE {
+			@Override
+			String stringMatcher(Pattern regex, String ____) {
+				return PactoMatchers.stringMatcher(regex, (String) null);
+			}
+		};
+
+		abstract String stringMatcher(Pattern regex, String example);
+	}
+
 	/**
-	 * Matches strings according to a regular expression.
+	 * Matches strings according to a regular expression. An example value gets
+	 * created and returned but not written to the contract.
 	 *
 	 * @param regex regex pattern
 	 * @return random value generated on base of the regex
 	 */
 	public static String stringMatcher(String regex) {
-		return stringMatcher(Pattern.compile(regex));
+		return stringMatcher(Pattern.compile(regex), StringMatcherMode.RANDOM_VALUE);
 	}
 
 	/**
 	 * Matches strings according to a regular expression.
 	 *
 	 * @param regex regex pattern
+	 * @param mode  mode for the example value
 	 * @return random value generated on base of the regex
 	 */
-	public static String stringMatcher(Pattern regex) {
-		reportMatcher(new StringMatcherArg(regex));
-		return new Generex(regex.pattern()).random();
+	public static String stringMatcher(String regex, StringMatcherMode mode) {
+		return stringMatcher(Pattern.compile(regex), mode);
+	}
+
+	/**
+	 * Matches strings according to a regular expression.
+	 *
+	 * @param regex regex pattern
+	 * @param mode  mode for the example value
+	 * @return random value generated on base of the regex
+	 */
+	public static String stringMatcher(Pattern regex, StringMatcherMode mode) {
+		return mode.stringMatcher(regex, new Generex(regex.pattern()).random());
 	}
 
 	/**

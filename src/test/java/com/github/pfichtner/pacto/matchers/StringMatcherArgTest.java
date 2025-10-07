@@ -6,6 +6,8 @@ import static com.github.pfichtner.pacto.Pacto.recorder;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringMatcher;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.StringMatcherMode.FIXED_EXAMPLE_VALUE;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.StringMatcherMode.RANDOM_VALUE;
 import static org.approvaltests.JsonApprovals.verifyAsJson;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,8 +26,16 @@ class StringMatcherArgTest {
 	}
 
 	@Test
-	void regexOnly() {
-		target.stringArg(stringMatcher("EUR|USD"));
+	void regexOnlyFixedValue() {
+		target.stringArg(stringMatcher("EUR|USD", FIXED_EXAMPLE_VALUE));
+		assertThat(recorder(target).invocations()).singleElement()
+				.satisfies(i -> assertThat(i.matcher().toString()).matches("stringMatcher\\(EUR\\|USD\\,.{3}\\)"));
+		verifyAsJson(scrubBodyStringArg(toJson(dslFrom(target))));
+	}
+
+	@Test
+	void regexOnlyRandomValue() {
+		target.stringArg(stringMatcher("EUR|USD", RANDOM_VALUE));
 		assertThat(recorder(target).invocations()).singleElement()
 				.satisfies(i -> assertThat(i.matcher()).hasToString("stringMatcher(EUR|USD)"));
 		verifyAsJson(scrubBodyStringArg(toJson(dslFrom(target))));
