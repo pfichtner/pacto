@@ -102,7 +102,7 @@ public final class PactoMatchers {
 
 	public static enum StringMatcherMode {
 		/**
-		 * an example will get chosen and written to the contract's body
+		 * an example will get chosen and written to the contract's body.
 		 */
 		FIXED_EXAMPLE_VALUE {
 			@Override
@@ -116,8 +116,9 @@ public final class PactoMatchers {
 		 */
 		RANDOM_VALUE {
 			@Override
-			String stringMatcher(Pattern regex, String ____) {
-				return PactoMatchers.stringMatcher(regex, (String) null);
+			String stringMatcher(Pattern regex, String example) {
+				PactoMatchers.stringMatcher(regex, (String) null);
+				return example;
 			}
 		};
 
