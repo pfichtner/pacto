@@ -1,6 +1,6 @@
 package com.github.pfichtner.pacto.matchers;
 
-import static com.github.pfichtner.pacto.ApprovalsHelper.scrubBodyStringArg;
+import static com.github.pfichtner.pacto.ApprovalsHelper.scrubWithJsonPath;
 import static com.github.pfichtner.pacto.ApprovalsHelper.toJson;
 import static com.github.pfichtner.pacto.Pacto.recorder;
 import static com.github.pfichtner.pacto.Pacto.spec;
@@ -30,7 +30,7 @@ class StringMatcherArgTest {
 		target.stringArg(stringMatcher("EUR|USD", FIXED_EXAMPLE_VALUE));
 		assertThat(recorder(target).invocations()).singleElement()
 				.satisfies(i -> assertThat(i.matcher().toString()).matches("stringMatcher\\(EUR\\|USD\\,.{3}\\)"));
-		verifyAsJson(scrubBodyStringArg(toJson(dslFrom(target))));
+		verifyAsJson(scrubWithJsonPath(toJson(dslFrom(target)), "$.body.stringArg", "$$stringArg$$"));
 	}
 
 	@Test
@@ -38,7 +38,7 @@ class StringMatcherArgTest {
 		target.stringArg(stringMatcher("EUR|USD", RANDOM_VALUE));
 		assertThat(recorder(target).invocations()).singleElement()
 				.satisfies(i -> assertThat(i.matcher()).hasToString("stringMatcher(EUR|USD)"));
-		verifyAsJson(scrubBodyStringArg(toJson(dslFrom(target))));
+		verifyAsJson(scrubWithJsonPath(toJson(dslFrom(target)), "$.body.stringArg", "$$stringArg$$"));
 	}
 
 }
