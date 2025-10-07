@@ -29,7 +29,7 @@ class StringMatcherArgTest {
 	void regexOnlyFixedValue() {
 		target.stringArg(stringMatcher("EUR|USD", FIXED_EXAMPLE_VALUE));
 		assertThat(recorder(target).invocations()).singleElement()
-				.satisfies(i -> assertThat(i.matcher().toString()).matches("stringMatcher\\(EUR\\|USD\\,.{3}\\)"));
+				.satisfies(i -> assertThat(i.matcher().toString()).matches("stringMatcher\\(EUR\\|USD\\,(EUR|USD)\\)"));
 		verifyAsJson(scrubWithJsonPath(toJson(dslFrom(target)), "$.body.stringArg", "$$stringArg$$"));
 	}
 
