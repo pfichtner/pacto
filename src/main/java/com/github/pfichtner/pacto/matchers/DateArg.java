@@ -12,16 +12,11 @@ public class DateArg extends PactoMatcher<String> {
 	public DateArg(String format, Date example) {
 		super(format);
 		this.example = example;
+		withToStringFormat(format("date(%%s,%s)", new SimpleDateFormat(value()).format(example)));
 	}
 
 	public Date example() {
 		return example;
-	}
-
-	@Override
-	public String toString() {
-		var formatter = new SimpleDateFormat(value());
-		return format("date(%s,%s)", value(), formatter.format(example));
 	}
 
 }

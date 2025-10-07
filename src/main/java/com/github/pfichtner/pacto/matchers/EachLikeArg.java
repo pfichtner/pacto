@@ -1,5 +1,7 @@
 package com.github.pfichtner.pacto.matchers;
 
+import static java.lang.String.format;
+
 public class EachLikeArg extends PactoMatcher<Object> {
 
 	private Integer max;
@@ -30,13 +32,13 @@ public class EachLikeArg extends PactoMatcher<Object> {
 	@Override
 	public String toString() {
 		if (min != null && max != null) {
-			return String.format("minMaxArrayLike(%s, %d, %d)", value(), min, max);
+			return format("minMaxArrayLike(%s, %d, %d)", value(), min, max);
 		} else if (max != null) {
-			return String.format("maxArrayLike(%s, %d)", value(), max);
+			return format("maxArrayLike(%s, %d)", value(), max);
 		} else if (min != null) {
-			return String.format("minArrayLike(%s, %d)", value(), min);
+			return format("minArrayLike(%s, %d)", value(), min);
 		} else {
-			return String.format("eachLike(%s)", value());
+			return format("eachLike(%s)", value());
 		}
 	}
 
