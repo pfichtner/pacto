@@ -15,7 +15,7 @@ public class TestTarget {
 	private static final List<String> someData1 = List.of();
 	static final List<String> someData2 = List.of("1");
 	protected static final List<String> someData3 = List.of("1", "2", "3");
-	public static final List<String> somData4 = List.of("1", "2", "3", "4", "5");
+	public static final List<String> someData4 = List.of("1", "2", "3", "4", "5");
 
 	public void objectArg(Object value) {
 	}

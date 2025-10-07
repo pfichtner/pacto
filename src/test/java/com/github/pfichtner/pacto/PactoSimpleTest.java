@@ -8,6 +8,9 @@ import static com.github.pfichtner.pacto.Pacto.withSettings;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import com.github.pfichtner.pacto.matchers.TestTarget;
@@ -96,6 +99,21 @@ class PactoSimpleTest {
 
 		DslPart expected = new PactDslJsonBody().equalTo("objectArg", value);
 		assertThatDslPart(dslFrom(spec)).isEqualToDslPart(expected);
+	}
+
+	@Test
+	void doesCopyConstantFields() throws Exception {
+		TestTarget spec = spec(new TestTarget());
+		assertThat(access(spec, "someData4")).isEqualTo(List.of("1", "2", "3", "4", "5"));
+		assertThat(access(spec, "someData3")).isEqualTo(List.of("1", "2", "3"));
+		assertThat(access(spec, "someData2")).isEqualTo(List.of("1"));
+		assertThat(access(spec, "someData1")).isEqualTo(List.of());
+	}
+
+	private Object access(TestTarget object, String name) throws NoSuchFieldException, IllegalAccessException {
+		Field field = TestTarget.class.getDeclaredField(name);
+		field.setAccessible(true);
+		return field.get(object);
 	}
 
 	private static PactoSettings lenient() {
