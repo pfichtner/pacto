@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import com.github.pfichtner.pacto.MatcherRegistry;
 import com.mifmif.common.regex.Generex;
@@ -106,8 +107,18 @@ public final class PactoMatchers {
 	 * @return random value generated on base of the regex
 	 */
 	public static String stringMatcher(String regex) {
+		return stringMatcher(Pattern.compile(regex));
+	}
+
+	/**
+	 * Matches strings according to a regular expression.
+	 *
+	 * @param regex regex pattern
+	 * @return random value generated on base of the regex
+	 */
+	public static String stringMatcher(Pattern regex) {
 		reportMatcher(new StringMatcherArg(regex));
-		return new Generex(regex).random();
+		return new Generex(regex.pattern()).random();
 	}
 
 	/**
@@ -118,6 +129,17 @@ public final class PactoMatchers {
 	 * @return same string
 	 */
 	public static String stringMatcher(String regex, String in) {
+		return stringMatcher(Pattern.compile(regex), in);
+	}
+
+	/**
+	 * Matches strings according to a regular expression.
+	 *
+	 * @param regex regex pattern
+	 * @param in    example string
+	 * @return same string
+	 */
+	public static String stringMatcher(Pattern regex, String in) {
 		reportMatcher(new StringMatcherArg(regex, in));
 		return in;
 	}
