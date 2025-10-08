@@ -7,6 +7,7 @@ import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.Pacto.withSettings;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -101,19 +102,27 @@ class PactoSimpleTest {
 		assertThatDslPart(dslFrom(spec)).isEqualToDslPart(expected);
 	}
 
+	@SuppressWarnings("static-access")
 	@Test
 	void doesCopyConstantFields() throws Exception {
 		TestTarget spec = spec(new TestTarget());
-		assertThat(access(spec, "someData4")).isEqualTo(List.of("1", "2", "3", "4", "5"));
-		assertThat(access(spec, "someData3")).isEqualTo(List.of("1", "2", "3"));
-		assertThat(access(spec, "someData2")).isEqualTo(List.of("1"));
+		assertThat(spec.someStaticData4).isEqualTo(List.of("1", "2", "3", "4", "5"));
+		assertThat(access(spec, "someStaticData4")).isEqualTo(List.of("1", "2", "3", "4", "5"));
+		assertThat(access(spec, "someStaticData3")).isEqualTo(List.of("1", "2", "3"));
+		assertThat(access(spec, "someStaticData2")).isEqualTo(List.of("1"));
+		assertThat(access(spec, "someStaticData1")).isEqualTo(List.of());
+
+		assertThat(spec.someData4).isEqualTo(List.of("A", "B", "C", "D", "E"));
+		assertThat(access(spec, "someData4")).isEqualTo(List.of("A", "B", "C", "D", "E"));
+		assertThat(access(spec, "someData3")).isEqualTo(List.of("A", "B", "C"));
+		assertThat(access(spec, "someData2")).isEqualTo(List.of("A"));
 		assertThat(access(spec, "someData1")).isEqualTo(List.of());
 	}
 
-	private Object access(TestTarget object, String name) throws NoSuchFieldException, IllegalAccessException {
-		Field field = TestTarget.class.getDeclaredField(name);
+	private Object access(TestTarget source, String fieldname) throws Exception {
+		Field field = TestTarget.class.getDeclaredField(fieldname);
 		field.setAccessible(true);
-		return field.get(object);
+		return field.get(source);
 	}
 
 	private static PactoSettings lenient() {
