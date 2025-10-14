@@ -139,13 +139,15 @@ public class Pacto {
 	}
 
 	private static <T> Constructor<?> getConstructor(Class<T> type) {
-		return stream(type.getConstructors()).findFirst().or(() -> {
-			return stream(type.getDeclaredConstructors()).findFirst().map(c -> {
-				c.setAccessible(true);
-				return c;
-			});
-		}).orElseThrow(() -> new IllegalArgumentException(
-				String.format("Class %s must declare at least one accessible constructor", type.getName())));
+		return stream(type.getConstructors()).findFirst().or(() -> //
+		stream(type.getDeclaredConstructors()).findFirst().map(c -> makeAccessible(c)))
+				.orElseThrow(() -> new IllegalArgumentException(
+						String.format("Class %s must declare at least one accessible constructor", type.getName())));
+	}
+
+	private static Constructor<?> makeAccessible(Constructor<?> c) {
+		c.setAccessible(true);
+		return c;
 	}
 
 	public static <T> T like(T object) {
