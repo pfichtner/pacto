@@ -65,7 +65,7 @@ public class Pacto {
 
 	/**
 	 * Wraps a DTO with a proxy that records method invocations and matcher
-	 * arguments.
+	 * arguments. If the argument is already wrapped a copy is returned.  
 	 *
 	 * @param intercept the original DTO to wrap
 	 * @param <T>       the type of the DTO
@@ -87,12 +87,14 @@ public class Pacto {
 	 * @throws RuntimeException if proxy creation fails
 	 */
 	public static <T> T spec(T intercept, PactoSettings settings) {
-		if (isSpec(intercept)) {
-			throw new IllegalArgumentException(format("%s already wrapped as spec", intercept));
-		}
+		return isSpec(intercept) //
+				? newInstance(delegate(intercept), recorder(intercept).copy()) //
+				: newInstance(intercept, new Recorder(settings));
+	}
+
+	private static <T> T newInstance(T intercept, Recorder recorder) {
 		@SuppressWarnings("unchecked")
 		Class<T> type = (Class<T>) intercept.getClass();
-		Recorder recorder = new Recorder(settings);
 		try {
 			return copyFields(intercept, constructor(type, recorder.getClass()).newInstance(intercept, recorder));
 		} catch (Exception e) {

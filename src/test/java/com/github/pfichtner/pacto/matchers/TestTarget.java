@@ -26,7 +26,7 @@ public class TestTarget {
 	public void objectArg(Object value) {
 	}
 
-	void stringArg(String value) {
+	public void stringArg(String value) {
 	}
 
 	void floatArg(float value) {

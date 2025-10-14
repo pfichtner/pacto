@@ -10,11 +10,16 @@ import com.github.pfichtner.pacto.matchers.PactoMatcher;
 
 public class Recorder {
 
-	private final List<Invocation> invocations = new ArrayList<>();
 	private final PactoSettings settings;
+	private final List<Invocation> invocations;
 
 	public Recorder(PactoSettings settings) {
+		this(settings, new ArrayList<>());
+	}
+
+	private Recorder(PactoSettings settings, List<Invocation> invocations) {
 		this.settings = settings;
+		this.invocations = invocations;
 	}
 
 	public void recordInterception(Object delegate, Method method, Object[] args, Object result) {
@@ -34,6 +39,10 @@ public class Recorder {
 
 	public List<Invocation> invocations() {
 		return List.copyOf(invocations);
+	}
+
+	public Recorder copy() {
+		return new Recorder(settings, new ArrayList<>(invocations));
 	}
 
 }

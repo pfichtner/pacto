@@ -52,10 +52,11 @@ public class PactoTest {
 	}
 
 	@Test
-	void testNestedSpec() {
-		assertThatRuntimeException().isThrownBy(() -> {
-			spec(spec(dto));
-		});
+	void testSpecCopy() {
+		Object origin = spec(dto);
+		Object copy = spec(origin);
+		assertThat(origin).isNotSameAs(copy);
+		assertThat(origin).usingRecursiveComparison().isEqualTo(copy);
 	}
 
 	@Test

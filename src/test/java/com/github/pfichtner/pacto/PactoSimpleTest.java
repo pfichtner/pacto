@@ -2,12 +2,13 @@ package com.github.pfichtner.pacto;
 
 import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.Pacto.delegate;
+import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.like;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.Pacto.withSettings;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -117,6 +118,18 @@ class PactoSimpleTest {
 		assertThat(access(spec, "someData3")).isEqualTo(List.of("A", "B", "C"));
 		assertThat(access(spec, "someData2")).isEqualTo(List.of("A"));
 		assertThat(access(spec, "someData1")).isEqualTo(List.of());
+	}
+
+	@Test
+	void testSpecOfSpec() {
+		TestTarget specOrigin = spec(new TestTarget());
+		specOrigin.objectArg(stringType("a string is an object"));
+		TestTarget specCopy = spec(specOrigin);
+		assertThat(specOrigin).usingRecursiveComparison().isEqualTo(specCopy);
+
+		specCopy.stringArg("another string");
+		assertThat(invocations(specOrigin).invocations()).hasSize(1);
+		assertThat(invocations(specCopy).invocations()).hasSize(2);
 	}
 
 	private Object access(TestTarget source, String fieldname) throws Exception {

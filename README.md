@@ -97,44 +97,29 @@ RequestResponsePact pact = ConsumerPactBuilder
 
 If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update both places or your contract drifts out of sync.  
 
-**✅ With pacto (no duplication):**  
+**✅ With pacto:**  
 
 ```java
+PersonDTO person = spec(new PersonDTO())
+	.givenname(stringMatcher("G.*", "Givenname1"))
+	.lastname(stringMatcher("L.*", "Lastname1"))
+	.age(integerType(42))
+	.address(
+	    like(new AddressDTO())
+	        .zip(12345)
+	        .city("City")
+	);
+
 RequestResponsePact pact = ConsumerPactBuilder
     .consumer("SomeConsumer")
     .hasPactWith("SomeProvider")
     .uponReceiving("POST /person")
     .path("/person")
     .method("POST")
-    .body(
-        dslFrom(
-            spec(new PersonDTO())
-                .givenname(stringMatcher("G.*", "Givenname1"))
-                .lastname(stringMatcher("L.*", "Lastname1"))
-                .age(integerType(42))
-                .address(
-                    like(new AddressDTO())
-                        .zip(12345)
-                        .city("City")
-                )
-        )
-    )
+    .body(dslFrom(person))
     .willRespondWith()
     .status(200)
-    .body(
-        dslFrom(
-            spec(new PersonDTO())
-                .id(id(123))
-                .givenname(stringType("Givenname1"))
-                .lastname(stringType("Lastname1"))
-                .age(integerType(42))
-                .address(
-                    like(new AddressDTO())
-                        .zip(12345)
-                        .city("City")
-                )
-        )
-    )
+    .body(dslFrom(spec(person).id(id(123))))
     .toPact();
 ```
 
