@@ -9,11 +9,10 @@ public class MatchUrlArg extends PactoMatcher<String> {
 	public MatchUrlArg(String basePath, String... pathFragments) {
 		super(basePath);
 		this.pathFragments = pathFragments.clone();
-		if (pathFragments.length == 0) {
-			withToStringFormat("matchUrl(%s)");
-		} else {
-			withToStringFormat(format("matchUrl(%%s/%s)", String.join("/", pathFragments)));
-		}
+		withToStringFormat(pathFragments.length == 0 //
+				? "matchUrl(%s)" //
+				: format("matchUrl(%%s/%s)", String.join("/", pathFragments)) //
+		);
 	}
 
 	public Object[] pathFragments() {
