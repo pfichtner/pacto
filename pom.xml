@@ -4,7 +4,7 @@
     
     <groupId>io.github.pfichtner</groupId>
     <artifactId>pacto</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8-SNAPSHOT</version>
     <name>Pacto</name>
     <description>Java library that allows you to generate Pact contracts directly from your Data Transfer Objects (DTOs)</description>
     <url>https://github.com/pfichtner/pacto</url>
