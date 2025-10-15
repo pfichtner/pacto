@@ -72,8 +72,8 @@ RequestResponsePact pact = ConsumerPactBuilder
     .path("/person")
     .method("POST")
     .body(new PactDslJsonBody()
-        .stringMatcher("givenname", "G.*", "Givenname1")
-        .stringMatcher("lastname", "L.*", "Lastname1")
+        .stringMatcher("givenname", "[A-Za-z'- ]{2,128}", "Givenname")
+        .stringMatcher("lastname", "[A-Za-z'- ]{2,64}", "Lastname")
         .integerType("age", 42)
         .object("address")
             .integerType("zip", 12345)
@@ -84,8 +84,8 @@ RequestResponsePact pact = ConsumerPactBuilder
     .status(200)
     .body(new PactDslJsonBody()
         .id("id", 123)
-        .stringType("givenname", "Givenname1")
-        .stringType("lastname", "Lastname1")
+        .stringType("givenname", "[A-Za-z'- ]{2,128}", "Givenname")
+        .stringType("lastname", "[A-Za-z'- ]{2,64}", "Lastname")
         .integerType("age", 42)
         .object("address")
             .integerType("zip", 12345)
@@ -101,8 +101,8 @@ If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update bo
 
 ```java
 PersonDTO person = spec(new PersonDTO())
-	.givenname(stringMatcher("G.*", "Givenname1"))
-	.lastname(stringMatcher("L.*", "Lastname1"))
+	.givenname(stringMatcher("[A-Za-z'- ]{2,128}", "Givenname"))
+	.lastname(stringMatcher("[A-Za-z'- ]{2,64}", "Lastname"))
 	.age(integerType(42))
 	.address(
 	    like(new AddressDTO())
