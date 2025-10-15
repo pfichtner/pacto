@@ -167,7 +167,7 @@ pacto is available on Maven Central. You can include it as a dependency:
 <dependency>
   <groupId>io.github.pfichtner</groupId>
   <artifactId>pacto</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
 </dependency>
 ```
 
