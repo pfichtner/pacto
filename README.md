@@ -77,7 +77,7 @@ RequestResponsePact pact = ConsumerPactBuilder
         .integerType("age", 42)
         .object("address")
             .integerType("zip", 12345)
-            .stringType("city", "City")
+            .stringType("city", "Berlin")
         .closeObject()
     )
     .willRespondWith()
@@ -89,7 +89,7 @@ RequestResponsePact pact = ConsumerPactBuilder
         .integerType("age", 42)
         .object("address")
             .integerType("zip", 12345)
-            .stringType("city", "City")
+            .stringType("city", "Berlin")
         .closeObject()
     )
     .toPact();
@@ -107,7 +107,7 @@ PersonDTO person = spec(new PersonDTO())
 	.address(
 	    like(new AddressDTO())
 	        .zip(12345)
-	        .city("City")
+	        .city("Berlin")
 	);
 
 RequestResponsePact pact = ConsumerPactBuilder
