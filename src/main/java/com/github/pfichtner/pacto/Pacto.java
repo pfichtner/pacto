@@ -6,6 +6,7 @@ import static com.github.pfichtner.pacto.util.Reflections.copyFields;
 import static java.lang.String.format;
 import static java.util.Arrays.stream;
 import static net.bytebuddy.description.modifier.FieldManifestation.FINAL;
+import static net.bytebuddy.description.modifier.FieldPersistence.TRANSIENT;
 import static net.bytebuddy.description.modifier.SyntheticState.SYNTHETIC;
 import static net.bytebuddy.description.modifier.Visibility.PRIVATE;
 import static net.bytebuddy.description.modifier.Visibility.PUBLIC;
@@ -21,7 +22,6 @@ import java.util.Arrays;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.asm.Advice;
-import net.bytebuddy.description.modifier.FieldPersistence;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.FieldAccessor;
 import net.bytebuddy.implementation.MethodCall;
@@ -113,8 +113,8 @@ public class Pacto {
 				.with(new NamingStrategy.SuffixingRandom("PactoProxy")) //
 				.subclass(type) //
 				.implement(HasDelegate.class, HasRecorder.class) //
-				.defineField(FIELDNAME_DELEGATE, type, PRIVATE, FINAL, FieldPersistence.TRANSIENT) //
-				.defineField(FIELDNAME_RECORDER, Recorder.class, PRIVATE, FINAL, FieldPersistence.TRANSIENT) //
+				.defineField(FIELDNAME_DELEGATE, type, PRIVATE, FINAL, TRANSIENT) //
+				.defineField(FIELDNAME_RECORDER, Recorder.class, PRIVATE, FINAL, TRANSIENT) //
 				.defineConstructor(PUBLIC).withParameters(type, Recorder.class).intercept( //
 						MethodCall.invoke(superConstructor) //
 								.with((Object[]) new Object[superConstructor.getParameterCount()]) //
