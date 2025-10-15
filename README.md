@@ -61,7 +61,7 @@ public class AddressDTO {
 
 Without pacto, you need to define your data structures **twice** — once in your DTO, and once again in Pact’s DSL.  
 
-**❌ Manual Pact DSL (with duplication):**  
+**❌ Classic Pact DSL (manual & repetitive):**
 
 ```java
 // And again in Pact DSL:
@@ -97,7 +97,7 @@ RequestResponsePact pact = ConsumerPactBuilder
 
 If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update both places or your contract drifts out of sync.  
 
-**✅ With pacto:**  
+**✅ With pacto: model-driven, type-safe and DRY:**
 
 ```java
 PersonDTO person = spec(new PersonDTO())
