@@ -65,7 +65,7 @@ public class Pacto {
 
 	/**
 	 * Wraps a DTO with a proxy that records method invocations and matcher
-	 * arguments. If the argument is already wrapped a copy is returned.  
+	 * arguments. If the argument is already wrapped a copy is returned.
 	 *
 	 * @param intercept the original DTO to wrap
 	 * @param <T>       the type of the DTO
@@ -187,11 +187,11 @@ public class Pacto {
 	}
 
 	public static Recorder recorder(Object object) {
-		if (!(object instanceof HasRecorder)) {
-			throw new IllegalArgumentException(
-					format("%s of type (%s) not intercepted", object, object.getClass().getName()));
+		if (object instanceof HasRecorder recorder) {
+			return recorder.__pacto_recorder();
 		}
-		return ((HasRecorder) object).__pacto_recorder();
+		throw new IllegalArgumentException(
+				format("%s of type (%s) is not a pacto spec", object, object.getClass().getName()));
 	}
 
 	/**
@@ -203,7 +203,9 @@ public class Pacto {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T delegate(T object) {
-		return isSpec(object) ? (T) ((HasDelegate<?>) object).__pacto_delegate() : object;
+		return object instanceof HasDelegate<?> hasDelegate //
+				? (T) hasDelegate.__pacto_delegate() //
+				: object;
 	}
 
 	/**
@@ -213,7 +215,7 @@ public class Pacto {
 	 * @return <code>true</code> if the object itself is proxied
 	 */
 	public static boolean isSpec(Object object) {
-		return object instanceof HasDelegate<?>;
+		return delegate(object) != object;
 	}
 
 }
