@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>StringMatcherArg.java</h1>
+
+<table class="src">
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.github.pfichtner.pacto.matchers;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static java.lang.String.format;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.regex.Pattern;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class StringMatcherArg extends PactoMatcher&#60;Pattern&#62; {</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private String example;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public StringMatcherArg(Pattern regex, String example) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;super(regex);</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_13'/>
+13
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_13'>1</a>
+<span>
+1. &#60;init&#62; : Removed assignment to member variable example &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.example = example;</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_14'/>
+14
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_14'>8</a>
+<span>
+1. &#60;init&#62; : Substituted 1 with 0 &rarr; KILLED<br/>
+2. &#60;init&#62; : removed call to java/lang/String::format &rarr; KILLED<br/>
+3. &#60;init&#62; : Substituted 0 with 1 &rarr; KILLED<br/>
+4. &#60;init&#62; : negated conditional &rarr; KILLED<br/>
+5. &#60;init&#62; : removed call to com/github/pfichtner/pacto/matchers/StringMatcherArg::withToStringFormat &rarr; KILLED<br/>
+6. &#60;init&#62; : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. &#60;init&#62; : replaced call to java/lang/String::format with argument &rarr; KILLED<br/>
+8. &#60;init&#62; : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;withToStringFormat(this.example == null ? &#34;stringMatcher(%s)&#34; : format(&#34;stringMatcher(%%s,%s)&#34;, example));</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String example() {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_18'/>
+18
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_18'>1</a>
+<span>
+1. example : replaced return value with &#34;&#34; for com/github/pfichtner/pacto/matchers/StringMatcherArg::example &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return example;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3acf323e_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3acf323e_13'>13</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_13'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> Removed assignment to member variable example &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3acf323e_14'>14</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_14'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed call to java/lang/String::format &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed call to com/github/pfichtner/pacto/matchers/StringMatcherArg::withToStringFormat &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed conditional - replaced equality check with true &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> replaced call to java/lang/String::format with argument &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3acf323e_18'>18</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3acf323e_18'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>example<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> replaced return value with &#34;&#34; for com/github/pfichtner/pacto/matchers/StringMatcherArg::example &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>CONSTRUCTOR_CALLS</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>EXPERIMENTAL_ARGUMENT_PROPAGATION</li>
+<li class='mutator'>EXPERIMENTAL_BIG_DECIMAL</li>
+<li class='mutator'>EXPERIMENTAL_BIG_INTEGER</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE</li>
+<li class='mutator'>EXPERIMENTAL_NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INLINE_CONSTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NON_VOID_METHOD_CALLS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF</li>
+<li class='mutator'>REMOVE_INCREMENTS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()] (19 ms)</li><li>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexOnlyFixedValue()] (23 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testIsSpec()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:partitial()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:partitial()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:doesSerializeLikeTheObjectItself()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testInvocations()] (3 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testDslPartWithPartitials()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testIsSpec()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:partitial()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:partitial()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testIsSpec()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:doesSerializeLikeTheObjectItself()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:doesSerializeLikeTheObjectItself()] (3 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testInvocations()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:doesSerializeLikeTheObjectItself()] (29 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testInvocations()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testDslPartWithPartitials()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testDslPart()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPart()] (4 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testDslPartWithPartitials()] (6 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testSpecCopy()] (43 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testSpecCopy()] (30 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testDslPart()] (3 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testDelegate()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDelegate()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testDslPart()] (5 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testSpecCopy()] (38 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testDelegate()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testDelegate()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testSpecCopy()] (41 ms)</li><li>com.github.pfichtner.pacto.ObjectTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.ObjectTest]/[method:verifyObject()] (898 ms)</li><li>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexOnlyRandomValue()] (46 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.21.0
+
+</body>
+</html>

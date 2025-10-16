@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>MatchUrlArg.java</h1>
+
+<table class="src">
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.github.pfichtner.pacto.matchers;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static java.lang.String.format;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class MatchUrlArg extends PactoMatcher&#60;String&#62; {</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final String[] pathFragments;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public MatchUrlArg(String basePath, String... pathFragments) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;super(basePath);</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_11'/>
+11
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_11'>2</a>
+<span>
+1. &#60;init&#62; : removed call to [Ljava/lang/String;::clone &rarr; KILLED<br/>
+2. &#60;init&#62; : Removed assignment to member variable pathFragments &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;this.pathFragments = pathFragments.clone();</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_12'/>
+12
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_12'>4</a>
+<span>
+1. &#60;init&#62; : removed call to com/github/pfichtner/pacto/matchers/MatchUrlArg::withToStringFormat &rarr; KILLED<br/>
+2. &#60;init&#62; : negated conditional &rarr; KILLED<br/>
+3. &#60;init&#62; : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. &#60;init&#62; : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;withToStringFormat(pathFragments.length == 0 //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;&#9;? &#34;matchUrl(%s)&#34; //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_14'/>
+14
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_14'>5</a>
+<span>
+1. &#60;init&#62; : removed call to java/lang/String::format &rarr; KILLED<br/>
+2. &#60;init&#62; : Substituted 0 with 1 &rarr; KILLED<br/>
+3. &#60;init&#62; : replaced call to java/lang/String::format with argument &rarr; KILLED<br/>
+4. &#60;init&#62; : Substituted 1 with 0 &rarr; KILLED<br/>
+5. &#60;init&#62; : removed call to java/lang/String::join &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;: format(&#34;matchUrl(%%s/%s)&#34;, String.join(&#34;/&#34;, pathFragments)) //</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;);</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Object[] pathFragments() {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_19'/>
+19
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_19'>2</a>
+<span>
+1. pathFragments : removed call to [Ljava/lang/String;::clone &rarr; KILLED<br/>
+2. pathFragments : replaced return value with null for com/github/pfichtner/pacto/matchers/MatchUrlArg::pathFragments &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return pathFragments.clone();</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7924f5cc_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7924f5cc_11'>11</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_11'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoDslBuilderTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoDslBuilderTest]/[test-template:testMatchers(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#9]</span></span> removed call to [Ljava/lang/String;::clone &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoDslBuilderTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoDslBuilderTest]/[test-template:testMatchers(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#9]</span></span> Removed assignment to member variable pathFragments &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7924f5cc_12'>12</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_12'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> removed call to com/github/pfichtner/pacto/matchers/MatchUrlArg::withToStringFormat &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> removed conditional - replaced equality check with true &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7924f5cc_14'>14</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_14'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> removed call to java/lang/String::format &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> replaced call to java/lang/String::format with argument &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()]</span></span> removed call to java/lang/String::join &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7924f5cc_19'>19</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7924f5cc_19'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>pathFragments<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoDslBuilderTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoDslBuilderTest]/[test-template:testMatchers(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#9]</span></span> removed call to [Ljava/lang/String;::clone &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>pathFragments<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoDslBuilderTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoDslBuilderTest]/[test-template:testMatchers(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#9]</span></span> replaced return value with null for com/github/pfichtner/pacto/matchers/MatchUrlArg::pathFragments &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>CONSTRUCTOR_CALLS</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>EXPERIMENTAL_ARGUMENT_PROPAGATION</li>
+<li class='mutator'>EXPERIMENTAL_BIG_DECIMAL</li>
+<li class='mutator'>EXPERIMENTAL_BIG_INTEGER</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE</li>
+<li class='mutator'>EXPERIMENTAL_NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INLINE_CONSTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NON_VOID_METHOD_CALLS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF</li>
+<li class='mutator'>REMOVE_INCREMENTS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:canCompileUrl()] (3 ms)</li><li>com.github.pfichtner.pacto.PactoDslBuilderTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoDslBuilderTest]/[test-template:testMatchers(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#9] (0 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#9] (11 ms)</li><li>com.github.pfichtner.pacto.ObjectTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.ObjectTest]/[method:verifyObject()] (898 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.21.0
+
+</body>
+</html>

@@ -1,0 +1,4141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Pacto.java</h1>
+
+<table class="src">
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.github.pfichtner.pacto;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_DELEGATE;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.github.pfichtner.pacto.RecordingAdvice.FIELDNAME_RECORDER;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.github.pfichtner.pacto.util.Reflections.copyFields;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static java.lang.String.format;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static java.util.Arrays.stream;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.description.modifier.FieldManifestation.FINAL;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.description.modifier.FieldPersistence.TRANSIENT;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.description.modifier.SyntheticState.SYNTHETIC;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.description.modifier.Visibility.PRIVATE;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.description.modifier.Visibility.PUBLIC;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.matcher.ElementMatchers.isFinal;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.matcher.ElementMatchers.isStatic;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.matcher.ElementMatchers.named;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static net.bytebuddy.matcher.ElementMatchers.not;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.reflect.Constructor;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.reflect.Method;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import net.bytebuddy.ByteBuddy;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import net.bytebuddy.asm.Advice;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import net.bytebuddy.implementation.FieldAccessor;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import net.bytebuddy.implementation.MethodCall;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import net.bytebuddy.implementation.MethodDelegation;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import net.bytebuddy.implementation.auxiliary.AuxiliaryType.NamingStrategy;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Pacto is the core class of the pacto library. It provides proxy-based</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * recording of DTO method calls to generate Pact matchers automatically.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You can wrap your DTO with {@link #spec(Object)} to record interactions and</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * then generate a Pact contract. Recorded invocations can be inspected with</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * {@link #invocations(Object)}. You can retrieve the original object behind a</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * proxy with {@link #delegate(Object)}.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>public class Pacto {</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;protected static interface HasDelegate&#60;T&#62; {</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;T __pacto_delegate();</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;protected static interface HasRecorder {</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;Recorder __pacto_recorder();</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;private static final String getDelegateMethodname = getOnlyMethod(HasDelegate.class).getName();</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;private static final String getRecorderMethodname = getOnlyMethod(HasRecorder.class).getName();</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static Method getOnlyMethod(Class&#60;?&#62; clazz) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;Method[] methods = clazz.getMethods();</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;if (methods.length != 1) {</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;&#9;throw new IllegalStateException(</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;&#9;&#9;&#9;format(&#34;%s defines not exactly one method, found %s&#34;, clazz.getName(), Arrays.toString(methods)));</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;return methods[0];</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static PactoSettings withSettings() {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_63'>2</a>
+<span>
+1. withSettings : removed call to com/github/pfichtner/pacto/PactoSettingsImpl::&#60;init&#62; &rarr; KILLED<br/>
+2. withSettings : replaced return value with null for com/github/pfichtner/pacto/Pacto::withSettings &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return new PactoSettingsImpl();</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Wraps a DTO with a proxy that records method invocations and matcher</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * arguments. If the argument is already wrapped a copy is returned.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param intercept the original DTO to wrap</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param &#60;T&#62;       the type of the DTO</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return a proxy instance of the DTO that records matcher calls</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @throws RuntimeException if proxy creation fails</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static &#60;T&#62; T spec(T intercept) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_76'>4</a>
+<span>
+1. spec : removed call to com/github/pfichtner/pacto/Pacto::withSettings &rarr; KILLED<br/>
+2. spec : removed call to com/github/pfichtner/pacto/Pacto::spec &rarr; KILLED<br/>
+3. spec : replaced call to com/github/pfichtner/pacto/Pacto::spec with argument &rarr; KILLED<br/>
+4. spec : replaced return value with null for com/github/pfichtner/pacto/Pacto::spec &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return spec(intercept, withSettings());</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Wraps a DTO with a proxy that records method invocations and matcher</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * arguments.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param intercept the original DTO to wrap</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param &#60;T&#62;       the type of the DTO</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return a proxy instance of the DTO that records matcher calls</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @throws RuntimeException if proxy creation fails</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static &#60;T&#62; T spec(T intercept, PactoSettings settings) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_89'/>
+89
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_89'>5</a>
+<span>
+1. spec : replaced return value with null for com/github/pfichtner/pacto/Pacto::spec &rarr; KILLED<br/>
+2. spec : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+3. spec : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. spec : negated conditional &rarr; KILLED<br/>
+5. spec : removed call to com/github/pfichtner/pacto/Pacto::isSpec &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return isSpec(intercept) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_90'>7</a>
+<span>
+1. spec : replaced call to com/github/pfichtner/pacto/Pacto::delegate with argument &rarr; KILLED<br/>
+2. spec : replaced call to com/github/pfichtner/pacto/Recorder::copy with receiver &rarr; KILLED<br/>
+3. spec : removed call to com/github/pfichtner/pacto/Pacto::recorder &rarr; KILLED<br/>
+4. spec : removed call to com/github/pfichtner/pacto/Recorder::copy &rarr; KILLED<br/>
+5. spec : removed call to com/github/pfichtner/pacto/Pacto::newInstance &rarr; KILLED<br/>
+6. spec : replaced call to com/github/pfichtner/pacto/Pacto::newInstance with argument &rarr; KILLED<br/>
+7. spec : removed call to com/github/pfichtner/pacto/Pacto::delegate &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;? newInstance(delegate(intercept), recorder(intercept).copy()) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_91'>3</a>
+<span>
+1. spec : replaced call to com/github/pfichtner/pacto/Pacto::newInstance with argument &rarr; KILLED<br/>
+2. spec : removed call to com/github/pfichtner/pacto/Recorder::&#60;init&#62; &rarr; KILLED<br/>
+3. spec : removed call to com/github/pfichtner/pacto/Pacto::newInstance &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;: newInstance(intercept, new Recorder(settings));</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static &#60;T&#62; T newInstance(T intercept, Recorder recorder) {</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;@SuppressWarnings(&#34;unchecked&#34;)</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_96'>1</a>
+<span>
+1. newInstance : removed call to java/lang/Object::getClass &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Class&#60;T&#62; type = (Class&#60;T&#62;) intercept.getClass();</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;try {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_98'>9</a>
+<span>
+1. newInstance : Substituted 0 with 1 &rarr; KILLED<br/>
+2. newInstance : replaced return value with null for com/github/pfichtner/pacto/Pacto::newInstance &rarr; KILLED<br/>
+3. newInstance : Substituted 1 with 0 &rarr; KILLED<br/>
+4. newInstance : removed call to com/github/pfichtner/pacto/util/Reflections::copyFields &rarr; KILLED<br/>
+5. newInstance : removed call to java/lang/reflect/Constructor::newInstance &rarr; KILLED<br/>
+6. newInstance : removed call to com/github/pfichtner/pacto/Pacto::constructor &rarr; KILLED<br/>
+7. newInstance : Substituted 2 with 3 &rarr; KILLED<br/>
+8. newInstance : removed call to java/lang/Object::getClass &rarr; KILLED<br/>
+9. newInstance : replaced call to com/github/pfichtner/pacto/util/Reflections::copyFields with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return copyFields(intercept, constructor(type, recorder.getClass()).newInstance(intercept, recorder));</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;} catch (Exception e) {</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_100'/>
+100
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_100'>1</a>
+<span>
+1. newInstance : removed call to java/lang/RuntimeException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;throw new RuntimeException(e);</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static &#60;T&#62; Constructor&#60;? extends T&#62; constructor(Class&#60;T&#62; type, Class&#60;?&#62; clazz)</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;throws NoSuchMethodException {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_106'>7</a>
+<span>
+1. constructor : removed call to java/lang/Class::getDeclaredConstructor &rarr; KILLED<br/>
+2. constructor : Substituted 1 with 0 &rarr; KILLED<br/>
+3. constructor : Substituted 2 with 3 &rarr; KILLED<br/>
+4. constructor : removed call to com/github/pfichtner/pacto/Pacto::proxyClass &rarr; KILLED<br/>
+5. constructor : replaced return value with null for com/github/pfichtner/pacto/Pacto::constructor &rarr; KILLED<br/>
+6. constructor : Substituted 0 with 1 &rarr; KILLED<br/>
+7. constructor : replaced call to com/github/pfichtner/pacto/Pacto::proxyClass with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return proxyClass(type).getDeclaredConstructor(type, clazz);</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static &#60;T&#62; Class&#60;? extends T&#62; proxyClass(Class&#60;T&#62; type) throws NoSuchMethodException, SecurityException {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_110'/>
+110
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_110'>1</a>
+<span>
+1. proxyClass : removed call to com/github/pfichtner/pacto/Pacto::getConstructor &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;Constructor&#60;?&#62; superConstructor = getConstructor(type);</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_111'>3</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/implementation/auxiliary/AuxiliaryType$NamingStrategy$SuffixingRandom::&#60;init&#62; &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/ByteBuddy::&#60;init&#62; &rarr; KILLED<br/>
+3. proxyClass : replaced return value with null for com/github/pfichtner/pacto/Pacto::proxyClass &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return new ByteBuddy() //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_112'>2</a>
+<span>
+1. proxyClass : replaced call to net/bytebuddy/ByteBuddy::with with receiver &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/ByteBuddy::with &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.with(new NamingStrategy.SuffixingRandom(&#34;PactoProxy&#34;)) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_113'>4</a>
+<span>
+1. proxyClass : Substituted 0 with 1 &rarr; KILLED<br/>
+2. proxyClass : Substituted 1 with 0 &rarr; KILLED<br/>
+3. proxyClass : Substituted 2 with 3 &rarr; KILLED<br/>
+4. proxyClass : removed call to net/bytebuddy/ByteBuddy::subclass &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.subclass(type) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_114'/>
+114
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_114'>5</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder::implement &rarr; KILLED<br/>
+2. proxyClass : Substituted 3 with 4 &rarr; KILLED<br/>
+3. proxyClass : Substituted 2 with 3 &rarr; KILLED<br/>
+4. proxyClass : Substituted 1 with 0 &rarr; KILLED<br/>
+5. proxyClass : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.implement(HasDelegate.class, HasRecorder.class) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_115'>5</a>
+<span>
+1. proxyClass : Substituted 2 with 3 &rarr; KILLED<br/>
+2. proxyClass : Substituted 1 with 0 &rarr; KILLED<br/>
+3. proxyClass : Substituted 0 with 1 &rarr; KILLED<br/>
+4. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ImplementationDefinition$Optional::defineField &rarr; KILLED<br/>
+5. proxyClass : Substituted 3 with 4 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.defineField(FIELDNAME_DELEGATE, type, PRIVATE, FINAL, TRANSIENT) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_116'>4</a>
+<span>
+1. proxyClass : replaced call to net/bytebuddy/dynamic/DynamicType$Builder$FieldDefinition$Optional$Valuable::defineField with receiver &rarr; KILLED<br/>
+2. proxyClass : Substituted 0 with 1 &rarr; KILLED<br/>
+3. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$FieldDefinition$Optional$Valuable::defineField &rarr; KILLED<br/>
+4. proxyClass : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.defineField(FIELDNAME_RECORDER, Recorder.class, PRIVATE, FINAL, TRANSIENT) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_117'>9</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$FieldDefinition$Optional$Valuable::defineConstructor &rarr; KILLED<br/>
+2. proxyClass : Substituted 0 with 1 &rarr; KILLED<br/>
+3. proxyClass : Substituted 1 with 0 &rarr; KILLED<br/>
+4. proxyClass : Substituted 2 with 3 &rarr; KILLED<br/>
+5. proxyClass : Substituted 0 with 1 &rarr; KILLED<br/>
+6. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ParameterDefinition$Initial::withParameters &rarr; KILLED<br/>
+7. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ExceptionDefinition::intercept &rarr; KILLED<br/>
+8. proxyClass : Substituted 1 with 0 &rarr; KILLED<br/>
+9. proxyClass : Substituted 2 with 3 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.defineConstructor(PUBLIC).withParameters(type, Recorder.class).intercept( //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_118'>1</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/implementation/MethodCall::invoke &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;MethodCall.invoke(superConstructor) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_119'>2</a>
+<span>
+1. proxyClass : removed call to java/lang/reflect/Constructor::getParameterCount &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/implementation/MethodCall$WithoutSpecifiedTarget::with &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;.with((Object[]) new Object[superConstructor.getParameterCount()]) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_120'>5</a>
+<span>
+1. proxyClass : replaced call to net/bytebuddy/implementation/MethodCall::andThen with argument &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/implementation/FieldAccessor::ofField &rarr; KILLED<br/>
+3. proxyClass : removed call to net/bytebuddy/implementation/MethodCall::andThen &rarr; KILLED<br/>
+4. proxyClass : removed call to net/bytebuddy/implementation/FieldAccessor$OwnerTypeLocatable::setsArgumentAt &rarr; KILLED<br/>
+5. proxyClass : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;.andThen(FieldAccessor.ofField(FIELDNAME_DELEGATE).setsArgumentAt(0)) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_121'>6</a>
+<span>
+1. proxyClass : replaced call to net/bytebuddy/implementation/Implementation$Composable::andThen with receiver &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/implementation/FieldAccessor$OwnerTypeLocatable::setsArgumentAt &rarr; KILLED<br/>
+3. proxyClass : removed call to net/bytebuddy/implementation/Implementation$Composable::andThen &rarr; KILLED<br/>
+4. proxyClass : Substituted 1 with 0 &rarr; KILLED<br/>
+5. proxyClass : removed call to net/bytebuddy/implementation/FieldAccessor::ofField &rarr; KILLED<br/>
+6. proxyClass : replaced call to net/bytebuddy/implementation/Implementation$Composable::andThen with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;.andThen(FieldAccessor.ofField(FIELDNAME_RECORDER).setsArgumentAt(1)) //</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_123'/>
+123
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_123'>1</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition::defineMethod &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.defineMethod(getDelegateMethodname, type, PUBLIC, SYNTHETIC) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_124'>5</a>
+<span>
+1. proxyClass : Substituted 1 with 0 &rarr; KILLED<br/>
+2. proxyClass : Substituted 0 with 1 &rarr; KILLED<br/>
+3. proxyClass : Substituted 2 with 3 &rarr; KILLED<br/>
+4. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ParameterDefinition$Initial::intercept &rarr; KILLED<br/>
+5. proxyClass : removed call to net/bytebuddy/implementation/FieldAccessor::ofField &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.intercept(FieldAccessor.ofField(FIELDNAME_DELEGATE)) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_125'/>
+125
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_125'>1</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition::defineMethod &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.defineMethod(getRecorderMethodname, Recorder.class, PUBLIC, SYNTHETIC) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_126'>2</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ParameterDefinition$Initial::intercept &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/implementation/FieldAccessor::ofField &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.intercept(FieldAccessor.ofField(FIELDNAME_RECORDER)) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_127'>3</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::isStatic &rarr; KILLED<br/>
+3. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition::method &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.method(not(isStatic()) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_128'>4</a>
+<span>
+1. proxyClass : replaced call to net/bytebuddy/matcher/ElementMatcher$Junction::and with receiver &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED<br/>
+3. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::isFinal &rarr; KILLED<br/>
+4. proxyClass : removed call to net/bytebuddy/matcher/ElementMatcher$Junction::and &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;.and(not(isFinal())) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_129'>4</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED<br/>
+2. proxyClass : replaced call to net/bytebuddy/matcher/ElementMatcher$Junction::and with receiver &rarr; KILLED<br/>
+3. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::isDeclaredBy &rarr; KILLED<br/>
+4. proxyClass : removed call to net/bytebuddy/matcher/ElementMatcher$Junction::and &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;.and(not(isDeclaredBy(Object.class))) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_130'>4</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/matcher/ElementMatcher$Junction::and &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED<br/>
+3. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::named &rarr; KILLED<br/>
+4. proxyClass : replaced call to net/bytebuddy/matcher/ElementMatcher$Junction::and with receiver &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;.and(not(named(getDelegateMethodname))) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_131'>4</a>
+<span>
+1. proxyClass : replaced call to net/bytebuddy/matcher/ElementMatcher$Junction::and with receiver &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED<br/>
+3. proxyClass : removed call to net/bytebuddy/matcher/ElementMatchers::named &rarr; KILLED<br/>
+4. proxyClass : removed call to net/bytebuddy/matcher/ElementMatcher$Junction::and &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;.and(not(named(getRecorderMethodname))) //</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_133'>2</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/asm/Advice::to &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ImplementationDefinition::intercept &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.intercept(Advice.to(RecordingAdvice.class) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_134'>3</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/asm/Advice::wrap &rarr; KILLED<br/>
+2. proxyClass : removed call to net/bytebuddy/implementation/MethodDelegation::toField &rarr; KILLED<br/>
+3. proxyClass : replaced call to net/bytebuddy/asm/Advice::wrap with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;&#9;&#9;.wrap(MethodDelegation.toField(FIELDNAME_DELEGATE)) //</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_136'>1</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition::make &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.make() //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_137'>2</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Unloaded::load &rarr; KILLED<br/>
+2. proxyClass : removed call to java/lang/Class::getClassLoader &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.load(type.getClassLoader(), ClassLoadingStrategy.Default.INJECTION) //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_138'>1</a>
+<span>
+1. proxyClass : removed call to net/bytebuddy/dynamic/DynamicType$Loaded::getLoaded &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;.getLoaded() //</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static &#60;T&#62; Constructor&#60;?&#62; getConstructor(Class&#60;T&#62; type) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_143'>6</a>
+<span>
+1. getConstructor : removed call to java/util/Optional::or &rarr; KILLED<br/>
+2. getConstructor : replaced call to java/util/Optional::or with receiver &rarr; KILLED<br/>
+3. getConstructor : removed call to java/util/Arrays::stream &rarr; KILLED<br/>
+4. getConstructor : removed call to java/util/stream/Stream::findFirst &rarr; KILLED<br/>
+5. getConstructor : replaced return value with null for com/github/pfichtner/pacto/Pacto::getConstructor &rarr; KILLED<br/>
+6. getConstructor : removed call to java/lang/Class::getConstructors &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return stream(type.getConstructors()).findFirst().or(() -&#62; //</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_144'/>
+144
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_144'>9</a>
+<span>
+1. lambda$getConstructor$0 : replaced return value with null for com/github/pfichtner/pacto/Pacto::lambda$getConstructor$0 &rarr; NO_COVERAGE<br/>
+2. lambda$getConstructor$0 : replaced call to com/github/pfichtner/pacto/Pacto::makeAccessible with argument &rarr; NO_COVERAGE<br/>
+3. lambda$getConstructor$1 : replaced call to java/util/Optional::map with receiver &rarr; NO_COVERAGE<br/>
+4. lambda$getConstructor$1 : replaced return value with Optional.empty for com/github/pfichtner/pacto/Pacto::lambda$getConstructor$1 &rarr; NO_COVERAGE<br/>
+5. lambda$getConstructor$1 : removed call to java/util/Optional::map &rarr; NO_COVERAGE<br/>
+6. lambda$getConstructor$0 : removed call to com/github/pfichtner/pacto/Pacto::makeAccessible &rarr; NO_COVERAGE<br/>
+7. lambda$getConstructor$1 : removed call to java/util/stream/Stream::findFirst &rarr; NO_COVERAGE<br/>
+8. lambda$getConstructor$1 : removed call to java/util/Arrays::stream &rarr; NO_COVERAGE<br/>
+9. lambda$getConstructor$1 : removed call to java/lang/Class::getDeclaredConstructors &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;stream(type.getDeclaredConstructors()).findFirst().map(c -&#62; makeAccessible(c)))</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_145'/>
+145
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_145'>4</a>
+<span>
+1. lambda$getConstructor$2 : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+2. lambda$getConstructor$2 : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. lambda$getConstructor$2 : replaced return value with null for com/github/pfichtner/pacto/Pacto::lambda$getConstructor$2 &rarr; NO_COVERAGE<br/>
+4. getConstructor : removed call to java/util/Optional::orElseThrow &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;.orElseThrow(() -&#62; new IllegalArgumentException(</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_146'/>
+146
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_146'>4</a>
+<span>
+1. lambda$getConstructor$2 : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. lambda$getConstructor$2 : removed call to java/lang/String::format &rarr; NO_COVERAGE<br/>
+3. lambda$getConstructor$2 : removed call to java/lang/Class::getName &rarr; NO_COVERAGE<br/>
+4. lambda$getConstructor$2 : replaced call to java/lang/String::format with argument &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;&#9;&#9;String.format(&#34;Class %s must declare at least one accessible constructor&#34;, type.getName())));</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static Constructor&#60;?&#62; makeAccessible(Constructor&#60;?&#62; c) {</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_150'>2</a>
+<span>
+1. makeAccessible : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. makeAccessible : removed call to java/lang/reflect/Constructor::setAccessible &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;c.setAccessible(true);</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_151'/>
+151
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_151'>1</a>
+<span>
+1. makeAccessible : replaced return value with null for com/github/pfichtner/pacto/Pacto::makeAccessible &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;return c;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static &#60;T&#62; T like(T object) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_155'/>
+155
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_155'>8</a>
+<span>
+1. like : replaced call to com/github/pfichtner/pacto/Pacto::delegate with argument &rarr; SURVIVED<br/>
+2. like : replaced return value with null for com/github/pfichtner/pacto/Pacto::like &rarr; KILLED<br/>
+3. like : removed call to com/github/pfichtner/pacto/Pacto::withSettings &rarr; KILLED<br/>
+4. like : replaced call to com/github/pfichtner/pacto/PactoSettings::lenient with receiver &rarr; KILLED<br/>
+5. like : removed call to com/github/pfichtner/pacto/Pacto::delegate &rarr; KILLED<br/>
+6. like : removed call to com/github/pfichtner/pacto/Pacto::spec &rarr; KILLED<br/>
+7. like : removed call to com/github/pfichtner/pacto/PactoSettings::lenient &rarr; KILLED<br/>
+8. like : replaced call to com/github/pfichtner/pacto/Pacto::spec with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;return spec(delegate(object), withSettings().lenient());</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the recorded invocation details of a DTO proxy.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param object the proxy instance returned by {@link #spec(Object)}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return details of method invocations and matchers</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @throws IllegalArgumentException if the object was not intercepted by</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *                                  {@link #spec(Object)}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static InvocationDetails invocations(Object object) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_167'/>
+167
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_167'>4</a>
+<span>
+1. invocations : removed call to com/github/pfichtner/pacto/Pacto::recorder &rarr; KILLED<br/>
+2. invocations : removed call to com/github/pfichtner/pacto/Recorder::invocations &rarr; KILLED<br/>
+3. invocations : replaced return value with null for com/github/pfichtner/pacto/Pacto::invocations &rarr; KILLED<br/>
+4. invocations : removed call to com/github/pfichtner/pacto/DefaultInvocationDetails::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return new DefaultInvocationDetails(recorder(object).invocations());</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the pacto settings of a DTO proxy.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param object the proxy instance returned by {@link #spec(Object)}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return settings that where passed when creating the pacto spec</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @throws IllegalArgumentException if the object was not intercepted by</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *                                  {@link #spec(Object)}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static PactoSettingsImpl settings(Object object) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_179'/>
+179
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_179'>2</a>
+<span>
+1. settings : removed call to com/github/pfichtner/pacto/Recorder::settings &rarr; KILLED<br/>
+2. settings : removed call to com/github/pfichtner/pacto/Pacto::recorder &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;PactoSettings settings = recorder(object).settings();</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;Class&#60;PactoSettingsImpl&#62; expectedClass = PactoSettingsImpl.class;</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_181'/>
+181
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_181'>4</a>
+<span>
+1. settings : removed call to java/lang/Class::isInstance &rarr; KILLED<br/>
+2. settings : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+3. settings : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. settings : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;if (!expectedClass.isInstance(settings)) {</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_182'/>
+182
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_182'>3</a>
+<span>
+1. settings : removed call to java/lang/Class::getCanonicalName &rarr; NO_COVERAGE<br/>
+2. settings : removed call to java/lang/Object::getClass &rarr; NO_COVERAGE<br/>
+3. settings : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;throw new IllegalArgumentException(&#34;Unexpected implementation of &#39;&#34; + settings.getClass().getCanonicalName()</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;&#9;+ &#34;&#39;\n&#34; + &#34;At the moment, you cannot provide your own implementations that class.&#34;);</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_185'>3</a>
+<span>
+1. settings : removed call to java/lang/Class::cast &rarr; KILLED<br/>
+2. settings : replaced return value with null for com/github/pfichtner/pacto/Pacto::settings &rarr; KILLED<br/>
+3. settings : replaced call to java/lang/Class::cast with argument &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return expectedClass.cast(settings);</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static Recorder recorder(Object object) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_189'/>
+189
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_189'>3</a>
+<span>
+1. recorder : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+2. recorder : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+3. recorder : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;if (object instanceof HasRecorder recorder) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_190'/>
+190
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_190'>2</a>
+<span>
+1. recorder : removed call to com/github/pfichtner/pacto/Pacto$HasRecorder::__pacto_recorder &rarr; KILLED<br/>
+2. recorder : replaced return value with null for com/github/pfichtner/pacto/Pacto::recorder &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return recorder.__pacto_recorder();</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_192'/>
+192
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_192'>3</a>
+<span>
+1. recorder : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. recorder : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. recorder : Substituted 2 with 3 &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;throw new IllegalArgumentException(</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_193'/>
+193
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_193'>5</a>
+<span>
+1. recorder : removed call to java/lang/Object::getClass &rarr; NO_COVERAGE<br/>
+2. recorder : removed call to java/lang/Class::getName &rarr; NO_COVERAGE<br/>
+3. recorder : replaced call to java/lang/String::format with argument &rarr; NO_COVERAGE<br/>
+4. recorder : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+5. recorder : removed call to java/lang/String::format &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>&#9;&#9;&#9;&#9;format(&#34;%s of type (%s) is not a pacto spec&#34;, object, object.getClass().getName()));</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the original DTO object behind a proxy.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_199'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param object the proxy instance returned by {@link #spec(Object)}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param &#60;T&#62;    the type of the DTO</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return the original DTO object, or the object itself if not proxied</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@SuppressWarnings(&#34;unchecked&#34;)</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static &#60;T&#62; T delegate(T object) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_205'/>
+205
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_205'>4</a>
+<span>
+1. delegate : replaced return value with null for com/github/pfichtner/pacto/Pacto::delegate &rarr; KILLED<br/>
+2. delegate : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. delegate : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+4. delegate : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return object instanceof HasDelegate&#60;?&#62; hasDelegate //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_206'/>
+206
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_206'>1</a>
+<span>
+1. delegate : removed call to com/github/pfichtner/pacto/Pacto$HasDelegate::__pacto_delegate &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;&#9;? (T) hasDelegate.__pacto_delegate() //</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;&#9;: object;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_209'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_210'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the &#60;code&#62;true&#60;/code&#62; if this is a DTO object behind a proxy.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param object the proxy instance returned by {@link #spec(Object)}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return &#60;code&#62;true&#60;/code&#62; if the object itself is proxied</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public static boolean isSpec(Object object) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_217'/>
+217
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_217'>8</a>
+<span>
+1. isSpec : negated conditional &rarr; KILLED<br/>
+2. isSpec : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. isSpec : removed call to com/github/pfichtner/pacto/Pacto::delegate &rarr; KILLED<br/>
+4. isSpec : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+5. isSpec : Substituted 1 with 0 &rarr; KILLED<br/>
+6. isSpec : replaced call to com/github/pfichtner/pacto/Pacto::delegate with argument &rarr; KILLED<br/>
+7. isSpec : replaced boolean return with true for com/github/pfichtner/pacto/Pacto::isSpec &rarr; KILLED<br/>
+8. isSpec : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return delegate(object) != object;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@14cdf63b_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withSettings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()]</span></span> removed call to com/github/pfichtner/pacto/PactoSettingsImpl::&#60;init&#62; &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>withSettings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::withSettings &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::withSettings &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::spec &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to com/github/pfichtner/pacto/Pacto::spec with argument &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::spec &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::spec &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed conditional - replaced equality check with true &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::isSpec &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testSpecOfSpec()]</span></span> replaced call to com/github/pfichtner/pacto/Pacto::delegate with argument &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testSpecOfSpec()]</span></span> replaced call to com/github/pfichtner/pacto/Recorder::copy with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testSpecCopy()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::recorder &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testSpecCopy()]</span></span> removed call to com/github/pfichtner/pacto/Recorder::copy &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testSpecCopy()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::newInstance &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testSpecCopy()]</span></span> replaced call to com/github/pfichtner/pacto/Pacto::newInstance with argument &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testSpecCopy()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::delegate &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to com/github/pfichtner/pacto/Pacto::newInstance with argument &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to com/github/pfichtner/pacto/Recorder::&#60;init&#62; &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>spec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::newInstance &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/lang/Object::getClass &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::newInstance &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to com/github/pfichtner/pacto/util/Reflections::copyFields &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/lang/reflect/Constructor::newInstance &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::constructor &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 2 with 3 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/lang/Object::getClass &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> replaced call to com/github/pfichtner/pacto/util/Reflections::copyFields with argument &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_100'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newInstance<br/><b>Killed by : </b>none</span></span> removed call to java/lang/RuntimeException::&#60;init&#62; &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>constructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/lang/Class::getDeclaredConstructor &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>constructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>constructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 2 with 3 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>constructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::proxyClass &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>constructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::constructor &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>constructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>constructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to com/github/pfichtner/pacto/Pacto::proxyClass with argument &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::getConstructor &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed call to net/bytebuddy/implementation/auxiliary/AuxiliaryType$NamingStrategy$SuffixingRandom::&#60;init&#62; &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/ByteBuddy::&#60;init&#62; &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::proxyClass &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> replaced call to net/bytebuddy/ByteBuddy::with with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/ByteBuddy::with &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 2 with 3 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/ByteBuddy::subclass &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder::implement &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 3 with 4 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 2 with 3 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 2 with 3 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ImplementationDefinition$Optional::defineField &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 3 with 4 &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to net/bytebuddy/dynamic/DynamicType$Builder$FieldDefinition$Optional$Valuable::defineField with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$FieldDefinition$Optional$Valuable::defineField &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$FieldDefinition$Optional$Valuable::defineConstructor &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 2 with 3 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ParameterDefinition$Initial::withParameters &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ExceptionDefinition::intercept &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 2 with 3 &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/MethodCall::invoke &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoRecordTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoRecordTest]/[method:canCreateClassWithNoNoArgConstructor()]</span></span> removed call to java/lang/reflect/Constructor::getParameterCount &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/MethodCall$WithoutSpecifiedTarget::with &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to net/bytebuddy/implementation/MethodCall::andThen with argument &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/FieldAccessor::ofField &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/MethodCall::andThen &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/FieldAccessor$OwnerTypeLocatable::setsArgumentAt &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to net/bytebuddy/implementation/Implementation$Composable::andThen with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/FieldAccessor$OwnerTypeLocatable::setsArgumentAt &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/Implementation$Composable::andThen &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/FieldAccessor::ofField &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to net/bytebuddy/implementation/Implementation$Composable::andThen with argument &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition::defineMethod &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 2 with 3 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ParameterDefinition$Initial::intercept &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/FieldAccessor::ofField &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_125'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition::defineMethod &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ParameterDefinition$Initial::intercept &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/FieldAccessor::ofField &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::isStatic &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition::method &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> replaced call to net/bytebuddy/matcher/ElementMatcher$Junction::and with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::isFinal &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatcher$Junction::and &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to net/bytebuddy/matcher/ElementMatcher$Junction::and with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::isDeclaredBy &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatcher$Junction::and &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatcher$Junction::and &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::named &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to net/bytebuddy/matcher/ElementMatcher$Junction::and with receiver &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to net/bytebuddy/matcher/ElementMatcher$Junction::and with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::not &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatchers::named &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/matcher/ElementMatcher$Junction::and &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/asm/Advice::to &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ImplementationDefinition::intercept &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/asm/Advice::wrap &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/implementation/MethodDelegation::toField &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:partitial()]</span></span> replaced call to net/bytebuddy/asm/Advice::wrap with argument &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition::make &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Unloaded::load &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/lang/Class::getClassLoader &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>proxyClass<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to net/bytebuddy/dynamic/DynamicType$Loaded::getLoaded &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getConstructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/util/Optional::or &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getConstructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> replaced call to java/util/Optional::or with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getConstructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/util/Arrays::stream &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getConstructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/util/stream/Stream::findFirst &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getConstructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::getConstructor &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getConstructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/lang/Class::getConstructors &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_144'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getConstructor$0<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::lambda$getConstructor$0 &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$getConstructor$0<br/><b>Killed by : </b>none</span></span> replaced call to com/github/pfichtner/pacto/Pacto::makeAccessible with argument &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getConstructor$1<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Optional::map with receiver &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getConstructor$1<br/><b>Killed by : </b>none</span></span> replaced return value with Optional.empty for com/github/pfichtner/pacto/Pacto::lambda$getConstructor$1 &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$getConstructor$1<br/><b>Killed by : </b>none</span></span> removed call to java/util/Optional::map &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$getConstructor$0<br/><b>Killed by : </b>none</span></span> removed call to com/github/pfichtner/pacto/Pacto::makeAccessible &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$getConstructor$1<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::findFirst &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$getConstructor$1<br/><b>Killed by : </b>none</span></span> removed call to java/util/Arrays::stream &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$getConstructor$1<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getDeclaredConstructors &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_145'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getConstructor$2<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$getConstructor$2<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getConstructor$2<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::lambda$getConstructor$2 &rarr; NO_COVERAGE</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getConstructor<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to java/util/Optional::orElseThrow &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_146'>146</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_146'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getConstructor$2<br/><b>Killed by : </b>none</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$getConstructor$2<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::format &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$getConstructor$2<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getName &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$getConstructor$2<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::format with argument &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_150'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>makeAccessible<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>makeAccessible<br/><b>Killed by : </b>none</span></span> removed call to java/lang/reflect/Constructor::setAccessible &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_151'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>makeAccessible<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::makeAccessible &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>like<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLikeIsEqualToStrictCanHoldLenient()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::like &rarr; KILLED</span>
+</div> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>like<br/><b>Killed by : </b>none</span></span> replaced call to com/github/pfichtner/pacto/Pacto::delegate with argument &rarr; SURVIVED</span>
+<a title="Click to view covering tests" class="view-covered-by-tests" onClick="document.getElementById('MutationIdentifier-[location=Location-[clazz=com.github.pfichtner.pacto.Pacto,-method=like,-methodDesc=(Ljava/lang/Object;)Ljava/lang/Object;],-indexes=[4],-mutator=org.pitest.mutationtest.engine.gregor.mutators.experimental.ArgumentPropagationMutator]').style.display=(document.getElementById('MutationIdentifier-[location=Location-[clazz=com.github.pfichtner.pacto.Pacto,-method=like,-methodDesc=(Ljava/lang/Object;)Ljava/lang/Object;],-indexes=[4],-mutator=org.pitest.mutationtest.engine.gregor.mutators.experimental.ArgumentPropagationMutator]').style.display == 'block')?'none':'block';">Covering tests</a>
+<div class="covered-tests" id="MutationIdentifier-[location=Location-[clazz=com.github.pfichtner.pacto.Pacto,-method=like,-methodDesc=(Ljava/lang/Object;)Ljava/lang/Object;],-indexes=[4],-mutator=org.pitest.mutationtest.engine.gregor.mutators.experimental.ArgumentPropagationMutator]" style="display:none;">Covered by tests:
+<ul>
+<li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:likeDoesUnpack()]</li> <li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLikeIsEqualToStrictCanHoldLenient()]</li> 
+</ul>
+</div></div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>like<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:likeDoesUnpack()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::withSettings &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>like<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLikeIsEqualToStrictCanHoldLenient()]</span></span> replaced call to com/github/pfichtner/pacto/PactoSettings::lenient with receiver &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>like<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:likeDoesUnpack()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::delegate &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>like<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLikeIsEqualToStrictCanHoldLenient()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::spec &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>like<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLikeIsEqualToStrictCanHoldLenient()]</span></span> removed call to com/github/pfichtner/pacto/PactoSettings::lenient &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>like<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLikeIsEqualToStrictCanHoldLenient()]</span></span> replaced call to com/github/pfichtner/pacto/Pacto::spec with argument &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>invocations<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::recorder &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>invocations<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()]</span></span> removed call to com/github/pfichtner/pacto/Recorder::invocations &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>invocations<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::invocations &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>invocations<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()]</span></span> removed call to com/github/pfichtner/pacto/DefaultInvocationDetails::&#60;init&#62; &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_179'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()]</span></span> removed call to com/github/pfichtner/pacto/Recorder::settings &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::recorder &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_181'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()]</span></span> removed call to java/lang/Class::isInstance &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()]</span></span> removed conditional - replaced equality check with true &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_182'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getCanonicalName &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::getClass &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>none</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testDslPart()]</span></span> removed call to java/lang/Class::cast &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testDslPart()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::settings &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>settings<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> replaced call to java/lang/Class::cast with argument &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_189'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()]</span></span> removed conditional - replaced equality check with true &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_190'>190</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_190'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()]</span></span> removed call to com/github/pfichtner/pacto/Pacto$HasRecorder::__pacto_recorder &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::recorder &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_192'>192</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_192'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>none</span></span> Substituted 2 with 3 &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_193'>193</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_193'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::getClass &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getName &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::format with argument &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>none</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE</span>
+</div> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>recorder<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::format &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_205'>205</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_205'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delegate<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced return value with null for com/github/pfichtner/pacto/Pacto::delegate &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delegate<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>delegate<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed conditional - replaced equality check with true &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>delegate<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delegate<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:doesSerializeLikeTheObjectItself()]</span></span> removed call to com/github/pfichtner/pacto/Pacto$HasDelegate::__pacto_delegate &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@14cdf63b_217'>217</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@14cdf63b_217'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isSpec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isSpec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isSpec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed call to com/github/pfichtner/pacto/Pacto::delegate &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isSpec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> removed conditional - replaced equality check with true &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isSpec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testIsSpec()]</span></span> Substituted 1 with 0 &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isSpec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced call to com/github/pfichtner/pacto/Pacto::delegate with argument &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isSpec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> replaced boolean return with true for com/github/pfichtner/pacto/Pacto::isSpec &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isSpec<br/><b>Killed by : </b>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()]</span></span> Substituted 0 with 1 &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>CONSTRUCTOR_CALLS</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>EXPERIMENTAL_ARGUMENT_PROPAGATION</li>
+<li class='mutator'>EXPERIMENTAL_BIG_DECIMAL</li>
+<li class='mutator'>EXPERIMENTAL_BIG_INTEGER</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE</li>
+<li class='mutator'>EXPERIMENTAL_NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INLINE_CONSTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NON_VOID_METHOD_CALLS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF</li>
+<li class='mutator'>REMOVE_INCREMENTS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPartWithPartitials()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testDslPartWithPartitials()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testDslPartWithPartitials()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testDslPart()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDslPart()] (4 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testDslPartWithPartitials()] (6 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testDslPart()] (3 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testDslPart()] (5 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLenient()] (18 ms)</li><li>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexWithExample()] (19 ms)</li><li>com.github.pfichtner.pacto.PactoDslBuilderTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoDslBuilderTest]/[method:testMinMax()] (15 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testStrict()] (20 ms)</li><li>com.github.pfichtner.pacto.PactoDslBuilderTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoDslBuilderTest]/[method:testMin()] (18 ms)</li><li>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexOnlyFixedValue()] (23 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLenientCanHoldStrict()] (27 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testArray()] (40 ms)</li><li>com.github.pfichtner.pacto.PactoDslBuilderTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoDslBuilderTest]/[method:testMax()] (39 ms)</li><li>com.github.pfichtner.pacto.matchers.StringMatcherArgTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.StringMatcherArgTest]/[method:regexOnlyRandomValue()] (46 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testStrictIsDefault()] (60 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testStrictCanHoldLenient()] (62 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testLikeIsEqualToStrictCanHoldLenient()] (109 ms)</li><li>com.github.pfichtner.pacto.ObjectTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.ObjectTest]/[method:verifyObject()] (898 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testIsSpec()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testIsSpec()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:partitial()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:partitial()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:doesSerializeLikeTheObjectItself()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testInvocations()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testInvocations()] (3 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testIsSpec()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:partitial()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:partitial()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testIsSpec()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:doesSerializeLikeTheObjectItself()] (2 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:doesSerializeLikeTheObjectItself()] (3 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testInvocations()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:doesSerializeLikeTheObjectItself()] (29 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testInvocations()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testSpecCopy()] (43 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testSpecCopy()] (30 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testDelegate()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#3]/[method:testDelegate()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#1]/[method:testSpecCopy()] (38 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#4]/[method:testDelegate()] (0 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testDelegate()] (1 ms)</li><li>com.github.pfichtner.pacto.PactoTest.[engine:junit-jupiter]/[class-template:com.github.pfichtner.pacto.PactoTest]/[class-template-invocation:#2]/[method:testSpecCopy()] (41 ms)</li><li>com.github.pfichtner.pacto.PactoRecordTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoRecordTest]/[method:canCreateClassWithNoNoArgConstructor()] (10 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#13] (8 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#12] (7 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#11] (9 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#10] (10 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#2] (11 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#7] (11 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#9] (11 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#6] (12 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#5] (12 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#3] (12 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#4] (14 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#8] (16 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:doesCopyConstantFields()] (23 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:testMinArrayLike()] (14 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:testSpecOfSpec()] (63 ms)</li><li>com.github.pfichtner.pacto.PactoSimpleTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.PactoSimpleTest]/[method:likeDoesUnpack()] (89 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[test-template:testAll(com.github.pfichtner.pacto.matchers.TestInputDataProvider$TestInputData)]/[test-template-invocation:#1] (83 ms)</li><li>com.github.pfichtner.pacto.matchers.PactoMatchersTest.[engine:junit-jupiter]/[class:com.github.pfichtner.pacto.matchers.PactoMatchersTest]/[method:testMaxArrayLike()] (344 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.21.0
+
+</body>
+</html>
