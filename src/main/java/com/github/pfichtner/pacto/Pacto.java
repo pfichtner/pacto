@@ -74,7 +74,6 @@ public class Pacto {
 	 */
 	public static <T> T spec(T intercept) {
 		return spec(intercept, withSettings());
-
 	}
 
 	/**
@@ -153,7 +152,7 @@ public class Pacto {
 	}
 
 	public static <T> T like(T object) {
-		return spec(isSpec(object) ? delegate(object) : object, withSettings().lenient());
+		return spec(delegate(object), withSettings().lenient());
 	}
 
 	/**
