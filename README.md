@@ -171,6 +171,22 @@ pacto is available on Maven Central. You can include it as a dependency:
 </dependency>
 ```
 
+---
+
+### ⚙️ Dependency Note
+
+pacto builds on the [Pact JVM](https://docs.pact.io/implementation_guides/jvm/consumer) library but **does not bundle it**.  
+You need to include Pact yourself in your project’s dependencies.
+
+```xml
+<!-- Required: Pact JVM (consumer-junit5) -->
+<dependency>
+  <groupId>au.com.dius.pact.consumer</groupId>
+  <artifactId>junit5</artifactId>
+  <version>4.6.17</version>
+</dependency>
+```
+
 --- 
 
 ## Matchers
