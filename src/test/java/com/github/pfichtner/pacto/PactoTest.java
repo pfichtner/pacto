@@ -10,7 +10,6 @@ import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_DECIMAL_
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_STRING_VALUE;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatRuntimeException;
 import static org.assertj.core.api.Assertions.tuple;
 
 import org.junit.jupiter.api.Test;
