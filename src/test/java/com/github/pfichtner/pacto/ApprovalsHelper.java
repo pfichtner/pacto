@@ -20,7 +20,6 @@ public final class ApprovalsHelper {
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	private ApprovalsHelper() {
-		super();
 	}
 
 	public static JsonObject toJson(DslPart dslFrom) {

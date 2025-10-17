@@ -198,7 +198,6 @@ public final class PactoDslBuilder {
 	}
 
 	private PactoDslBuilder() {
-		super();
 	}
 
 	public static DslPart dslFrom(Object object) {

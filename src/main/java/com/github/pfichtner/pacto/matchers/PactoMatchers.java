@@ -46,7 +46,6 @@ public final class PactoMatchers {
 
 	// Prevent instantiation
 	private PactoMatchers() {
-		super();
 	}
 
 	/**

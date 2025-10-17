@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 public final class Reflections {
 
 	private Reflections() {
-		super();
 	}
 
 	public static <T> T copyFields(Object source, T target) throws IllegalAccessException {
