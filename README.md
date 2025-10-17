@@ -1,4 +1,4 @@
-# <img src="https://pfichtner.github.io/pacto/pacto.png" align="right" width="100">pacto: a DTO-Pact generator
+# <img src="https://pfichtner.github.io/assets/pacto/pacto.png" align="right" width="100">pacto: a DTO-Pact generator
 
 
 [![Java CI with Maven](https://github.com/pfichtner/pacto/actions/workflows/maven.yml/badge.svg)](https://github.com/pfichtner/pacto/actions/workflows/maven.yml)
