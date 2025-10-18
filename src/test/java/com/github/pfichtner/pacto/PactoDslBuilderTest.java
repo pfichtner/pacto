@@ -39,7 +39,7 @@ class PactoDslBuilderTest {
 	@ParameterizedTest
 	@MethodSource("values")
 	void test(Class<?> type, Object value, String expected) {
-		assertThat(callSut(invocation(value))).hasToString("{\"testAttribute\":" + expected + "}");
+		assertThat(callSut(invocation(value))).hasToString("{\"testAttribute\":%s}".formatted(expected));
 	}
 
 	@ParameterizedTest
