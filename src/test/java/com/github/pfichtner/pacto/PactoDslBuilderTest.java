@@ -55,35 +55,38 @@ class PactoDslBuilderTest {
 	@Test
 	void testMin() {
 		int min = 101;
-		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("min"))).min(min);
+		String value = "min";
+		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType(value))).min(min);
 		var invocation = invocation(new Foo()).withMatcher(matcher);
 		PactDslJsonBody expected = new PactDslJsonBody().minArrayLike(invocation.attribute(), min,
-				new PactDslJsonBody().stringType("value", "min"));
+				new PactDslJsonBody().stringType("value", value));
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
-		assertThat(matcher).hasToString("minArrayLike(Bar(value=min), 101)");
+		assertThat(matcher).hasToString("minArrayLike(Bar(value=%s), %d)".formatted(value, min));
 	}
 
 	@Test
 	void testMax() {
 		int max = 102;
-		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("max"))).max(max);
+		String value = "max";
+		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType(value))).max(max);
 		var invocation = invocation(new Foo()).withMatcher(matcher);
 		PactDslJsonBody expected = new PactDslJsonBody().maxArrayLike(invocation.attribute(), max,
-				new PactDslJsonBody().stringType("value", "max"));
+				new PactDslJsonBody().stringType("value", value));
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
-		assertThat(matcher).hasToString("maxArrayLike(Bar(value=max), 102)");
+		assertThat(matcher).hasToString("maxArrayLike(Bar(value=%s), %d)".formatted(value, max));
 	}
 
 	@Test
 	void testMinMax() {
 		int min = 103;
 		int max = 104;
-		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType("max"))).min(min).max(max);
+		String value = "min-max";
+		EachLikeArg matcher = new EachLikeArg(spec(new Bar()).value(stringType(value))).min(min).max(max);
 		var invocation = invocation(new Foo()).withMatcher(matcher);
 		PactDslJsonBody expected = new PactDslJsonBody().minMaxArrayLike(invocation.attribute(), min, max,
-				new PactDslJsonBody().stringType("value", "max"));
+				new PactDslJsonBody().stringType("value", value));
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
-		assertThat(matcher).hasToString("minMaxArrayLike(Bar(value=max), 103, 104)");
+		assertThat(matcher).hasToString("minMaxArrayLike(Bar(value=%s), %d, %d)".formatted(value, min, max));
 	}
 
 	@ParameterizedTest
