@@ -3,6 +3,7 @@
 
 [![Java CI with Maven](https://github.com/pfichtner/pacto/actions/workflows/maven.yml/badge.svg)](https://github.com/pfichtner/pacto/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.pfichtner/pacto.svg)](https://search.maven.org/artifact/io.github.pfichtner/pacto)
+[![Codecov](https://codecov.io/gh/pfichtner/pacto/graph/badge.svg?token=3X6UAG4XVB)](https://codecov.io/gh/pfichtner/pacto)
 [![Pact](https://img.shields.io/badge/Pact-JVM-blue?logo=pact)](https://docs.pact.io/)
 
 Generate [Pact](https://docs.pact.io/) contracts directly from your DTOs — keep tests simple, reliable, and always in sync.
