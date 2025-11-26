@@ -4,11 +4,15 @@ import static com.github.pfichtner.pacto.DslPartAssert.assertThatDslPart;
 import static com.github.pfichtner.pacto.Pacto.delegate;
 import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.like;
+import static com.github.pfichtner.pacto.Pacto.recorder;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.Pacto.withSettings;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
+import static org.assertj.core.api.Assertions.assertThatRuntimeException;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -130,6 +134,13 @@ class PactoSimpleTest {
 		specCopy.stringArg("another string");
 		assertThat(invocations(specOrigin).invocations()).hasSize(1);
 		assertThat(invocations(specCopy).invocations()).hasSize(2);
+	}
+
+	@Test
+	void testAccessRecorder() {
+		TestTarget obj = new TestTarget();
+		assertThat(recorder(spec(obj))).isNotNull();
+		assertThatRuntimeException().isThrownBy(() -> recorder(obj)).withMessageContaining("not a pacto spec");
 	}
 
 	private Object access(TestTarget source, String fieldname) throws Exception {
