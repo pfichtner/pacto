@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 
-public class DefaultInvocation implements Invocation {
+public final class DefaultInvocation implements Invocation {
 
 	private final Object delegate;
 	private final Method method;
