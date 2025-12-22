@@ -10,9 +10,7 @@ import static com.github.pfichtner.pacto.Pacto.withSettings;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.stringType;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatRuntimeException;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Field;
 import java.util.List;
