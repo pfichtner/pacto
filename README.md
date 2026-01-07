@@ -101,6 +101,11 @@ If your DTO changes (e.g., adding `country` to `AddressDTO`), you must update bo
 **✅ With pacto: model-driven, type-safe and DRY:**
 
 ```java
+import static com.github.pfichtner.pacto.Pacto.spec;
+import static com.github.pfichtner.pacto.Pacto.like;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.*;
+import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
+
 PersonDTO person = spec(new PersonDTO())
 	.givenname(stringMatcher("[A-Za-z'- ]{2,128}", "Givenname"))
 	.lastname(stringMatcher("[A-Za-z'- ]{2,64}", "Lastname"))
