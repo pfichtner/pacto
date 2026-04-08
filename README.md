@@ -1,5 +1,5 @@
 # <img src="https://pfichtner.github.io/assets/pacto/pacto.png" align="right" width="100">pacto: a Java DTO Pact generator
-
+**Turn your DTOs into Pact contracts — eliminate duplication and drift.**
 
 [![Java CI with Maven](https://github.com/pfichtner/pacto/actions/workflows/maven.yml/badge.svg)](https://github.com/pfichtner/pacto/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.pfichtner/pacto.svg)](https://search.maven.org/artifact/io.github.pfichtner/pacto)
@@ -46,34 +46,9 @@ PersonDTO person = spec(new PersonDTO())
 
 ---
 
-## Features
+## Example
 
-- Generate [Pact](https://docs.pact.io/) contracts directly from Java DTOs.
-- Supports nested DTOs.
-- Flexible matching with `stringType`, `integerType`, `regex`, and other matchers.
-- [Configurable matching mode](#strict-vs-lenient-specs) – define specs as *strict* (exact values must match) or *lenient* (only types must match).
-- Simplifies consumer-driven contract testing.
-- Easy integration with existing DTO-based projects.
-
----
-
-## Why use pacto?  
-
-Contract testing with [Pact](https://docs.pact.io/) is powerful—but writing and maintaining Pact DSLs by hand can be repetitive and error-prone. **pacto** solves this by generating contracts directly from your DTOs.  
-
-**Key benefits:**  
-- 🔄 **No duplication** – Contracts are generated from the same DTOs you already use.  
-- 🛡️ **Always in sync** – DTO changes automatically flow into contracts, reducing drift.  
-- ⚡ **Less boilerplate** – No more hand-writing verbose Pact DSL code.  
-- 🎯 **Robust matchers** – Define flexible rules (`regex`, `stringType`, etc.) for realistic contracts.  
-- 🧩 **Supports complex models** – Works seamlessly with nested DTOs.  
-- 🚀 **Easy adoption** – Integrates into existing Java projects with minimal setup.  
-
-With **pacto**, you get reliable consumer-driven contract tests powered by [Pact](https://docs.pact.io/) with less effort and fewer mistakes.  
-
----
-
-## The problem: duplication without pacto
+Here’s how this looks in a real-world scenario:
 
 ```java
 // DTO definitions — the single source of truth for both examples
@@ -94,7 +69,7 @@ public class AddressDTO {
 }
 ```
 
-Without pacto, you need to define your data structures **twice** — once in your DTO, and once again in Pact’s DSL.  
+Even if your DTO is your source of truth, Pact forces you to redefine the same structure again in its DSL.
 
 **❌ Classic Pact DSL (manual & repetitive):**
 
@@ -163,16 +138,48 @@ RequestResponsePact pact = ConsumerPactBuilder
     .toPact();
 ```
 
-Now, your contract is generated **directly from the DTO** — no duplication, no drift, no extra maintenance.  
-No DTO duplication → single source of truth.
-- Compile-time safety; fewer typos.
-- Nested objects & arrays handled automatically.
-- Auto-update contracts when DTO changes.
-- Concise matcher syntax.
-- Reusable and composable matchers.
-- Reduced risk of contract drift.
+Now, your contract is generated directly from your DTO — eliminating duplication, drift, and manual maintenance.
+
+👉 **Single source of truth:** Your DTO defines both your code *and* your contract.
+
+- ✅ Compile-time safety — fewer typos  
+- 🧩 Nested objects & arrays handled automatically  
+- 🔄 Contracts evolve automatically with your DTO  
+- ⚡ Concise, expressive matcher syntax  
+- 🔗 Reusable and composable matchers  
+- 🛡️ Reduced risk of contract drift  
+
 
 With pacto, you avoid duplication, reduce boilerplate, and ensure your contracts stay in sync with your DTOs.
+
+---
+
+## Features
+
+- DTO-based contract generation  
+- Nested DTO support  
+- Flexible matchers (`stringType`, `integerType`, regex, …)  
+- Pact JVM compatibility  
+- [Strict and lenient matching modes](#strict-vs-lenient-specs)  
+- Easy integration into existing projects  
+
+---
+
+## Why use pacto?  
+
+Contract testing with [Pact](https://docs.pact.io/) is powerful—but writing and maintaining Pact DSLs by hand can be repetitive and error-prone. **pacto** solves this by generating contracts directly from your DTOs.  
+
+**Key benefits:**  
+- 🔄 **No duplication** – Contracts are generated from the same DTOs you already use.  
+- 🛡️ **Always in sync** – DTO changes automatically flow into contracts, reducing drift.  
+- ⚡ **Less boilerplate** – No more hand-writing verbose Pact DSL code.  
+- 🎯 **Robust matchers** – Define flexible rules (`regex`, `stringType`, etc.) for realistic contracts.  
+- 🧩 **Supports complex models** – Works seamlessly with nested DTOs.  
+- 🚀 **Easy adoption** – Integrates into existing Java projects with minimal setup.  
+
+With **pacto**, you get reliable consumer-driven contract tests powered by [Pact](https://docs.pact.io/) with less effort and fewer mistakes.  
+
+---
 
 ## Strict vs. Lenient Specs
 
