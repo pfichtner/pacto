@@ -12,6 +12,40 @@ Generate [Pact](https://docs.pact.io/) contracts directly from your DTOs — kee
 
 ---
 
+## TL;DR 🚀
+
+**pacto** makes Pact contract testing in Java feel concise, declarative, and close to your actual data model.
+
+Instead of manually describing JSON structures with verbose DSL code:
+
+> ❌ Describe JSON structure manually
+
+```java
+new PactDslJsonBody()
+  .stringMatcher("givenname", "[A-Za-z'- ]{2,128}", "Givenname")
+  .stringMatcher("lastname", "[A-Za-z'- ]{2,64}", "Lastname")
+  .integerType("age", 42)
+  .object("address")
+    .integerType("zip", 12345)
+    .stringType("city", "Berlin")
+  .closeObject();
+```
+
+> ✅ Use your existing DTO and define matching rules
+```java
+PersonDTO person = spec(new PersonDTO())
+  .givenname(stringMatcher("[A-Za-z'- ]{2,128}", "Givenname"))
+  .lastname(stringMatcher("[A-Za-z'- ]{2,64}", "Lastname"))
+  .age(integerType(42))
+  .address(
+    like(new AddressDTO())
+      .zip(12345)
+      .city("Berlin")
+  );
+```
+
+---
+
 ## Features
 
 - Generate [Pact](https://docs.pact.io/) contracts directly from Java DTOs.
