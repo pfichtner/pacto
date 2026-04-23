@@ -1,5 +1,7 @@
 package com.github.pfichtner.pacto.matchers;
 
+import static au.com.dius.pact.core.support.Random.generateRandomString;
+
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,7 +13,6 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import com.github.pfichtner.pacto.MatcherRegistry;
-import com.mifmif.common.regex.Generex;
 
 /**
  * Provides static methods for defining Pact matchers from DTOs.
@@ -154,7 +155,7 @@ public final class PactoMatchers {
 	 * @return random value generated on base of the regex
 	 */
 	public static String stringMatcher(Pattern regex, StringMatcherMode mode) {
-		return mode.stringMatcher(regex, new Generex(regex.pattern()).random());
+		return mode.stringMatcher(regex, generateRandomString(regex.pattern()));
 	}
 
 	/**
