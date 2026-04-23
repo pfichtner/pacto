@@ -214,7 +214,7 @@ pacto is available on Maven Central. You can include it as a dependency:
 <dependency>
   <groupId>io.github.pfichtner</groupId>
   <artifactId>pacto</artifactId>
-  <version>0.0.7</version>
+  <version>0.0.8</version>
 </dependency>
 ```
 
@@ -230,7 +230,7 @@ You need to include Pact yourself in your project’s dependencies.
 <dependency>
   <groupId>au.com.dius.pact.consumer</groupId>
   <artifactId>junit5</artifactId>
-  <version>4.6.17</version>
+  <version>4.7.0</version> <!-- 4.x -->
 </dependency>
 ```
 
