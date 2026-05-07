@@ -4,9 +4,17 @@ import java.lang.reflect.Method;
 
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
+import lombok.With;
+import lombok.experimental.Accessors;
 
 @ToString
+@AllArgsConstructor
+@Accessors(fluent = true)
+@Getter
+@With
 final class InvocationStub implements Invocation {
 
 	public static InvocationStub invocation(Object value) {
@@ -16,27 +24,10 @@ final class InvocationStub implements Invocation {
 	private final String attribute;
 	private final Class<?> type;
 	private final Object arg;
-	private PactoMatcher<?> matcher;
+	private final PactoMatcher<?> matcher;
 
 	private InvocationStub(Object value) {
-		this.attribute = "testAttribute";
-		this.type = value.getClass();
-		this.arg = value;
-	}
-
-	public InvocationStub withMatcher(PactoMatcher<?> matcher) {
-		this.matcher = matcher;
-		return this;
-	}
-
-	@Override
-	public PactoMatcher<?> matcher() {
-		return matcher;
-	}
-
-	@Override
-	public Object arg() {
-		return arg;
+		this("testAttribute", value.getClass(), value, null);
 	}
 
 	@Override
@@ -49,13 +40,4 @@ final class InvocationStub implements Invocation {
 		return null;
 	}
 
-	@Override
-	public String attribute() {
-		return attribute;
-	}
-
-	@Override
-	public Class<?> type() {
-		return type;
-	}
 }

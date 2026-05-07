@@ -16,7 +16,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.approvaltests.namer.NamedEnvironment;
 import org.junit.jupiter.api.Test;
@@ -120,7 +122,41 @@ class PactoDslBuilderTest {
 	}
 
 	private DslPart callSut(Invocation invocation) {
-		return appendInvocations(new PactDslJsonBody(), List.of(invocation), new PactoSettingsImpl());
+		return callSut(invocation, new PactoSettingsImpl());
+	}
+
+	private DslPart callSutLenient(Invocation invocation) {
+		PactoSettingsImpl settings = new PactoSettingsImpl();
+		settings.lenient();
+		return callSut(invocation, settings);
+	}
+
+	private DslPart callSut(Invocation invocation, PactoSettingsImpl settings) {
+		return appendInvocations(new PactDslJsonBody(), List.of(invocation), settings);
+	}
+
+	@ParameterizedTest
+	@MethodSource("lenientValues")
+	void testLenientTypeMatching(Class<?> type, Object value, String expected) {
+		var invocation = invocation(new Foo()).withType(type).withArg(value);
+		assertThat(callSutLenient(invocation)).hasToString("{\"testAttribute\":%s}".formatted(expected));
+	}
+
+	private static List<Arguments> lenientValues() {
+		return List.of( //
+				arguments(Boolean.class, true, "true"), //
+				arguments(Number.class, Long.valueOf(42), "42"), //
+				arguments(Date.class, new Date(0), "\"1970-01-01\""), //
+				arguments(LocalDate.class, LocalDate.of(2001, 2, 3), "\"2001-02-03\""), //
+				arguments(LocalDateTime.class, LocalDateTime.of(1999, 1, 2, 3, 4, 5), "\"1999-01-02T03:04:05\""), //
+				arguments(UUID.class, UUID.fromString("550e8400-e29b-41d4-a716-446655440000"),
+						"\"550e8400-e29b-41d4-a716-446655440000\""));
+	}
+
+	@Test
+	void testNumberTypeMatching() {
+		var invocation = invocation(new Foo()).withType(Number.class).withArg(Integer.valueOf(42));
+		assertThat(callSutLenient(invocation)).hasToString("{\"testAttribute\":42}");
 	}
 
 }
