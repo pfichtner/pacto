@@ -114,10 +114,10 @@ class PactoDslBuilderTest {
 				arguments(BigDecimal.class, BigDecimal.valueOf(42), "42"), //
 				arguments(BigDecimal.class, BigDecimal.valueOf(42.0d), "42.0"), //
 				arguments(BigInteger.class, BigInteger.valueOf(42), "42"), //
-				arguments(Date.class, new Date(0), "\"2000-01-31\""), //
-				arguments(LocalDate.class, LocalDate.of(2001, 2, 3), "\"2000-01-31\"") //
-//				arguments(LocalTime.class, LocalTime.of(3, 4, 5, 6), "\"T14:00:00\""), //
-//				arguments(LocalDateTime.class, LocalDateTime.of(1999, 1, 2, 3, 4, 5, 6), "\"T14:00:00\"") //
+			arguments(Date.class, new Date(0), "\"1970-01-01\""), //
+			arguments(LocalDate.class, LocalDate.of(2001, 2, 3), "\"2001-02-03\""), //
+//			arguments(LocalTime.class, LocalTime.of(3, 4, 5, 6), "\"03:04:05\"") //
+			arguments(LocalDateTime.class, LocalDateTime.of(1999, 1, 2, 3, 4, 5), "\"1999-01-02T03:04:05\"") //
 		);
 	}
 
