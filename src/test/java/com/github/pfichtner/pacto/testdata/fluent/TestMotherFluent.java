@@ -25,6 +25,7 @@ public class TestMotherFluent implements TestMother {
 		dto.lastname(stringMatcher("L.*", "Lastname1"));
 		dto.givenname("Givenname2");
 		dto.lastname(stringType("Lastname2"));
+		dto.birthdate(date());
 		AddressDTO address1 = address();
 		address1.zip(integerType(21));
 		address1.validated(true);

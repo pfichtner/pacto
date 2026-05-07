@@ -3,6 +3,7 @@ package com.github.pfichtner.pacto.testdata.javabean;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class PersonDTO {
 
 	String givenname;
 	String lastname;
+	Date birthdate;
 	AddressDTO primaryAddress;
 	AddressDTO[] secondaryAddresses;
 	List<AddressDTO> secondaryAddressesList;

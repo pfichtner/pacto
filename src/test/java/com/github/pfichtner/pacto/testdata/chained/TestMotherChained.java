@@ -25,6 +25,7 @@ public class TestMotherChained implements TestMother {
 				.setLastname(stringMatcher("L.*", "Lastname1")) //
 				.setGivenname("Givenname2") //
 				.setLastname(stringType("Lastname2")) //
+				.setBirthdate(date()) //
 				.setPrimaryAddress(spec(new AddressDTO()).setZip(integerType(21)).setCity(stringType())
 						.setCountry(nullValue()).setValidated(true)) //
 				.setSecondaryAddresses(eachLike(spec(new AddressDTO()).setZip(integerType(22)).setCity(stringType())

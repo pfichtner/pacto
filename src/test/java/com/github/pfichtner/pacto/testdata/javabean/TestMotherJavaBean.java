@@ -25,6 +25,7 @@ public class TestMotherJavaBean implements TestMother {
 		dto.setLastname(stringMatcher("L.*", "Lastname1"));
 		dto.setGivenname("Givenname2");
 		dto.setLastname(stringType("Lastname2"));
+		dto.setBirthdate(date());
 		AddressDTO address1 = address();
 		address1.setZip(integerType(21));
 		address1.setValidated(true);

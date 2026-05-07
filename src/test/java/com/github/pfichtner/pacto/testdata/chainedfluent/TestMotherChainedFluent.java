@@ -25,6 +25,7 @@ public class TestMotherChainedFluent implements TestMother {
 				.lastname(stringMatcher("L.*", "Lastname1")) //
 				.givenname("Givenname2") //
 				.lastname(stringType("Lastname2")) //
+				.birthdate(date()) //
 				.primaryAddress(spec(new AddressDTO()).zip(integerType(21)).city(stringType()).country(nullValue())
 						.validated(true)) //
 				.secondaryAddresses(eachLike(spec(new AddressDTO()).zip(integerType(22)).city(stringType())

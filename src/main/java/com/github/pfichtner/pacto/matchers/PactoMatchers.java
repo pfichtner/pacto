@@ -42,6 +42,7 @@ public final class PactoMatchers {
 	public static final String DEFAULT_HEX_VALUE = "1234a";
 	public static final UUID DEFAULT_UUID_VALUE = UUID.fromString("e2490de5-5bd3-43d5-b7c4-526e33f71304");
 	public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
+	public static final Date DEFAULT_DATE_VALUE = new Date(949276800000L); // 2000-01-31 UTC
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	public static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
@@ -429,6 +430,15 @@ public final class PactoMatchers {
 	public static LocalDate date(String format, LocalDate in) {
 		reportMatcher(new DateArg(format, toDate(in)));
 		return in;
+	}
+
+	/**
+	 * Matches any date matching the default format {@value #DEFAULT_DATE_FORMAT}.
+	 *
+	 * @return default Date value
+	 */
+	public static Date date() {
+		return date(DEFAULT_DATE_VALUE);
 	}
 
 	/**

@@ -39,6 +39,9 @@
     ".dateArg": {
       "rules": [
         {
+          "format": "yyyy-MM-dd"
+        },
+        {
           "format": "yyyy-MM"
         },
         {
@@ -216,6 +219,9 @@
       "rules": [
         {},
         {},
+        {
+          "format": "yyyy-MM-dd"
+        },
         {
           "format": "yyyy-MM-dd"
         },

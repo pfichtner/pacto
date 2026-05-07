@@ -6,6 +6,8 @@ import static com.github.pfichtner.pacto.Pacto.invocations;
 import static com.github.pfichtner.pacto.Pacto.isSpec;
 import static com.github.pfichtner.pacto.Pacto.spec;
 import static com.github.pfichtner.pacto.PactoDslBuilder.dslFrom;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_DATE_FORMAT;
+import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_DATE_VALUE;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_DECIMAL_VALUE;
 import static com.github.pfichtner.pacto.matchers.PactoMatchers.DEFAULT_STRING_VALUE;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
@@ -16,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedClass;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.github.pfichtner.pacto.matchers.DateArg;
 import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
 import com.github.pfichtner.pacto.matchers.EachLikeArg;
 import com.github.pfichtner.pacto.matchers.IntegerTypeArg;
@@ -67,6 +70,7 @@ public class PactoTest {
 						tuple("lastname", StringMatcherArg.class), //
 						tuple("givenname", null), //
 						tuple("lastname", StringTypeArg.class), //
+						tuple("birthdate", DateArg.class), //
 						tuple("primaryAddress", null), //
 						tuple("secondaryAddresses", EachLikeArg.class), //
 						tuple("secondaryAddressesList", EachLikeArg.class), //
@@ -112,6 +116,7 @@ public class PactoTest {
 						{"zip":24,"city":"string","validated":true}
 					],
 					"age":42,
+					"birthdate":"Jan 31, 2000, 1:00:00 AM",
 					"height":1.86,
 					"shoeSize":100.0,
 					"children":2,
@@ -175,6 +180,7 @@ public class PactoTest {
 				.stringMatcher("lastname", "L.*", "Lastname2") //
 				.stringType("lastname", "Lastname2") //
 				.integerType("age", 42) //
+				.date("birthdate", DEFAULT_DATE_FORMAT, DEFAULT_DATE_VALUE) //
 				.decimalType("height", 1.86) //
 				.decimalType("shoeSize", (double) DEFAULT_DECIMAL_VALUE) //
 				.integerType("children").numberValue("children", 2) //

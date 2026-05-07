@@ -3,30 +3,50 @@ package com.github.pfichtner.pacto;
 import static java.lang.reflect.Modifier.isPrivate;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Comparator.comparing;
+import static lombok.AccessLevel.PRIVATE;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+/**
+ * Utility class that reflects over a given "matcher" class and invokes all
+ * non-private static methods in a deterministic order. The results of these
+ * method invocations are then passed to matching methods on a target object.
+ *
+ * <p>
+ * The workflow is as follows:
+ * </p>
+ * <ol>
+ * <li>All declared methods of {@code matcherClass} are sorted by name and
+ * parameter types.</li>
+ * <li>Each static, non-private method is invoked with arguments provided by an
+ * {@link ArgumentProvider}.</li>
+ * <li>If the invoked method returns a non-null result, that result is passed to
+ * compatible methods on the {@code target} object.</li>
+ * <li>Target methods are selected if they accept exactly one parameter and the
+ * parameter type is assignable from the result type (including
+ * primitive-wrapper compatibility).</li>
+ * </ol>
+ */
+@RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 class StaticMethodInvoker {
 
 	public interface ArgumentProvider {
 		Object getArgument(String methodName, Class<?> type);
 	}
 
-	private final Class<?> matcherClass;
-	private final Object target;
-	private final ArgumentProvider argumentProvider;
-
-	public StaticMethodInvoker(Class<?> matcherFactory, Object target, ArgumentProvider argumentProvider) {
-		this.matcherClass = matcherFactory;
-		this.target = target;
-		this.argumentProvider = argumentProvider;
-	}
+	Class<?> matcherClass;
+	Object target;
+	ArgumentProvider argumentProvider;
 
 	public void invoke() throws Exception {
 		for (Method method : sort(matcherClass.getDeclaredMethods())) {
-			if (isStatic(method.getModifiers()) && !isPrivate(method.getModifiers())) {
+			if (isStaticNonPrivate(method)) {
 				Object[] args = Arrays.stream(method.getParameterTypes())
 						.map(t -> argumentProvider.getArgument(method.getName(), t)).toArray();
 				Object result;
@@ -41,6 +61,14 @@ class StaticMethodInvoker {
 				}
 			}
 		}
+	}
+
+	private static boolean isStaticNonPrivate(Method method) {
+		return isStaticNonPrivate(method.getModifiers());
+	}
+
+	private static boolean isStaticNonPrivate(int modifiers) {
+		return isStatic(modifiers) && !isPrivate(modifiers);
 	}
 
 	private static Method[] sort(Method[] values) {
