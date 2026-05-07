@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.tuple;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedClass;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 import com.github.pfichtner.pacto.matchers.DateArg;
 import com.github.pfichtner.pacto.matchers.DecimalTypeArg;
@@ -98,6 +99,7 @@ public class PactoTest {
 	}
 
 	@Test
+	@DefaultTimeZone("CET")
 	void doesSerializeLikeTheObjectItself() {
 		String expected = """
 				{
