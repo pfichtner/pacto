@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.approvaltests.namer.NamedEnvironment;
 import org.junit.jupiter.api.Test;
@@ -36,23 +37,23 @@ import com.github.pfichtner.pacto.testdata.Foo;
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 
-class PactoDslBuilderTest {
+public class PactoDslBuilderTest {
 
-	@ParameterizedTest
-	@MethodSource("values")
-	void test(Class<?> type, Object value, String expected) {
-		assertThat(callSut(invocation(value))).hasToString("{\"testAttribute\":%s}".formatted(expected));
-	}
+@ParameterizedTest
+@ArgumentsSource(ValuesProvider.class)
+void test(Class<?> type, Object value, String expected) {
+	assertThat(callSut(invocation(value).withType(type))).hasToString("{\"testAttribute\":%s}".formatted(expected));
+}
 
-	@ParameterizedTest
-	@MethodSource("values")
-	void test2(Class<?> type, Object value, String expected) {
-		settings().allowMultipleVerifyCallsForThisClass();
-		settings().allowMultipleVerifyCallsForThisMethod();
-		try (NamedEnvironment env = withParameters(type, value)) {
-			verifyAsJson(toJson(callSut(invocation(value))));
-		}
+@ParameterizedTest
+@ArgumentsSource(ValuesProvider.class)
+void test2(Class<?> type, Object value, String expected) {
+	settings().allowMultipleVerifyCallsForThisClass();
+	settings().allowMultipleVerifyCallsForThisMethod();
+	try (NamedEnvironment env = withParameters(type, value)) {
+		verifyAsJson(toJson(callSut(invocation(value).withType(type))));
 	}
+}
 
 	@Test
 	void testMin() {
@@ -99,8 +100,8 @@ class PactoDslBuilderTest {
 		assertThatDslPart(callSut(invocation)).isEqualToDslPart(expected);
 	}
 
-	private static List<Arguments> values() {
-		return List.of( //
+	public static Stream<Arguments> values() {
+		return Stream.of( //
 				arguments(int.class, 42, "42"), //
 				arguments(Integer.class, 42, "42"), //
 				arguments(long.class, 42L, "42"), //
@@ -114,10 +115,10 @@ class PactoDslBuilderTest {
 				arguments(BigDecimal.class, BigDecimal.valueOf(42), "42"), //
 				arguments(BigDecimal.class, BigDecimal.valueOf(42.0d), "42.0"), //
 				arguments(BigInteger.class, BigInteger.valueOf(42), "42"), //
-			arguments(Date.class, new Date(0), "\"1970-01-01\""), //
-			arguments(LocalDate.class, LocalDate.of(2001, 2, 3), "\"2001-02-03\""), //
-//			arguments(LocalTime.class, LocalTime.of(3, 4, 5, 6), "\"03:04:05\"") //
-			arguments(LocalDateTime.class, LocalDateTime.of(1999, 1, 2, 3, 4, 5), "\"1999-01-02T03:04:05\"") //
+				arguments(Date.class, new Date(0), "\"1970-01-01\""), //
+				arguments(LocalDate.class, LocalDate.of(2001, 2, 3), "\"2001-02-03\""), //
+//				arguments(LocalTime.class, LocalTime.of(3, 4, 5, 6), "\"03:04:05\"") //
+				arguments(LocalDateTime.class, LocalDateTime.of(1999, 1, 2, 3, 4, 5), "\"1999-01-02T03:04:05\"") //
 		);
 	}
 

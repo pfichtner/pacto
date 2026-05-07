@@ -32,6 +32,7 @@ import com.github.pfichtner.pacto.testdata.chainedfluent.TestMotherChainedFluent
 import com.github.pfichtner.pacto.testdata.fluent.TestMotherFluent;
 import com.github.pfichtner.pacto.testdata.javabean.TestMotherJavaBean;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
@@ -45,7 +46,9 @@ public class PactoTest {
 	private final Object dto;
 	private final Object partial;
 
-	private final Gson gson = new Gson();
+	// Use explicit date format to avoid locale-dependent differences (e.g., U+202F
+	// vs space) between Eclipse and maven surefire plugin. 
+	private final Gson gson = new GsonBuilder().setDateFormat("MMM d, yyyy, h:mm:ss a").create();
 
 	PactoTest(Class<TestMother> clazz) throws Exception {
 		TestMother testMother = clazz.getConstructor().newInstance();
