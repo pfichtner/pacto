@@ -243,6 +243,7 @@
 					<mutators>
 						<mutator>ALL</mutator>
 					</mutators>
+					<outputFormats>HTML,XML</outputFormats>
 				</configuration>
 			</plugin>
 			<plugin>
