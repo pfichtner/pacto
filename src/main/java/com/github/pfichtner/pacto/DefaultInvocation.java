@@ -50,11 +50,6 @@ public final class DefaultInvocation implements Invocation {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(arg, delegate, matcher, method, result);
-	}
-
-	@Override
 	public String attribute() {
 		try {
 			return propertyName(method).orElse(method.getName());
@@ -88,6 +83,12 @@ public final class DefaultInvocation implements Invocation {
 		return method().getParameterTypes()[0];
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(arg, delegate, matcher, method, result);
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -96,8 +97,10 @@ public final class DefaultInvocation implements Invocation {
 		if (getClass() != obj.getClass())
 			return false;
 		DefaultInvocation other = (DefaultInvocation) obj;
-		return Objects.equals(arg, other.arg) && Objects.equals(delegate, other.delegate)
-				&& Objects.equals(matcher, other.matcher) && Objects.equals(method, other.method)
+		return Objects.equals(arg, other.arg) //
+				&& Objects.equals(delegate, other.delegate) //
+				&& Objects.equals(matcher, other.matcher) //
+				&& Objects.equals(method, other.method) //
 				&& Objects.equals(result, other.result);
 	}
 

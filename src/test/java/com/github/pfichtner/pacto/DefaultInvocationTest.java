@@ -10,7 +10,7 @@ class DefaultInvocationTest {
 
 	@Test
 	void equalsContract() {
-		assertDoesNotThrow(EqualsVerifier.forClass(DefaultInvocation.class)::verify);
+		assertDoesNotThrow(EqualsVerifier.forClass(DefaultInvocation.class).usingGetClass()::verify);
 	}
 
 }
