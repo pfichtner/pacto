@@ -1,6 +1,7 @@
 package com.github.pfichtner.pacto.util;
 
 import static java.lang.reflect.Modifier.isFinal;
+import static java.lang.reflect.Modifier.isStatic;
 
 import java.lang.reflect.Field;
 
@@ -13,7 +14,7 @@ public final class Reflections {
 		Class<?> clazz = source.getClass();
 		while (clazz != null) {
 			for (Field field : clazz.getDeclaredFields()) {
-				if (!isFinal(field.getModifiers())) {
+				if (!isStatic(field.getModifiers()) && !isFinal(field.getModifiers())) {
 					field.setAccessible(true);
 					field.set(target, field.get(source));
 				}

@@ -10,23 +10,34 @@ import static net.bytebuddy.description.modifier.FieldPersistence.TRANSIENT;
 import static net.bytebuddy.description.modifier.SyntheticState.SYNTHETIC;
 import static net.bytebuddy.description.modifier.Visibility.PRIVATE;
 import static net.bytebuddy.description.modifier.Visibility.PUBLIC;
+import static net.bytebuddy.matcher.ElementMatchers.any;
 import static net.bytebuddy.matcher.ElementMatchers.isDeclaredBy;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 import static net.bytebuddy.matcher.ElementMatchers.not;
 
+import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.security.ProtectionDomain;
 import java.util.Arrays;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.agent.ByteBuddyAgent;
+import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
+import net.bytebuddy.description.type.TypeDescription;
+import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.FieldAccessor;
 import net.bytebuddy.implementation.MethodCall;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.auxiliary.AuxiliaryType.NamingStrategy;
+import net.bytebuddy.utility.JavaModule;
 
 /**
  * Pacto is the core class of the pacto library. It provides proxy-based
@@ -49,6 +60,29 @@ public class Pacto {
 
 	private static final String getDelegateMethodname = getOnlyMethod(HasDelegate.class).getName();
 	private static final String getRecorderMethodname = getOnlyMethod(HasRecorder.class).getName();
+
+	static final Map<Object, Recorder> finalClassRecorders = new IdentityHashMap<>();
+
+	static {
+		try {
+			Instrumentation instrumentation = ByteBuddyAgent.install();
+			new AgentBuilder.Default() //
+					.type(any()) //
+					.transform(new AgentBuilder.Transformer() {
+						@Override
+						public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder,
+								TypeDescription typeDescription, ClassLoader classLoader, JavaModule module,
+								ProtectionDomain protectionDomain) {
+							if (typeDescription.isFinal()) {
+								return builder.modifiers(typeDescription.getModifiers() & ~Modifier.FINAL);
+							}
+							return builder;
+						}
+					}).installOn(instrumentation);
+		} catch (Exception e) {
+			throw new ExceptionInInitializerError(e);
+		}
+	}
 
 	private static Method getOnlyMethod(Class<?> clazz) {
 		Method[] methods = clazz.getMethods();
@@ -86,9 +120,19 @@ public class Pacto {
 	 * @throws RuntimeException if proxy creation fails
 	 */
 	public static <T> T spec(T intercept, PactoSettings settings) {
-		return isSpec(intercept) //
-				? newInstance(delegate(intercept), recorder(intercept).copy()) //
-				: newInstance(intercept, new Recorder(settings));
+		if (intercept instanceof HasDelegate) {
+			return newInstance(delegate(intercept), recorder(intercept).copy());
+		}
+		if (finalClassRecorders.containsKey(intercept)) {
+			finalClassRecorders.put(intercept, recorder(intercept).copy());
+			return intercept;
+		}
+		Class<?> type = intercept.getClass();
+		if (Modifier.isFinal(type.getModifiers())) {
+			finalClassRecorders.put(intercept, new Recorder(settings));
+			return intercept;
+		}
+		return newInstance(intercept, new Recorder(settings));
 	}
 
 	private static <T> T newInstance(T intercept, Recorder recorder) {
@@ -189,6 +233,10 @@ public class Pacto {
 		if (object instanceof HasRecorder recorder) {
 			return recorder.__pacto_recorder();
 		}
+		Recorder recorder = finalClassRecorders.get(object);
+		if (recorder != null) {
+			return recorder;
+		}
 		throw new IllegalArgumentException(
 				format("%s of type (%s) is not a pacto spec", object, object.getClass().getName()));
 	}
@@ -214,7 +262,7 @@ public class Pacto {
 	 * @return <code>true</code> if the object itself is proxied
 	 */
 	public static boolean isSpec(Object object) {
-		return delegate(object) != object;
+		return object instanceof HasDelegate || finalClassRecorders.containsKey(object);
 	}
 
 }

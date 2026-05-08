@@ -270,17 +270,62 @@ pacto supports a rich set of matchers to make your contracts robust and expressi
 
 Due to JVM and Byte Buddy restrictions, there are some constraints:
 - Constructors cannot be intercepted
- - Pacto creates subclass proxies to record method calls.
- - Original constructor logic runs normally and cannot be intercepted or recorded.
- - Example: new MyDto("Jon", "Doe") cannot have its constructor call recorded.
-
-- Records and final classes cannot be proxied (currently)
- - Java records are final and have canonical constructors that cannot be overridden.
- - Pacto does not currently support proxies for records or final classes. Theoretically, they could be proxied via JVM instrumentation or a Java agent, but this is not implemented.
-
-Implications for users:
-- DTOs to proxy must be non-final, non-record classes.  
+- Pacto creates subclass proxies to record method calls.
+- Original constructor logic runs normally and cannot be intercepted or recorded.
+- Example: `new MyDto("Jon", "Doe")` cannot have its constructor call recorded.
 - Only method calls can be recorded; constructor execution cannot.
+
+---
+
+## Java Records support
+
+Pacto supports proxying Java records via a **Byte Buddy Java agent** that removes the `final` modifier from record classes at load time, enabling Byte Buddy to create subclasses.
+
+### How it works
+
+1. When `Pacto` is loaded, it installs a Byte Buddy agent and registers a class-file transformer.
+2. When a record (or any final class) is loaded, the transformer fires and removes the `final` modifier from the bytecode before the JVM defines the class.
+3. Since the record is no longer final, `spec()` creates a normal Byte Buddy subclass proxy — just like any other DTO.
+4. Method calls on the proxy delegate to the real record instance and get recorded normally.
+
+If a record class was loaded **before** Pacto's agent was installed (unusual in typical usage), a fallback path stores the instance-to-recorder mapping in an identity map, allowing `isSpec()`, `delegate()`, and `invocations()` to work.
+
+### Usage
+
+Records work naturally with `spec()`:
+
+```java
+static record Person(String givenName, String lastName, int age) {}
+
+Person proxy = spec(new Person(
+    stringMatcher("[A-Za-z'- ]{2,128}", "Jon"),
+    stringType("Doe"),
+    integerType(42)
+));
+```
+
+> **Note:** Records use the canonical constructor to pass matchers. Since constructors cannot be intercepted, the matchers are consumed before `spec()` wraps the instance. The record's accessor methods delegate correctly through the proxy.
+
+Records can also be used as nested values inside a DTO:
+
+```java
+AddressDTO dto = spec(new AddressDTO())
+    .person(spec(new Person("Jon", "Doe", 42)));
+```
+
+### Dependency
+
+Record support requires `byte-buddy-agent` (included automatically with pacto):
+
+```xml
+<dependency>
+  <groupId>io.github.pfichtner</groupId>
+  <artifactId>pacto</artifactId>
+  <version>0.0.9-SNAPSHOT</version>
+</dependency>
+```
+
+No additional configuration is needed — the agent is installed at runtime.
 
 ## Disadvantages / Drawbacks
 
