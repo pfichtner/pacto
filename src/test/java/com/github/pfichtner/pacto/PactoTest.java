@@ -118,7 +118,7 @@ public class PactoTest {
 						{"zip":24,"city":"string","validated":true}
 					],
 					"age":42,
-					"birthdate":"Jan 31, 2000, 1:00:00 AM",
+					"birthdate":"Jan 31, 2000, 1:00:00 AM",
 					"height":1.86,
 					"shoeSize":100.0,
 					"children":2,
@@ -127,7 +127,7 @@ public class PactoTest {
 				""";
 
 		String serialized = gson.toJson(dtoWithSpec);
-		assertThatJson(serialized).isEqualTo(expected);
+		assertThatJson(serialized.replace("\u202F", " ")).isEqualTo(expected.replace("\u202F", " "));
 		assertThat(serialized).isEqualTo(gson.toJson(delegate(dtoWithSpec)));
 	}
 
