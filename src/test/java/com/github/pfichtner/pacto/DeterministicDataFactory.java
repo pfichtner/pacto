@@ -81,9 +81,13 @@ public class DeterministicDataFactory {
 	}
 
 	public UUID uuid() {
-		byte[] randomBytes = new byte[16];
+		return UUID.nameUUIDFromBytes(bytes(16));
+	}
+
+	private byte[] bytes(int count) {
+		byte[] randomBytes = new byte[count];
 		random.nextBytes(randomBytes);
-		return UUID.nameUUIDFromBytes(randomBytes);
+		return randomBytes;
 	}
 
 	public String ipv4Address() {
