@@ -8,45 +8,26 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 
 import com.github.pfichtner.pacto.matchers.PactoMatcher;
 
+import lombok.Value;
+import lombok.experimental.Accessors;
+
+@Value
+@Accessors(fluent = true)
 public final class DefaultInvocation implements Invocation {
 
-	private final Object delegate;
-	private final Method method;
-	private final PactoMatcher<?> matcher;
-	private final Object arg;
-	private final Object result;
-
-	public DefaultInvocation(Object delegate, Method method, PactoMatcher<?> matcher, Object arg, Object result) {
-		this.delegate = delegate;
-		this.method = method;
-		this.arg = arg;
-		this.result = result;
-		this.matcher = matcher;
-	}
+	Object delegate;
+	Method method;
+	PactoMatcher<?> matcher;
+	Object arg;
+	Object result;
 
 	@Override
-	public Object delegate() {
-		return delegate;
-	}
-
-	@Override
-	public Method method() {
-		return method;
-	}
-
-	@Override
-	public Object arg() {
-		return arg;
-	}
-
-	@Override
-	public PactoMatcher<?> matcher() {
-		return matcher;
+	public Class<?> type() {
+		return method().getParameterTypes()[0];
 	}
 
 	@Override
@@ -76,38 +57,6 @@ public final class DefaultInvocation implements Invocation {
 			return Optional.of(toLowerCase(property.charAt(0)) + property.substring(1));
 		}
 		return Optional.empty();
-	}
-
-	@Override
-	public Class<?> type() {
-		return method().getParameterTypes()[0];
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(arg, delegate, matcher, method, result);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DefaultInvocation other = (DefaultInvocation) obj;
-		return Objects.equals(arg, other.arg) //
-				&& Objects.equals(delegate, other.delegate) //
-				&& Objects.equals(matcher, other.matcher) //
-				&& Objects.equals(method, other.method) //
-				&& Objects.equals(result, other.result);
-	}
-
-	@Override
-	public String toString() {
-		return "DefaultInvocation [delegate=" + delegate + ", method=" + method + ", matcher=" + matcher + ", arg="
-				+ arg + ", result=" + result + "]";
 	}
 
 }
