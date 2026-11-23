@@ -14,6 +14,13 @@ import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedClass;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -32,6 +39,10 @@ import com.github.pfichtner.pacto.testdata.chainedfluent.TestMotherChainedFluent
 import com.github.pfichtner.pacto.testdata.fluent.TestMotherFluent;
 import com.github.pfichtner.pacto.testdata.javabean.TestMotherJavaBean;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
@@ -41,11 +52,30 @@ import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 		TestMotherChainedFluent.class })
 public class PactoTest {
 
+	private static class DateTypeAdapter extends TypeAdapter<Date> {
+
+		private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy, h:mm:ss\u202Fa",
+				Locale.US);
+
+		@Override
+		public void write(JsonWriter out, Date value) throws IOException {
+			String formatted = formatter.withZone(ZoneId.systemDefault()).format(value.toInstant());
+			out.value(formatted);
+		}
+
+		@Override
+		public Date read(JsonReader in) throws IOException {
+			LocalDateTime dateTime = LocalDateTime.parse(in.nextString(), formatter);
+			return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+		}
+	}
+
 	private final Object dtoWithSpec;
 	private final Object dto;
 	private final Object partial;
 
-	private final Gson gson = new Gson();
+	private final Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateTypeAdapter().nullSafe())
+			.create();
 
 	PactoTest(Class<TestMother> clazz) throws Exception {
 		TestMother testMother = clazz.getConstructor().newInstance();
@@ -127,7 +157,7 @@ public class PactoTest {
 				""";
 
 		String serialized = gson.toJson(dtoWithSpec);
-		assertThatJson(serialized.replace("\u202F", " ")).isEqualTo(expected.replace("\u202F", " "));
+		assertThatJson(serialized).isEqualTo(expected);
 		assertThat(serialized).isEqualTo(gson.toJson(delegate(dtoWithSpec)));
 	}
 
