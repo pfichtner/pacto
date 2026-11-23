@@ -49,8 +49,12 @@ class ObjectTest {
 			} else if (t == Pattern.class) {
 				return Pattern.compile((String) argumentProvider().getArgument(m, String.class));
 			} else if (t == int.class || t == Integer.class) {
-				if ("minArrayLike".equals(m) || "maxArrayLike".equals(m) || "minMaxArrayLike".equals(m)) {
-					return 1;
+				if ("minMaxArrayLike".equals(m)) {
+					return random.fromTo(1, 20);
+				} else if ("minArrayLike".equals(m)) {
+					return random.fromTo(1, 10);
+				} else if ("maxArrayLike".equals(m)) {
+					return random.fromTo(11, 20);
 				}
 				return random.intValue();
 			} else if (t == long.class || t == Long.class) {

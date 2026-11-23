@@ -139,7 +139,7 @@ public class DeterministicDataFactory {
 		return enumConstants[fromTo(0, enumConstants.length)];
 	}
 
-	private int fromTo(int min, int max) {
+	public int fromTo(int min, int max) {
 		return random.nextInt(max - min + 1) + min;
 	}
 
